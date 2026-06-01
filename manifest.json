@@ -1,0 +1,17 @@
+{
+  "name": "Hypertrophie Système — Femmes",
+  "short_name": "HS Femmes",
+  "description": "Programme de transformation esthétique sur 52 semaines",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1A0A0D",
+  "theme_color": "#1A0A0D",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' fill='%231A0A0D'/><text y='120' x='96' text-anchor='middle' font-size='100' fill='%23C4426A'>♀</text></svg>",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    }
+  ]
+}
