@@ -1,0 +1,2452 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#1A0A0D">
+<title>Hypertrophie Système — Femmes</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+:root{
+  --rose:#8B1A3A;--rose-light:#C4426A;--rose-dim:#6B1030;
+  --cream:#F5F0E8;--cream-dark:#EDE5D4;
+  --ink:#1A0A0D;--ink-light:#2C1520;
+  --stone:#6B5359;--gold:#8B6508;--gold-light:#D4A843;--green:#1A5C2A;
+  --bg:#F8F3EE;--nav-h:56px;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;overflow:hidden;}
+body{font-family:'Crimson Pro',Georgia,serif;background:var(--bg);color:var(--ink);font-size:16px;overscroll-behavior:none;}
+
+/* ── BOTTOM NAV ── */
+.bottom-nav{
+  position:fixed;bottom:0;left:0;right:0;z-index:200;
+  background:var(--ink);border-top:2px solid var(--rose);
+  display:flex;height:var(--nav-h);
+  padding-bottom:env(safe-area-inset-bottom);
+}
+.nav-btn{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:3px;border:none;background:none;cursor:pointer;
+  padding:6px 4px;transition:all .2s;
+}
+.nav-btn .nav-icon{font-size:1.2rem;line-height:1;}
+.nav-btn .nav-lbl{font-family:'Cinzel',serif;font-size:.48rem;letter-spacing:.1em;color:var(--stone);text-transform:uppercase;transition:color .2s;}
+.nav-btn.active .nav-lbl{color:var(--rose-light);}
+.nav-btn::after{content:'';display:block;width:0;height:2px;background:var(--rose);transition:width .2s;border-radius:1px;}
+.nav-btn.active::after{width:32px;}
+
+/* ── PAGES ── */
+.page{
+  display:none;position:fixed;top:0;left:0;right:0;
+  bottom:calc(var(--nav-h) + env(safe-area-inset-bottom));
+  overflow-y:auto;-webkit-overflow-scrolling:touch;
+  padding:1rem 1rem calc(1rem + env(safe-area-inset-bottom));
+}
+.page.active{display:block;}
+.page-header{
+  position:sticky;top:0;z-index:10;background:var(--bg);
+  padding:.65rem 0 .5rem;margin-bottom:.75rem;
+  border-bottom:1px solid var(--cream-dark);
+}
+.page-label{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.25em;color:var(--rose);text-transform:uppercase;}
+.page-title{font-family:'Cinzel',serif;font-size:1.2rem;color:var(--ink);font-weight:700;line-height:1.15;}
+
+/* ── CARDS ── */
+.card{background:white;border:1px solid var(--cream-dark);border-radius:8px;padding:1rem;margin-bottom:.75rem;}
+.card-rose{border-left:3px solid var(--rose);}
+.card-green{border-left:3px solid var(--green);}
+.card-gold{border-left:3px solid var(--gold);}
+.card-title{font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.15em;color:var(--rose-dim);text-transform:uppercase;margin-bottom:.5rem;}
+
+/* ── STAT CARDS ── */
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.75rem;}
+.stat-card{background:var(--ink);border-radius:8px;padding:.85rem .75rem;text-align:center;}
+.stat-val{font-family:'Cinzel',serif;font-size:1.5rem;color:var(--rose-light);font-weight:700;line-height:1;}
+.stat-lbl{font-family:'Cinzel',serif;font-size:.5rem;color:var(--stone);letter-spacing:.1em;text-transform:uppercase;margin-top:.25rem;}
+
+/* ── FORMS ── */
+label{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.1em;color:var(--stone);text-transform:uppercase;display:block;margin-bottom:.25rem;}
+input[type=text],input[type=number],select,textarea{
+  width:100%;padding:.55rem .75rem;border:1px solid var(--cream-dark);border-radius:6px;
+  font-family:'Crimson Pro',serif;font-size:1rem;background:white;color:var(--ink);
+  -webkit-appearance:none;appearance:none;outline:none;
+}
+input:focus,select:focus{border-color:var(--rose);}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:.6rem;}
+.form-group{margin-bottom:.6rem;}
+
+/* ── BUTTONS ── */
+.btn{
+  font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;
+  border:1px solid var(--rose);background:transparent;color:var(--rose-dim);
+  padding:.55rem 1.1rem;border-radius:6px;cursor:pointer;transition:all .2s;
+  -webkit-appearance:none;
+}
+.btn-primary{background:var(--ink);color:var(--rose-light);border-color:var(--ink);}
+.btn-block{width:100%;padding:.7rem;}
+.btn-sm{padding:.38rem .75rem;font-size:.58rem;}
+.btn-danger{border-color:#8B1A1A;color:#8B1A1A;}
+
+/* ── CHIPS ── */
+.chip-group{display:flex;gap:.35rem;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:2px;margin-bottom:.75rem;scrollbar-width:none;}
+.chip-group::-webkit-scrollbar{display:none;}
+.chip{
+  font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;
+  border:1px solid var(--cream-dark);background:white;color:var(--stone);
+  padding:.4rem .85rem;border-radius:4px;cursor:pointer;white-space:nowrap;
+  transition:all .2s;flex-shrink:0;
+}
+.chip.active{background:var(--ink);color:var(--rose-light);border-color:var(--ink);}
+
+/* ── WORKOUT ── */
+.workout-header{background:var(--ink);padding:.9rem 1rem;border-radius:8px 8px 0 0;}
+.workout-header h2{font-family:'Cinzel',serif;font-size:.8rem;letter-spacing:.07em;color:var(--rose-light);margin:0 0 .2rem;}
+.workout-header-sub{font-size:.72rem;color:var(--stone);}
+.workout-body{border:1px solid var(--cream-dark);border-top:none;border-radius:0 0 8px 8px;overflow:hidden;margin-bottom:.75rem;background:#fff;}
+.ex-card{border-bottom:1px solid #EDE5D4;background:#fff;overflow:hidden;}
+.ex-card-inner{display:grid;grid-template-columns:24px 1fr;gap:0 .65rem;padding:.8rem .9rem;align-items:start;}
+.ex-card-inner:hover{background:#FDFAF5;}
+.ex-card:last-child{border-bottom:none;}
+.ex-num{font-family:'Cinzel',serif;font-size:.65rem;color:var(--rose-dim);font-weight:700;padding-top:.18rem;line-height:1;}
+.ex-name{font-weight:600;font-size:.95rem;color:#1A0A0D;line-height:1.25;margin-bottom:.35rem;display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;}
+.pstar-lbl{font-family:'Cinzel',serif;font-size:.52rem;color:var(--rose);letter-spacing:.05em;background:#FDE8EF;padding:1px 5px;border-radius:2px;}
+.ex-pills{display:flex;gap:.3rem;flex-wrap:wrap;margin-bottom:.35rem;}
+.ex-pill{font-family:'Cinzel',serif;font-size:.56rem;letter-spacing:.04em;padding:.2rem .55rem;border-radius:3px;white-space:nowrap;border:1px solid transparent;}
+.ex-pill-series{background:#EDE5D4;color:var(--stone);border-color:#DDD5C4;}
+.ex-pill-reps{background:#FDE8EF;color:var(--rose-dim);border-color:#F5C0CF;}
+.ex-pill-rir{background:#FDE8E8;color:#8B1A1A;border-color:#F5C0C0;}
+.ex-pill-rir-med{background:#FEF3E2;color:#B84A00;border-color:#EDCB8A;}
+.ex-pill-rir-ok{background:#E6F3E9;color:var(--green);border-color:#A8D5B5;}
+.ex-pill-type{background:#F0EDE8;color:var(--stone);border-color:#DDD5C4;}
+.ex-note{font-size:.78rem;color:#6B5359;font-style:italic;line-height:1.5;padding:.28rem .55rem;background:#FDFAF5;border-left:2px solid #E8C0CF;border-radius:0 3px 3px 0;}
+
+/* ── PASSAGE BOX ── */
+.passage-box{background:#E6F3E9;border:1px solid #A8D5B5;border-radius:6px;padding:.7rem .9rem;margin-bottom:.75rem;font-size:.85rem;color:#1A5C2A;}
+.passage-box strong{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.1em;display:block;margin-bottom:.2rem;}
+.passage-box-rose{background:#FDE8EF;border:1px solid #F5C0CF;border-radius:6px;padding:.7rem .9rem;margin-bottom:.75rem;font-size:.85rem;color:var(--rose-dim);}
+.passage-box-rose strong{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.1em;display:block;margin-bottom:.2rem;}
+
+/* ── HIGHLIGHT ── */
+.highlight{background:#FDF3D5;border:1px solid #E8D080;border-radius:6px;padding:.8rem 1rem;margin-bottom:.75rem;font-size:.87rem;line-height:1.6;color:var(--ink-light);}
+.highlight strong{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.1em;color:var(--gold);text-transform:uppercase;display:block;margin-bottom:.3rem;}
+.highlight-rose{background:#FDE8EF;border:1px solid #F5C0CF;border-radius:6px;padding:.8rem 1rem;margin-bottom:.75rem;font-size:.87rem;line-height:1.6;color:var(--ink);}
+.highlight-rose strong{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.1em;color:var(--rose-dim);text-transform:uppercase;display:block;margin-bottom:.3rem;}
+
+/* ── TABLES ── */
+table{width:100%;border-collapse:collapse;font-size:.82rem;}
+th{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.1em;color:var(--stone);text-transform:uppercase;border-bottom:1px solid var(--cream-dark);padding:.45rem .6rem;text-align:left;}
+td{padding:.5rem .6rem;border-bottom:1px solid #F0ECE4;color:var(--ink-light);line-height:1.4;}
+tr:last-child td{border-bottom:none;}
+
+/* ── MACROS ── */
+.macro-result-row{display:flex;justify-content:space-between;align-items:center;padding:.4rem 0;border-bottom:1px solid #F0ECE4;font-size:.9rem;}
+.macro-result-row:last-child{border-bottom:none;}
+.macro-result-name{color:var(--stone);}
+.macro-result-g{font-family:'Cinzel',serif;font-size:.82rem;font-weight:600;}
+.macro-result-kcal{font-size:.72rem;color:var(--stone);}
+.cal-total-box{background:var(--ink);border-radius:6px;padding:.7rem .9rem;margin-top:.6rem;display:flex;justify-content:space-between;align-items:center;}
+.cal-total-lbl{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.1em;color:var(--stone);text-transform:uppercase;}
+.cal-total-val{font-family:'Cinzel',serif;font-size:1.2rem;color:var(--rose-light);font-weight:700;}
+.cal-delta{font-size:.7rem;padding:.2rem .5rem;border-radius:3px;font-family:'Cinzel',serif;}
+
+/* ── SLIDERS ── */
+.slider-wrap{margin-bottom:.85rem;}
+input[type=range]{width:100%;height:4px;accent-color:var(--rose);cursor:pointer;margin:.3rem 0;}
+.slider-labels{display:flex;justify-content:space-between;font-family:'Cinzel',serif;font-size:.58rem;color:var(--stone);}
+
+/* ── RESULT BOX ── */
+.result-box{background:var(--ink);border-radius:8px;padding:1.1rem;text-align:center;margin-bottom:.75rem;}
+.result-main{font-family:'Cinzel',serif;font-size:2rem;color:var(--rose-light);font-weight:700;line-height:1;}
+.result-label{font-family:'Cinzel',serif;font-size:.58rem;color:var(--stone);letter-spacing:.15em;text-transform:uppercase;margin-top:.3rem;}
+
+/* ── CHECKLIST ── */
+.checklist{list-style:none;}
+.checklist li{display:flex;align-items:flex-start;gap:.5rem;padding:.35rem 0;font-size:.87rem;color:var(--ink-light);line-height:1.4;}
+.chk{color:var(--green);flex-shrink:0;margin-top:2px;font-weight:700;}
+.crs{color:#8B1A1A;flex-shrink:0;margin-top:2px;font-weight:700;}
+
+/* ── DAY PLANNING ── */
+.day-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:.25rem;margin-bottom:.5rem;}
+.day-card{background:white;border:1px solid var(--cream-dark);border-radius:5px;padding:.4rem .25rem;text-align:center;}
+/* ── PLANNING DRAG & DROP ── */
+.planning-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.35rem;margin-bottom:.25rem;}
+.planning-grid-bottom{display:grid;grid-template-columns:repeat(3,1fr);gap:.35rem;margin-left:calc((100% + .35rem) / 8);margin-bottom:.3rem;}
+.plan-day{background:white;border:1px solid var(--cream-dark);border-radius:6px;padding:.45rem .2rem;text-align:center;cursor:grab;transition:all .2s;user-select:none;-webkit-user-select:none;min-height:58px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.15rem;}
+.plan-day:active{cursor:grabbing;}
+.plan-day.dragging{opacity:.35;transform:scale(.95);}
+.plan-day.drag-over{border:2px dashed var(--rose);background:#FDE8EF;transform:scale(1.04);}
+.plan-day.is-seance{border-color:var(--cream-dark);}
+.plan-day.is-repos{opacity:.5;}
+.plan-day-name{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.1em;color:var(--stone);text-transform:uppercase;}
+.plan-day-session{font-family:'Cinzel',serif;font-size:.72rem;font-weight:700;line-height:1.1;}
+.plan-day-focus{font-size:.5rem;color:var(--stone);font-style:italic;line-height:1.2;}
+.day-name{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.08em;color:var(--stone);text-transform:uppercase;margin-bottom:.2rem;}
+.day-session{font-family:'Cinzel',serif;font-size:.58rem;font-weight:700;margin-bottom:.15rem;}
+
+/* ── ACCORDION ── */
+.accordion-item{border:1px solid var(--cream-dark);border-radius:6px;margin-bottom:.4rem;overflow:hidden;}
+.accordion-header{width:100%;background:white;border:none;padding:.8rem 1rem;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.05em;color:var(--ink);text-align:left;}
+.accordion-arrow{color:var(--rose);transition:transform .3s;font-size:.8rem;}
+.accordion-content{max-height:0;overflow:hidden;transition:max-height .35s ease;background:#FDFAF5;font-size:.87rem;line-height:1.6;color:var(--ink-light);}
+.accordion-content.open{max-height:600px;padding:.75rem 1rem;}
+.accordion-arrow.open{transform:rotate(180deg);}
+
+/* ── BADGES ── */
+.badge{display:inline-block;padding:2px 7px;border-radius:3px;font-size:.62rem;font-family:'Cinzel',serif;letter-spacing:.05em;}
+.badge-rose{background:#FDE8EF;color:var(--rose-dim);}
+.badge-green{background:#E6F3E9;color:var(--green);}
+.badge-stone{background:var(--cream-dark);color:var(--stone);}
+.badge-gold{background:#FDF3D5;color:var(--gold);}
+
+/* ── CHART ── */
+.chart-bar-wrap{margin-bottom:.25rem;}
+.chart-bar-row{display:flex;align-items:center;gap:.4rem;font-size:.75rem;}
+.chart-bar-label{min-width:48px;color:var(--stone);font-family:'Cinzel',serif;font-size:.55rem;}
+.chart-bar-bg{flex:1;height:14px;background:var(--cream-dark);border-radius:2px;overflow:hidden;}
+.chart-bar-fill{height:100%;background:var(--rose);border-radius:2px;transition:width .5s;}
+.chart-bar-val{min-width:44px;text-align:right;font-family:'Cinzel',serif;font-size:.6rem;color:var(--ink);}
+.delta-up{color:var(--green);font-size:.72rem;}
+.delta-down{color:#8B1A1A;font-size:.72rem;}
+.delta-eq{color:var(--stone);font-size:.72rem;}
+
+/* ── TOC ── */
+.toc-link{display:flex;align-items:center;gap:.4rem;padding:.4rem .6rem;background:rgba(255,255,255,.06);border-radius:3px;cursor:pointer;transition:background .15s;text-decoration:none;}
+.toc-link:active{background:rgba(196,66,106,.2);}
+.toc-num{font-family:'Cinzel',serif;font-size:.6rem;color:var(--rose-light);min-width:18px;font-weight:700;}
+.toc-link span:last-child{font-size:.8rem;color:var(--cream);}
+.toc-grid{display:grid;grid-template-columns:1fr 1fr;gap:.35rem;}
+
+/* ── UTILS ── */
+.text-sm{font-size:.82rem;color:var(--stone);}
+.text-xs{font-size:.72rem;color:var(--stone);font-style:italic;}
+.mt1{margin-top:.5rem;}.mt2{margin-top:.85rem;}
+.mb1{margin-bottom:.5rem;}.mb2{margin-bottom:.85rem;}
+.flex{display:flex;}.jbetween{justify-content:space-between;}.items-center{align-items:center;}
+.gap1{gap:.4rem;}.gap2{gap:.75rem;}
+.bold{font-weight:600;}
+.h3{font-family:'Cinzel',serif;font-size:.78rem;color:var(--ink);margin:.85rem 0 .55rem;}
+.vol-row{display:flex;justify-content:space-between;align-items:center;padding:.28rem 0;border-bottom:1px solid #F0ECE4;font-size:.84rem;}
+.vol-row:last-child{border-bottom:none;}
+.vol-val{font-family:'Cinzel',serif;font-size:.7rem;color:var(--rose-dim);font-weight:600;}
+.section-sep{border:none;border-top:1px solid var(--cream-dark);margin:1rem 0;}
+.signal-row{display:flex;gap:.6rem;align-items:flex-start;padding:.45rem 0;border-bottom:1px solid #F0ECE4;font-size:.85rem;}
+.signal-row:last-child{border-bottom:none;}
+.signal-txt strong{display:block;margin-bottom:.1rem;color:var(--ink);font-size:.87rem;}
+.signal-txt span{color:var(--stone);font-size:.8rem;}
+.mensuration-grid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;}
+.mens-save-ind{font-family:'Cinzel',serif;font-size:.55rem;color:var(--stone);letter-spacing:.08em;opacity:0;transition:opacity .4s;text-align:right;margin-bottom:.3rem;}
+.notify{position:fixed;bottom:calc(var(--nav-h) + env(safe-area-inset-bottom) + .75rem);left:1rem;right:1rem;background:var(--ink);color:var(--rose-light);font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.08em;padding:.65rem 1rem;border-radius:6px;border:1px solid var(--rose-dim);opacity:0;transform:translateY(8px);transition:all .3s;pointer-events:none;z-index:999;text-align:center;}
+.notify.show{opacity:1;transform:translateY(0);}
+.phase-badge{display:inline-block;padding:3px 10px;border-radius:3px;font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.08em;background:var(--ink);color:var(--rose-light);}
+.type-badge{display:inline-block;padding:1px 6px;border-radius:2px;font-family:'Cinzel',serif;font-size:.54rem;letter-spacing:.04em;}
+.type-force{background:#FDE8EF;color:var(--rose-dim);}
+.type-hyper{background:#FDF3D5;color:var(--gold);}
+.type-iso{background:#E6F3E9;color:var(--green);}
+.type-pump{background:#FDE8E8;color:#8B1A1A;}
+.type-gainage{background:#EDE5D4;color:var(--stone);}
+
+/* ── JOURNAL DE SÉANCE ── */
+.journal-section{background:#FDFAF5;border-top:1px solid #F0ECE4;padding:.65rem .75rem .55rem;}
+.journal-title{font-family:'Cinzel',serif;font-size:.56rem;letter-spacing:.18em;color:var(--stone);text-transform:uppercase;margin-bottom:.5rem;display:flex;align-items:center;justify-content:space-between;}
+.journal-saved{font-family:'Cinzel',serif;font-size:.5rem;color:var(--green);letter-spacing:.06em;opacity:0;transition:opacity .4s;}
+.journal-saved.show{opacity:1;}
+.journal-hist{background:#EDE5D4;border-radius:4px;padding:.3rem .6rem;font-size:.7rem;color:var(--stone);font-style:italic;line-height:1.4;margin-bottom:.5rem;}
+.journal-hist strong{color:var(--rose-dim);font-style:normal;font-family:'Cinzel',serif;font-size:.56rem;display:block;margin-bottom:.1rem;}
+.journal-serie-card{background:white;border:1px solid #E8E0D4;border-radius:6px;padding:.55rem .65rem;margin-bottom:.4rem;}
+.journal-serie-card:last-child{margin-bottom:0;}
+.journal-serie-lbl{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.14em;color:var(--gold);text-transform:uppercase;margin-bottom:.4rem;}
+.journal-serie-fields{display:grid;grid-template-columns:1fr auto 1fr;gap:0 .5rem;align-items:center;}
+.journal-field-wrap{display:flex;flex-direction:column;align-items:center;gap:.2rem;}
+.journal-input{width:100%;padding:.55rem .4rem;border:1px solid #DDD5C4;border-radius:4px;font-family:'Crimson Pro',serif;font-size:1.1rem;text-align:center;color:var(--ink);background:white;}
+.journal-input:focus{border-color:var(--gold);outline:none;box-shadow:0 0 0 2px rgba(139,101,8,.1);}
+.journal-input-lbl{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.08em;color:var(--stone);text-transform:lowercase;}
+.journal-sep{font-size:1rem;color:var(--stone);font-family:'Crimson Pro',serif;text-align:center;}
+.poids-auto-badge{display:inline-block;background:#E6F3E9;color:var(--green);font-family:'Cinzel',serif;font-size:.55rem;padding:2px 7px;border-radius:3px;margin-left:.4rem;letter-spacing:.05em;}
+
+/* ── AUTOSAVE INDICATOR ── */
+.autosave-indicator{position:fixed;top:.6rem;right:.75rem;background:rgba(26,90,42,.92);color:#E6F3E9;font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.1em;padding:.3rem .7rem;border-radius:3px;opacity:0;transform:translateY(-4px);transition:opacity .25s,transform .25s;pointer-events:none;z-index:200;}
+.autosave-indicator.show{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+<div class="notify" id="notify"></div>
+<div class="autosave-indicator" id="autosave-indicator">✓ Sauvegardé</div>
+
+<!-- ═══ BOTTOM NAV ═══ -->
+<nav class="bottom-nav">
+  <button class="nav-btn active" onclick="showPage('dashboard')" id="nav-dashboard">
+    <span class="nav-icon">🏠</span><span class="nav-lbl">Accueil</span>
+  </button>
+  <button class="nav-btn" onclick="showPage('training')" id="nav-training">
+    <span class="nav-icon">💪</span><span class="nav-lbl">Programme</span>
+  </button>
+  <button class="nav-btn" onclick="showPage('nutrition')" id="nav-nutrition">
+    <span class="nav-icon">🥗</span><span class="nav-lbl">Nutrition</span>
+  </button>
+  <button class="nav-btn" onclick="showPage('supplements')" id="nav-supplements">
+    <span class="nav-icon">💊</span><span class="nav-lbl">Compléments</span>
+  </button>
+</nav>
+
+<!-- ═══ DASHBOARD ═══ -->
+<div class="page active" id="page-dashboard">
+  <div class="page-header" style="display:flex;justify-content:space-between;align-items:flex-start">
+    <div>
+      <div class="page-label">Vue d'ensemble</div>
+      <div class="page-title">Tableau de bord</div>
+    </div>
+    <div style="font-family:'Cinzel',serif;font-size:.48rem;color:var(--stone);letter-spacing:.08em;padding-top:.2rem">v1.0</div>
+  </div>
+
+  <div class="card card-rose mb2">
+    <div class="card-title">Mon profil</div>
+    <div class="form-group"><label>Phase</label>
+      <select id="dash-phase-prog" onchange="syncDashProfile()">
+        <option value="p1">Phase 1 — Base &amp; Connexion (S1–S10)</option>
+        <option value="p2">Phase 2 — Développement &amp; Force (S12–S21)</option>
+        <option value="p3">Phase 3 — Spécialisation avancée (S23–S34)</option>
+        <option value="p4">Phase 4 — Intensification Peak (S36–S46)</option>
+        <option value="p5">Phase 5 — Peak &amp; Épuisement (S48–S52)</option>
+      </select></div>
+    <div class="form-row">
+      <div><label>Phase nutritionnelle</label>
+        <select id="dash-phase-nutri" onchange="syncDashProfile()">
+          <option value="masse">Masse</option>
+          <option value="seche">Sèche</option>
+          <option value="maintien">Maintien</option>
+        </select></div>
+      <div><label>Date début</label>
+        <input type="text" id="dash-start-date" placeholder="JJ/MM/AAAA" onchange="saveProfile()"></div>
+    </div>
+    <div class="form-row">
+      <div><label>Poids (kg)</label>
+        <input type="number" id="dash-poids" placeholder="62" step="0.1" oninput="syncPoidsFromDash()"></div>
+      <div><label>Taille (cm)</label>
+        <input type="number" id="dash-taille" placeholder="165" oninput="syncPoidsFromDash()"></div>
+    </div>
+    <div class="form-row">
+      <div><label>Âge</label>
+        <input type="number" id="dash-age" placeholder="28" oninput="syncPoidsFromDash()"></div>
+      <div><label>Activité</label>
+        <select id="dash-activite" onchange="syncPoidsFromDash()">
+          <option value="1.2">Sédentaire ×1,2</option>
+          <option value="1.375">Légère ×1,375</option>
+          <option value="1.55" selected>Modérée ×1,55</option>
+          <option value="1.725">Active ×1,725</option>
+          <option value="1.9">Très active ×1,9</option>
+        </select></div>
+    </div>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-val" id="stat-semaine">—</div><div class="stat-lbl">Semaine</div></div>
+    <div class="stat-card"><div class="stat-val" id="stat-phase-lbl">—</div><div class="stat-lbl">Phase</div></div>
+    <div class="stat-card"><div class="stat-val" id="stat-seances-lbl">—</div><div class="stat-lbl">Séances/sem.</div></div>
+    <div class="stat-card"><div class="stat-val" id="stat-nutri-lbl">—</div><div class="stat-lbl">Nutrition</div></div>
+  </div>
+
+  <div class="card card-rose mb2">
+    <div class="card-title">Séance du jour</div>
+    <div id="seance-du-jour-box"></div>
+  </div>
+
+  <div class="card mb2">
+    <div class="card-title">Planning semaine</div>
+    <div id="week-planning-box"></div>
+  </div>
+
+  <div class="card mb2">
+    <div class="card-title">Macros estimées du jour</div>
+    <div class="stat-grid" style="margin-bottom:.35rem">
+      <div style="text-align:center;padding:.5rem 0"><div style="font-family:'Cinzel',serif;font-size:1.1rem;color:var(--rose)" id="dm-prot">—</div><div class="text-xs">Protéines</div></div>
+      <div style="text-align:center;padding:.5rem 0"><div style="font-family:'Cinzel',serif;font-size:1.1rem;color:var(--gold)" id="dm-gluc">—</div><div class="text-xs">Glucides</div></div>
+      <div style="text-align:center;padding:.5rem 0"><div style="font-family:'Cinzel',serif;font-size:1.1rem;color:var(--stone)" id="dm-lip">—</div><div class="text-xs">Lipides</div></div>
+      <div style="text-align:center;padding:.5rem 0"><div style="font-family:'Cinzel',serif;font-size:1.1rem;color:var(--ink)" id="dm-cal">—</div><div class="text-xs">Calories</div></div>
+    </div>
+    <div class="text-xs">Configure ton poids dans Nutrition pour des macros précises.</div>
+  </div>
+
+  <!-- Suivi corporel -->
+  <div class="h3">Suivi corporel</div>
+  <div class="card mb2">
+    <div class="card-title">Pesée quotidienne</div>
+    <div class="text-xs mb1">Chaque matin à jeun — sauvegarde automatique</div>
+    <div class="form-row">
+      <div><label>Date</label><input type="text" id="sw-date" placeholder="JJ/MM"></div>
+      <div><label>Poids (kg)</label><input type="number" id="sw-poids" placeholder="62.5" step="0.1" inputmode="decimal" oninput="autosaveSuivi()"></div>
+    </div>
+    <button class="btn btn-primary btn-block" onclick="saveSuiviEntry()">Enregistrer la pesée →</button>
+  </div>
+
+  <div class="card mb2">
+    <div class="card-title">Tendance poids</div>
+    <div id="poids-chart-box"><div class="text-sm">Aucune donnée.</div></div>
+  </div>
+
+  <div class="card mb2">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:.3rem;margin-bottom:.5rem">
+      <div><div class="card-title" style="margin-bottom:.1rem">Mensurations</div>
+        <div class="text-xs"><strong style="color:var(--rose-dim)">1 fois par mois</strong> — matin à jeun</div></div>
+      <div class="mens-save-ind" id="mens-autosave-indicator">✓ SAUVEGARDÉ</div>
+    </div>
+    <div class="mensuration-grid">
+      <div class="form-group"><label>Épaules (cm)</label><input type="number" id="sw-epaules" placeholder="100" step="0.5" inputmode="decimal" oninput="autosaveMensurations()"></div>
+      <div class="form-group"><label>Pecs (cm)</label><input type="number" id="sw-pecs" placeholder="90" step="0.5" inputmode="decimal" oninput="autosaveMensurations()"></div>
+      <div class="form-group"><label>Taille (cm)</label><input type="number" id="sw-taille" placeholder="70" step="0.5" inputmode="decimal" oninput="autosaveMensurations()"></div>
+      <div class="form-group"><label>Hanches (cm)</label><input type="number" id="sw-hanches" placeholder="95" step="0.5" inputmode="decimal" oninput="autosaveMensurations()"></div>
+      <div class="form-group"><label>Fessiers (cm)</label><input type="number" id="sw-fessiers" placeholder="100" step="0.5" inputmode="decimal" oninput="autosaveMensurations()"></div>
+      <div class="form-group"><label>Cuisse (cm)</label><input type="number" id="sw-cuisse" placeholder="58" step="0.5" inputmode="decimal" oninput="autosaveMensurations()"></div>
+    </div>
+    <button class="btn btn-primary btn-block" onclick="saveMensurationsEntry()">Enregistrer les mensurations →</button>
+  </div>
+
+  <div class="card mb2">
+    <div class="card-title">Historique</div>
+    <div id="suivi-history-box"><div class="text-sm">Aucune entrée.</div></div>
+    <button class="btn btn-sm btn-danger mt2" onclick="clearSuivi()">Tout effacer</button>
+  </div>
+</div>
+
+<!-- ═══ ENTRAÎNEMENT ═══ -->
+<div class="page" id="page-training">
+  <div class="page-header">
+    <div class="page-label">Programme</div>
+    <div class="page-title">Entraînement</div>
+  </div>
+
+  <div class="card card-rose mb2">
+    <div class="card-title">Programme actif</div>
+    <div class="form-group"><label>Phase</label>
+      <select id="tr-phase" onchange="onPhaseChange()">
+        <option value="p1">Phase 1 — Base &amp; Connexion (S1–S10)</option>
+        <option value="p2">Phase 2 — Développement &amp; Force (S12–S21)</option>
+        <option value="p3">Phase 3 — Spécialisation avancée (S23–S34)</option>
+        <option value="p4">Phase 4 — Intensification Peak (S36–S46)</option>
+        <option value="p5">Phase 5 — Peak &amp; Épuisement (S48–S52)</option>
+      </select></div>
+    <div id="tr-phase-info" style="font-size:.83rem;color:var(--ink-light);line-height:1.5;margin-top:.5rem"></div>
+  </div>
+
+  <div class="chip-group" id="seance-chips"></div>
+  <div id="workout-display" class="mb1"></div>
+  <div id="volume-cible-box" class="mb1"></div>
+  <div id="passage-box-tr" class="mb2"></div>
+
+  <!-- TOC -->
+  <div class="card mb2" style="background:var(--ink);border-color:var(--ink)">
+    <div class="card-title" style="color:var(--rose-light);margin-bottom:.65rem">Lexique &amp; accès rapide</div>
+    <div class="toc-grid">
+      <a onclick="scrollToId('tr-philosophie')" class="toc-link"><span class="toc-num">·</span><span>Philosophie</span></a>
+      <a onclick="scrollToId('tr-bilan')" class="toc-link"><span class="toc-num">·</span><span>Bilan initial</span></a>
+      <a onclick="scrollToId('tr-planning')" class="toc-link"><span class="toc-num">·</span><span>Planning semaine</span></a>
+      <a onclick="scrollToId('tr-rir')" class="toc-link"><span class="toc-num">1</span><span>Guide RIR</span></a>
+      <a onclick="scrollToId('tr-double')" class="toc-link"><span class="toc-num">2</span><span>Double progression</span></a>
+      <a onclick="scrollToId('tr-deload')" class="toc-link"><span class="toc-num">3</span><span>Deload</span></a>
+      <a onclick="scrollToId('tr-cycle')" class="toc-link"><span class="toc-num">4</span><span>Cycle menstruel</span></a>
+      <a onclick="scrollToId('tr-activation')" class="toc-link"><span class="toc-num">5</span><span>Activation pré-séance</span></a>
+      <a onclick="scrollToId('tr-techniques')" class="toc-link"><span class="toc-num">6</span><span>Techniques avancées</span></a>
+      <a onclick="scrollToId('tr-focus')" class="toc-link"><span class="toc-num">6b</span><span>Focus technique</span></a>
+      <a onclick="scrollToId('tr-placement')" class="toc-link"><span class="toc-num">6c</span><span>Placement &amp; muscles ciblés</span></a>
+      <a onclick="scrollToId('tr-benchmarks')" class="toc-link"><span class="toc-num">7</span><span>Benchmarks</span></a>
+      <a onclick="scrollToId('tr-reprise')" class="toc-link"><span class="toc-num">8</span><span>Reprise après arrêt</span></a>
+      <a onclick="scrollToId('tr-recuperation')" class="toc-link"><span class="toc-num">9</span><span>Récupération</span></a>
+    </div>
+  </div>
+
+  <!-- Philosophie -->
+  <div id="tr-philosophie" class="card mb2" style="background:var(--ink);border-color:var(--ink)">
+    <div class="card-title" style="color:var(--rose-light);margin-bottom:.65rem">Philosophie du programme</div>
+    <div style="font-size:.87rem;color:var(--cream);line-height:1.65;margin-bottom:.75rem">Un programme de transformation esthétique sur 52 semaines construit sur une idée simple : <strong style="color:var(--rose-light)">développer ce qui mérite d'être développé.</strong></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.4rem;margin-bottom:.75rem">
+      <div style="background:rgba(196,66,106,.2);border-radius:4px;padding:.6rem .5rem;text-align:center">
+        <div style="font-family:'Cinzel',serif;font-size:1.4rem;color:var(--rose-light);font-weight:700">75%</div>
+        <div style="font-size:.68rem;color:var(--cream);margin-top:.2rem">Bas du corps</div>
+        <div style="font-size:.65rem;color:var(--stone);font-style:italic">Fessiers · Ischios · Fessier moyen</div>
+      </div>
+      <div style="background:rgba(255,255,255,.07);border-radius:4px;padding:.6rem .5rem;text-align:center">
+        <div style="font-family:'Cinzel',serif;font-size:1.4rem;color:var(--gold-light);font-weight:700">25%</div>
+        <div style="font-size:.68rem;color:var(--cream);margin-top:.2rem">Haut du corps</div>
+        <div style="font-size:.65rem;color:var(--stone);font-style:italic">Dos · Épaules · Bras</div>
+      </div>
+      <div style="background:rgba(255,255,255,.04);border-radius:4px;padding:.6rem .5rem;text-align:center">
+        <div style="font-family:'Cinzel',serif;font-size:.75rem;color:var(--rose-light);font-weight:700;line-height:1.3">Athlé&shy;tique</div>
+        <div style="font-size:.68rem;color:var(--cream);margin-top:.2rem">Sans volume</div>
+        <div style="font-size:.65rem;color:var(--stone);font-style:italic">excessif</div>
+      </div>
+    </div>
+    <div style="font-size:.82rem;color:var(--cream);line-height:1.6;border-top:1px solid rgba(255,255,255,.1);padding-top:.6rem">Le haut du corps est accentué sur le <strong style="color:var(--rose-light)">dos</strong> sans délaisser les épaules et les bras — Dips inclus pour un physique harmonieux. Ce programme n'est pas un programme de perte de poids ni de bodybuilding. C'est une <em>transformation esthétique ciblée</em>.</div>
+  </div>
+
+  <!-- Bilan initial -->
+  <div id="tr-bilan" class="card mb2">
+    <div class="card-title">Bilan initial — Avant de commencer la Phase 1</div>
+    <div class="text-xs mb2">3 tests simples. Ils te confirment que tu es prête ou t'indiquent quoi travailler d'abord. Si tu as interrompu le programme, consulte le protocole de reprise avant de reprendre.</div>
+
+    <div style="border-left:3px solid var(--rose);padding:.7rem .85rem;background:#FDFAF5;border-radius:0 6px 6px 0;margin-bottom:.6rem">
+      <div class="card-title" style="margin-bottom:.35rem">Test 1 — Mobilité de hanche · Deep Squat Hold</div>
+      <div class="text-sm mb1">Pieds largeur épaules, bras tendus devant toi. Descends en squat profond le plus bas possible et maintiens la position.</div>
+      <div style="font-family:'Cinzel',serif;font-size:.62rem;color:var(--stone);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.3rem">Critère : 30 secondes sans soulever les talons ni arrondir le dos</div>
+      <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+        <span style="background:#E6F3E9;color:var(--green);font-family:'Cinzel',serif;font-size:.6rem;padding:2px 8px;border-radius:2px;">✓ Réussie → Phase 1 directement</span>
+        <span style="background:#FDE8EF;color:var(--rose-dim);font-family:'Cinzel',serif;font-size:.6rem;padding:2px 8px;border-radius:2px;">✗ Échouée → 2 sem. mobilité hanche (Cossack Squat, Hip 90/90)</span>
+      </div>
+    </div>
+
+    <div style="border-left:3px solid var(--rose);padding:.7rem .85rem;background:#FDFAF5;border-radius:0 6px 6px 0;margin-bottom:.6rem">
+      <div class="card-title" style="margin-bottom:.35rem">Test 2 — Force relative · Hip Thrust poids de corps</div>
+      <div class="text-sm mb1">Dos appuyé sur un banc, pieds à plat, hanches à 90°. Pousse les hanches vers le haut, fessier contracté en haut.</div>
+      <div style="font-family:'Cinzel',serif;font-size:.62rem;color:var(--stone);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.3rem">Critère : 15 reps propres sans compensation lombaire, pause 1s en haut</div>
+      <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+        <span style="background:#E6F3E9;color:var(--green);font-family:'Cinzel',serif;font-size:.6rem;padding:2px 8px;border-radius:2px;">✓ Réussie → Phase 1 directement</span>
+        <span style="background:#FDE8EF;color:var(--rose-dim);font-family:'Cinzel',serif;font-size:.6rem;padding:2px 8px;border-radius:2px;">✗ Échouée → 2 sem. Hip Thrust PDC avant d'introduire la barre</span>
+      </div>
+    </div>
+
+    <div style="border-left:3px solid var(--rose);padding:.7rem .85rem;background:#FDFAF5;border-radius:0 6px 6px 0;margin-bottom:.5rem">
+      <div class="card-title" style="margin-bottom:.35rem">Test 3 — Connexion fessière · Glute Bridge unilatéral</div>
+      <div class="text-sm mb1">Allongée sur le dos, genoux pliés. Lève un pied du sol. Pousse les hanches vers le haut en contractant uniquement le fessier de la jambe posée.</div>
+      <div style="font-family:'Cinzel',serif;font-size:.62rem;color:var(--stone);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.3rem">Critère : 10 reps/jambe sans douleur lombaire, en sentant clairement le fessier</div>
+      <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+        <span style="background:#E6F3E9;color:var(--green);font-family:'Cinzel',serif;font-size:.6rem;padding:2px 8px;border-radius:2px;">✓ Réussie → Phase 1 directement</span>
+        <span style="background:#FDE8EF;color:var(--rose-dim);font-family:'Cinzel',serif;font-size:.6rem;padding:2px 8px;border-radius:2px;">✗ Échouée → 2 sem. activation fessière (Clamshell, Donkey Kick élastique)</span>
+      </div>
+    </div>
+    <div class="text-xs" style="color:var(--rose-dim)">Si tu es débutante complète : 6 à 8 semaines de technique pure avant la Phase 1. Maîtriser Hip Thrust, RDL et Goblet Squat avec poids de corps et charges très légères.</div>
+  </div>
+
+  <!-- Planning -->
+  <div id="tr-planning" class="card mb2">
+    <div class="flex jbetween items-center mb1">
+      <div class="card-title" style="margin-bottom:0">Mon planning semaine</div>
+      <button class="btn btn-sm" onclick="resetPlanning()" style="font-size:.52rem">↺ Réinitialiser</button>
+    </div>
+    <div class="text-xs mb2">Glisse-dépose les séances pour adapter à ton emploi du temps · Sauvegardé automatiquement</div>
+    <div id="tr-planning-grid"></div>
+    <div class="highlight-rose mt1" style="margin-bottom:.65rem">
+      <strong>Règle universelle</strong>
+      Jamais 2 séances Lower consécutives · Séance A toujours avant Séance C · Si tu loupes une séance : ne la récupère pas, reprends normalement
+    </div>
+  </div>
+
+  <!-- 1. RIR -->
+  <div id="tr-rir" class="h3">1 — Guide RIR</div>
+  <div class="card mb2">
+    <table><thead><tr><th>RIR</th><th>Signification</th><th>Usage</th></tr></thead><tbody>
+      <tr><td><strong>4–5</strong></td><td>Très facile</td><td>Deload / Apprentissage</td></tr>
+      <tr><td><strong>3</strong></td><td>Modéré</td><td>Début de nouvelle phase</td></tr>
+      <tr><td><strong>2</strong></td><td style="color:var(--gold)">Challengeant</td><td>Développement standard</td></tr>
+      <tr><td><strong>1</strong></td><td style="color:var(--rose-dim)">Difficile</td><td>Surcharge en fin de phase</td></tr>
+      <tr><td><strong>0</strong></td><td style="color:#8B1A1A">Échec technique</td><td>Peak uniquement</td></tr>
+    </tbody></table>
+    <div class="highlight mt1" style="margin-bottom:0"><strong>Règle quotidienne</strong>Fatiguée → +1 à 2 RIR sur toutes tes séries. En pleine forme → RIR 0–1 sur les exercices principaux. Ne compare pas une séance de phase lutéale à une séance ovulatoire.</div>
+  </div>
+
+  <!-- 2. Double progression -->
+  <div id="tr-double" class="h3">2 — Double progression</div>
+  <div class="card mb2">
+    <div class="vol-row"><span>Étape 1</span><span class="vol-val" style="color:var(--rose-dim)">Atteins le haut du rep range</span></div>
+    <div class="vol-row"><span>Étape 2</span><span class="vol-val" style="color:var(--rose-dim)">+2,5 kg → repars du bas</span></div>
+    <div class="highlight mt1" style="margin-bottom:0"><strong>Exemple</strong>4×12 Hip Thrust RIR 2 → semaine suivante : 4×10 avec +2,5 kg</div>
+  </div>
+
+  <!-- 3. Deload -->
+  <div id="tr-deload" class="h3">3 — Deload</div>
+  <div class="card mb2">
+    <div class="text-sm mb1">Optionnelle mais recommandée entre chaque phase. Non négociable si fatigue persistante.</div>
+    <div class="vol-row"><span>Volume</span><span class="vol-val">−40 à 50% (4 séries → 2)</span></div>
+    <div class="vol-row"><span>Intensité</span><span class="vol-val">RIR 4–5 sur tout</span></div>
+    <div class="vol-row"><span>Durée</span><span class="vol-val">1 semaine</span></div>
+    <div class="card-title mt2 mb1">Signaux → Deload immédiate</div>
+    <table style="font-size:.78rem"><thead><tr><th>Signal</th><th>Action</th></tr></thead><tbody>
+      <tr><td>Fatigue &gt; 5 jours</td><td>Deload immédiate</td></tr>
+      <tr><td>Douleurs articulaires</td><td>Deload + check mobilité</td></tr>
+      <tr><td>Stagnation 3 sem.</td><td>Deload puis relancer la phase</td></tr>
+      <tr><td>Fin de phase</td><td>Deload recommandée</td></tr>
+    </tbody></table>
+  </div>
+
+  <!-- 4. Cycle menstruel -->
+  <div id="tr-cycle" class="h3">4 — Cycle menstruel &amp; entraînement</div>
+  <div class="card mb2">
+    <table><thead><tr><th>Phase</th><th>Impact</th><th>Ajust. RIR</th></tr></thead><tbody>
+      <tr><td>Menstruelle (J1–J5)</td><td>Fatigue possible</td><td>+1 si besoin</td></tr>
+      <tr><td>Folliculaire (J1–J13)</td><td>Énergie haute</td><td>Phase idéale</td></tr>
+      <tr><td>Ovulatoire (J13–J15)</td><td>Force au max</td><td>Séances lourdes</td></tr>
+      <tr><td>Lutéale précoce (J15–J22)</td><td>Bonne récup.</td><td>Maintien</td></tr>
+      <tr><td>Lutéale tardive (J22–J28)</td><td>Fatigue, rétention</td><td>+1 à +2</td></tr>
+    </tbody></table>
+    <div class="highlight mt1" style="margin-bottom:0"><strong>Règle universelle</strong>Ne compare jamais une séance de phase lutéale tardive à une séance ovulatoire. Le cycle n'impacte pas les adaptations à long terme — mais il affecte ta forme du jour.</div>
+  </div>
+
+  <!-- 4b. Cycle & Nutrition -->
+  <!-- 5. Activation pré-séance -->
+  <div id="tr-activation" class="h3">5 — Activation pré-séance</div>
+  <div class="card mb2">
+    <div class="card-title">Séances Lower — 8 à 10 min</div>
+    <table style="font-size:.78rem"><thead><tr><th>Exercice</th><th>Séries</th><th>Reps</th></tr></thead><tbody>
+      <tr><td>Goblet Squat léger</td><td>2</td><td>8</td></tr>
+      <tr><td>Abduction élastique</td><td>2</td><td>15</td></tr>
+      <tr><td>Glute Bridge PDC</td><td>2</td><td>10</td></tr>
+      <tr><td>Hip Hinge bâton</td><td>2</td><td>10/côté</td></tr>
+      <tr><td>Étirement balistique</td><td>1</td><td>12/côté</td></tr>
+    </tbody></table>
+    <div class="card-title mt2 mb1">Séances Upper — 5 à 7 min</div>
+    <table style="font-size:.78rem"><thead><tr><th>Exercice</th><th>Séries</th><th>Reps</th></tr></thead><tbody>
+      <tr><td>Dead Hang barre</td><td>2</td><td>20–30s</td></tr>
+      <tr><td>Face Pull élastique</td><td>2</td><td>15</td></tr>
+      <tr><td>Band Pull-Apart</td><td>1</td><td>12</td></tr>
+      <tr><td>Cercles de bras</td><td>1</td><td>10/sens</td></tr>
+    </tbody></table>
+  </div>
+
+  <!-- 6. Techniques avancées -->
+  <div id="tr-techniques" class="h3">6 — Techniques d'intensification</div>
+  <div class="card mb2">
+    <div class="accordion-item">
+      <button class="accordion-header" onclick="toggleAcc('drop')">Drop Set <span class="badge badge-rose" style="margin-left:auto">Phase 3+</span><span class="accordion-arrow" id="arr-drop">▾</span></button>
+      <div class="accordion-content" id="acc-drop">Série jusqu'à l'épuisement → réduire la charge de 20–30% → continuer sans repos. 1–2 drop sets max par séance. Idéal sur abduction machine et Cable Kickback. Jamais sur Squat barre ou RDL.</div>
+    </div>
+    <div class="accordion-item">
+      <button class="accordion-header" onclick="toggleAcc('restpause')">Rest-pause <span class="badge badge-rose" style="margin-left:auto">Phase 3+</span><span class="accordion-arrow" id="arr-restpause">▾</span></button>
+      <div class="accordion-content" id="acc-restpause">Série normale → poser la barre 20s → max de reps. Même charge. Idéal sur Hip Thrust. Ne pas utiliser sur Squat barre ou Barbell Row.</div>
+    </div>
+    <div class="accordion-item">
+      <button class="accordion-header" onclick="toggleAcc('cluster')">Cluster Set <span class="badge badge-rose" style="margin-left:auto">Phase 5</span><span class="accordion-arrow" id="arr-cluster">▾</span></button>
+      <div class="accordion-content" id="acc-cluster">4 reps + 20s + 4 reps + 20s + 4 reps = 1 série. Charge 90–95% du max sur 8 reps. Poser la barre sur le rack pendant les 20s. Réservé au Hip Thrust en Phase 5. Temps de repos entre séries : 3 min non négociables.</div>
+    </div>
+  </div>
+
+  <!-- 6b. Focus technique -->
+  <div id="tr-focus" class="h3">6b — Focus technique — Hip Thrust &amp; RDL</div>
+  <div class="card mb2">
+    <div class="card-title">Hip Thrust barre — 6 étapes clés</div>
+    <div style="counter-reset:step">
+      <div style="display:flex;gap:.6rem;padding:.45rem 0;border-bottom:1px solid #F0ECE4;font-size:.85rem"><span style="font-family:'Cinzel',serif;color:var(--rose-dim);font-weight:700;min-width:18px">1.</span><span>Dos appuyé sur un banc à hauteur des omoplates — ni trop haut, ni trop bas.</span></div>
+      <div style="display:flex;gap:.6rem;padding:.45rem 0;border-bottom:1px solid #F0ECE4;font-size:.85rem"><span style="font-family:'Cinzel',serif;color:var(--rose-dim);font-weight:700;min-width:18px">2.</span><span>Pieds à plat, largeur bassin, orteils légèrement écartés.</span></div>
+      <div style="display:flex;gap:.6rem;padding:.45rem 0;border-bottom:1px solid #F0ECE4;font-size:.85rem"><span style="font-family:'Cinzel',serif;color:var(--rose-dim);font-weight:700;min-width:18px">3.</span><span>Place la barre sur tes hanches avec un coussin de protection.</span></div>
+      <div style="display:flex;gap:.6rem;padding:.45rem 0;border-bottom:1px solid #F0ECE4;font-size:.85rem"><span style="font-family:'Cinzel',serif;color:var(--rose-dim);font-weight:700;min-width:18px">4.</span><span>Pousse les hanches vers le haut jusqu'à former une ligne droite épaules-hanches-genoux.</span></div>
+      <div style="display:flex;gap:.6rem;padding:.45rem 0;border-bottom:1px solid #F0ECE4;font-size:.85rem"><span style="font-family:'Cinzel',serif;color:var(--rose-dim);font-weight:700;min-width:18px">5.</span><span>Contracte fort les fessiers en haut — tiens 1 à 2 secondes selon la prescription.</span></div>
+      <div style="display:flex;gap:.6rem;padding:.45rem 0;font-size:.85rem"><span style="font-family:'Cinzel',serif;color:var(--rose-dim);font-weight:700;min-width:18px">6.</span><span>Descends lentement — la barre reste stable et horizontale tout au long.</span></div>
+    </div>
+    <div style="margin-top:.6rem;background:#FDE8EF;border-radius:4px;padding:.6rem .75rem">
+      <div style="font-family:'Cinzel',serif;font-size:.6rem;color:var(--rose-dim);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.3rem">À éviter absolument</div>
+      <ul class="checklist" style="margin:0">
+        <li><span class="crs">✗</span>Creuser les lombaires en haut — le corps doit être plat, pas en hyperextension</li>
+        <li><span class="crs">✗</span>Pousser avec les quadriceps plutôt qu'avec les fessiers (tu sens la cuisse avant au lieu du fessier)</li>
+        <li><span class="crs">✗</span>Laisser les genoux s'écrouler vers l'intérieur</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card mb2">
+    <div class="card-title">RDL barre — Romanian Deadlift</div>
+    <div style="display:flex;gap:.6rem;padding:.45rem 0;border-bottom:1px solid #F0ECE4;font-size:.85rem"><span style="font-family:'Cinzel',serif;color:var(--rose-dim);font-weight:700;min-width:18px">1.</span><span>Debout, pieds largeur bassin, barre juste devant les tibias.</span></div>
+    <div style="display:flex;gap:.6rem;padding:.45rem 0;border-bottom:1px solid #F0ECE4;font-size:.85rem"><span style="font-family:'Cinzel',serif;color:var(--rose-dim);font-weight:700;min-width:18px">2.</span><span>Saisir la barre en pronation (paumes vers toi), mains juste à l'extérieur des jambes.</span></div>
+    <div style="display:flex;gap:.6rem;padding:.45rem 0;border-bottom:1px solid #F0ECE4;font-size:.85rem"><span style="font-family:'Cinzel',serif;color:var(--rose-dim);font-weight:700;min-width:18px">3.</span><span>Dos droit et plat, cambré naturel maintenu du début à la fin.</span></div>
+    <div style="display:flex;gap:.6rem;padding:.45rem 0;border-bottom:1px solid #F0ECE4;font-size:.85rem"><span style="font-family:'Cinzel',serif;color:var(--rose-dim);font-weight:700;min-width:18px">4.</span><span>Faire glisser la barre le long des jambes en descendant — elle reste en contact ou très proche.</span></div>
+    <div style="display:flex;gap:.6rem;padding:.45rem 0;border-bottom:1px solid #F0ECE4;font-size:.85rem"><span style="font-family:'Cinzel',serif;color:var(--rose-dim);font-weight:700;min-width:18px">5.</span><span>Descendre jusqu'à sentir une forte tension dans les ischios — généralement en dessous du genou.</span></div>
+    <div style="display:flex;gap:.6rem;padding:.45rem 0;font-size:.85rem"><span style="font-family:'Cinzel',serif;color:var(--rose-dim);font-weight:700;min-width:18px">6.</span><span>Remonter en poussant les hanches vers l'avant — ne pas tirer avec le dos.</span></div>
+    <div style="margin-top:.6rem;background:#FDE8EF;border-radius:4px;padding:.6rem .75rem">
+      <div style="font-family:'Cinzel',serif;font-size:.6rem;color:var(--rose-dim);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.3rem">À éviter absolument</div>
+      <ul class="checklist" style="margin:0">
+        <li><span class="crs">✗</span>Arrondir le dos en bas — danger pour les lombaires</li>
+        <li><span class="crs">✗</span>Plier les genoux comme un deadlift classique — ce n'est pas un squat</li>
+        <li><span class="crs">✗</span>Laisser la barre s'éloigner du corps en descendant</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 6c. Placement buste -->
+  <div id="tr-placement" class="h3">6c — Placement &amp; muscles ciblés</div>
+  <div class="card mb2">
+    <div class="text-sm mb2">Ton placement lors du mouvement peut accentuer le travail d'un muscle par rapport à un autre. Cette règle s'applique sur Squat, Fentes et BSS.</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.75rem">
+      <div style="background:#FDE8EF;border-radius:6px;padding:.8rem .75rem;text-align:center">
+        <div style="font-size:1.6rem;margin-bottom:.3rem">🍑</div>
+        <div style="font-family:'Cinzel',serif;font-size:.7rem;color:var(--rose-dim);font-weight:700;margin-bottom:.25rem">Buste penché vers l'avant</div>
+        <div style="font-size:.82rem;color:var(--ink-light)">Plus de <strong>fessiers</strong> recrutés</div>
+      </div>
+      <div style="background:#EDE5D4;border-radius:6px;padding:.8rem .75rem;text-align:center">
+        <div style="font-size:1.6rem;margin-bottom:.3rem">🦵</div>
+        <div style="font-family:'Cinzel',serif;font-size:.7rem;color:var(--stone);font-weight:700;margin-bottom:.25rem">Buste vertical</div>
+        <div style="font-size:.82rem;color:var(--ink-light)">Plus de <strong>quadriceps</strong> engagés</div>
+      </div>
+    </div>
+    <div class="highlight-rose" style="margin-bottom:0">
+      <strong>Conseil</strong>Dans ce programme, l'objectif est de cibler les fessiers — donc privilégie une légère inclinaison du buste vers l'avant sur le Squat, les Fentes et le BSS. N'hésite pas à te filmer pour vérifier ta technique et voir l'évolution du mouvement.
+    </div>
+  </div>
+
+  <!-- 7. Benchmarks -->
+  <div id="tr-benchmarks" class="h3">7 — Benchmarks de progression</div>
+  <div class="card mb2">
+    <div class="text-xs mb2">Ces repères sont des objectifs, pas des obligations. L'important est la tendance sur plusieurs semaines. Si tu ne les atteins pas en fin de phase : prolonge de 2 semaines. Ne compare jamais tes chiffres à ceux d'une autre personne.</div>
+
+    <div class="card-title">Phase 1 — Fin semaine 10</div>
+    <div class="vol-row"><span>Hip Thrust barre</span><span class="vol-val">100–150% PDC × 12 reps</span></div>
+    <div class="vol-row"><span>RDL haltères</span><span class="vol-val">30–50% PDC × 12 reps</span></div>
+    <div class="vol-row"><span>Goblet Squat</span><span class="vol-val">30–40% PDC × 12 reps</span></div>
+    <div class="vol-row"><span>Vacuum debout</span><span class="vol-val">15s + respiration maintenue</span></div>
+    <div class="vol-row"><span>Plank</span><span class="vol-val">45s sans compensation</span></div>
+
+    <div class="card-title mt2 mb1">Phase 2 — Fin semaine 21</div>
+    <div class="vol-row"><span>Hip Thrust barre</span><span class="vol-val">150–200% PDC × 8 reps</span></div>
+    <div class="vol-row"><span>Squat barre</span><span class="vol-val">60–80% PDC × 8 reps</span></div>
+    <div class="vol-row"><span>RDL barre</span><span class="vol-val">60–80% PDC × 10 reps</span></div>
+    <div class="vol-row"><span>Barbell Row</span><span class="vol-val">40–60% PDC × 8 reps</span></div>
+    <div class="vol-row"><span>Vacuum</span><span class="vol-val">20s + 3 respirations maintenues</span></div>
+    <div class="text-xs mt1" style="font-style:italic;color:var(--stone)">Phase 2 introduit le squat barre et le Barbell Row — absents de la Phase 1. La Phase 1 construit le patron de tirage horizontal sur câble avant d'introduire la barre libre. La technique prime sur la charge — prolonge de 2 semaines si nécessaire.</div>
+
+    <div class="card-title mt2 mb1">Phase 3 — Fin semaine 34</div>
+    <div class="vol-row"><span>Hip Thrust barre</span><span class="vol-val">230–250% PDC × 6–8 reps</span></div>
+    <div class="vol-row"><span>Squat barre</span><span class="vol-val">80–100% PDC × 6–8 reps</span></div>
+    <div class="vol-row"><span>RDL barre</span><span class="vol-val">80–100% PDC × 8 reps</span></div>
+    <div class="vol-row"><span>Barbell Row</span><span class="vol-val">60–80% PDC × 6–8 reps</span></div>
+    <div class="vol-row"><span>Ab Wheel</span><span class="vol-val">10 reps genoux, lombaires stables</span></div>
+
+    <div class="card-title mt2 mb1">Phase 4 — Fin semaine 46</div>
+    <div class="vol-row"><span>Hip Thrust barre</span><span class="vol-val">250–300% PDC × 8–10 reps</span></div>
+    <div class="vol-row"><span>Squat barre</span><span class="vol-val">100–125% PDC × 8 reps</span></div>
+    <div class="vol-row"><span>RDL barre</span><span class="vol-val">100–125% PDC × 8 reps</span></div>
+    <div class="vol-row"><span>Vacuum</span><span class="vol-val">30s + 5 respirations maintenues</span></div>
+    <div class="vol-row"><span>Cable Crunch</span><span class="vol-val">Flexion complète, 15 reps contrôlées</span></div>
+
+    <div class="card-title mt2 mb1">Phase 5 — Fin de programme</div>
+    <div class="vol-row"><span>Hip Thrust cluster (4+4+4)</span><span class="vol-val">250–300% PDC sur cluster 4+4+4</span></div>
+    <div class="vol-row"><span>Squat barre pause</span><span class="vol-val">125–150% PDC × 5 reps</span></div>
+    <div class="vol-row"><span>Barbell Row</span><span class="vol-val">80–100% PDC × 6 reps</span></div>
+    <div class="vol-row"><span>Traction ou Lat Pulldown</span><span class="vol-val">Traction × 5 propres ou 80% PDC × 8 sur Lat Pulldown</span></div>
+    <div class="vol-row"><span>Ab Wheel</span><span class="vol-val">8–10 reps debout si possible</span></div>
+
+    <div class="text-xs mt1">PDC = Poids de corps. Si non atteints : prolonge de 2 semaines avant de passer à la phase suivante. Seule ta propre progression compte.</div>
+  </div>
+
+  <!-- 8. Reprise après arrêt -->
+  <div id="tr-reprise" class="h3">8 — Reprise après un arrêt</div>
+  <div class="card mb2">
+    <table><thead><tr><th>Durée arrêt</th><th>Où reprendre</th><th>RIR</th></tr></thead><tbody>
+      <tr><td>1–2 sem.</td><td>Là où tu t'es arrêtée</td><td>+1</td></tr>
+      <tr><td>3–4 sem.</td><td>−2 semaines dans la phase</td><td>+2 puis +1</td></tr>
+      <tr><td>&gt; 1 mois</td><td>Début de la phase</td><td>Prescrit sem. 1</td></tr>
+      <tr><td>&gt; 3 mois</td><td>Phase 1 sem. 1</td><td>RIR 4 (sem. 1–3)</td></tr>
+    </tbody></table>
+    <div class="highlight mt1" style="margin-bottom:0"><strong>Règle universelle</strong>La régularité sur 52 semaines &gt; la perfection à court terme. Ne culpabilise pas : reprends, adapte, avance.</div>
+  </div>
+
+  <!-- 9. Récupération -->
+  <div id="tr-recuperation" class="h3">9 — Récupération</div>
+
+  <div class="card mb2" style="background:var(--ink);border-color:var(--ink)">
+    <div class="card-title" style="color:var(--rose-light);margin-bottom:.5rem">Le 4e pilier de ta transformation</div>
+    <div style="font-size:.85rem;color:var(--cream);line-height:1.6">L'entraînement crée des micro-lésions musculaires. La nutrition fournit les matériaux. La récupération est le moment où le muscle se répare et devient plus fort. Sans elle, tu t'entraînes pour rien — ou pire, tu régresses.</div>
+  </div>
+
+  <div class="card mb2">
+    <div class="card-title">Sommeil — ton meilleur outil de récupération</div>
+    <div class="highlight" style="margin-bottom:.65rem"><strong>Objectif : 7–9h par nuit</strong>Durant le sommeil profond, l'hormone de croissance (GH) est sécrétée — c'est elle qui déclenche la réparation et la croissance musculaire. Une restriction à 5h/nuit dégrade significativement le métabolisme musculaire chez les femmes entraînées.</div>
+    <div class="card-title mb1">Conseils pratiques</div>
+    <ul class="checklist">
+      <li><span class="chk">✓</span>Couche-toi à heure régulière — la constance prime sur la durée</li>
+      <li><span class="chk">✓</span>Évite les écrans 30 min avant de dormir</li>
+      <li><span class="chk">✓</span>Chambre fraîche (18–19°C) = meilleur sommeil</li>
+      <li><span class="chk">✓</span>Si tu dors mal la veille d'une séance lourde → passe à RIR +1 sur tous tes exercices</li>
+    </ul>
+  </div>
+
+  <div class="card mb2">
+    <div class="card-title">Récupération active — entre les séances</div>
+    <div class="text-xs mb2">La récupération active accélère l'élimination des déchets métaboliques et réduit les courbatures sans créer de fatigue supplémentaire.</div>
+    <table><thead><tr><th>Méthode</th><th>Quand</th><th>Bénéfice</th></tr></thead><tbody>
+      <tr><td>Marche 30–45 min</td><td>Idéal entre 2 séances lower</td><td>Flux sanguin sans impact</td></tr>
+      <tr><td>Vélo doux 20–30 min</td><td>Excellent pour les jambes le lendemain</td><td>Récupération vasculaire efficace</td></tr>
+      <tr><td>Étirements dynamiques</td><td>5–10 min après chaque séance</td><td>Réduit les tensions musculaires</td></tr>
+      <tr><td>Massage / rouleau</td><td>Au besoin</td><td>Améliore la mobilité</td></tr>
+      <tr><td>Bain contraste chaud/froid</td><td>Optionnel</td><td>Accélère la récupération</td></tr>
+    </tbody></table>
+  </div>
+
+  <div class="card mb2">
+    <div class="card-title">Le stress — l'ennemi silencieux de ta progression</div>
+    <div class="text-sm mb2">Le cortisol (hormone du stress) est catabolique : il inhibe la synthèse protéique musculaire et favorise le stockage de graisse abdominale. Un stress chronique peut annuler une grande partie de tes efforts à la salle.</div>
+    <table style="font-size:.8rem"><thead><tr><th>Signal</th><th>Ce que ça signifie</th><th>Quoi faire</th></tr></thead><tbody>
+      <tr><td>Manque de motivation soudain</td><td>Fatigue du système nerveux</td><td>Deload + 1 jour de repos supplémentaire</td></tr>
+      <tr><td>Performances qui régressent</td><td>Accumulation de fatigue</td><td>Pause 1 semaine, dormir plus</td></tr>
+      <tr><td>Troubles du sommeil inhabituels</td><td>Cortisol trop élevé le soir</td><td>Réduire le volume d'entraînement</td></tr>
+      <tr><td>Douleurs articulaires diffuses</td><td>Inflammation généralisée</td><td>Consultation médicale + deload</td></tr>
+      <tr><td>Appétit coupé ou fringales</td><td>Déséquilibre hormonal</td><td>Régulariser les repas, augmenter les glucides</td></tr>
+    </tbody></table>
+  </div>
+</div>
+
+<!-- ═══ NUTRITION ═══ -->
+<div class="page" id="page-nutrition">
+  <div class="page-header">
+    <div class="page-label">Alimentation</div>
+    <div class="page-title">Nutrition</div>
+  </div>
+
+  <div class="card card-rose mb2">
+    <div class="card-title">① Calculateur TDEE</div>
+    <div class="form-row">
+      <div><label>Poids (kg)</label><input type="number" id="n-poids" placeholder="62" inputmode="decimal" onchange="syncDashFromNutrition();calcTDEE()"></div>
+      <div><label>Taille (cm)</label><input type="number" id="n-taille" placeholder="165" inputmode="numeric" onchange="syncDashFromNutrition();calcTDEE()"></div>
+    </div>
+    <div class="form-row">
+      <div><label>Âge</label><input type="number" id="n-age" placeholder="28" inputmode="numeric" onchange="syncDashFromNutrition();calcTDEE()"></div>
+      <div><label>Activité</label>
+        <select id="n-activite" onchange="syncDashFromNutrition();calcTDEE()">
+          <option value="1.2">Sédentaire ×1,2</option>
+          <option value="1.375">Léger ×1,375</option>
+          <option value="1.55" selected>Modéré ×1,55 ★</option>
+          <option value="1.725">Très actif ×1,725</option>
+          <option value="1.9">Extrême ×1,9</option>
+        </select></div>
+    </div>
+    <div class="result-box">
+      <div class="result-main" id="tdee-result">2 100</div>
+      <div class="result-label">kcal / jour — TDEE estimé</div>
+    </div>
+    <div class="text-xs">Calibrer sur 2–3 semaines à calories constantes. La formule Mifflin-St Jeor est utilisée.</div>
+  </div>
+
+  <div class="card mb2">
+    <div class="card-title">① Phase nutritionnelle</div>
+    <div class="chip-group" id="phase-nutri-chips">
+      <span class="chip active" data-phase="masse" onclick="selectPhaseNutri(this,'masse')">Masse</span>
+      <span class="chip" data-phase="seche" onclick="selectPhaseNutri(this,'seche')">Sèche</span>
+      <span class="chip" data-phase="maintien" onclick="selectPhaseNutri(this,'maintien')">Maintien</span>
+    </div>
+    <div id="phase-macros-display"></div>
+  </div>
+
+  <div class="card card-rose mb2">
+    <div class="card-title">② Macros personnalisées</div>
+    <div class="text-xs mb2">Glucides calculés automatiquement — calories restantes ÷ 4</div>
+    <div class="slider-wrap">
+      <div class="flex jbetween items-center mb1">
+        <span style="font-family:'Cinzel',serif;font-size:.68rem;color:var(--rose);text-transform:uppercase">Protéines</span>
+        <span style="font-family:'Cinzel',serif;font-size:.72rem;color:var(--rose);font-weight:600" id="sl-prot-val">—</span>
+      </div>
+      <input type="range" id="sl-prot" min="0" max="100" value="50" step="1" oninput="updateMacroSliders()">
+      <div class="slider-labels"><span id="sl-prot-min-lbl">1,6 g/kg</span><span id="sl-prot-max-lbl">2,2 g/kg</span></div>
+    </div>
+    <div class="slider-wrap">
+      <div class="flex jbetween items-center mb1">
+        <span style="font-family:'Cinzel',serif;font-size:.68rem;color:var(--stone);text-transform:uppercase">Lipides</span>
+        <span style="font-family:'Cinzel',serif;font-size:.72rem;color:var(--stone);font-weight:600" id="sl-lip-val">—</span>
+      </div>
+      <input type="range" id="sl-lip" min="0" max="100" value="50" step="1" oninput="updateMacroSliders()">
+      <div class="slider-labels"><span id="sl-lip-min-lbl">0,8 g/kg</span><span id="sl-lip-max-lbl">1,5 g/kg</span></div>
+      <div id="sl-lip-note" class="text-xs mt1">Impact direct sur les hormones féminines</div>
+    </div>
+    <div class="slider-wrap">
+      <div class="flex jbetween items-center mb1">
+        <span style="font-family:'Cinzel',serif;font-size:.68rem;color:var(--gold);text-transform:uppercase">Glucides</span>
+        <span style="font-family:'Cinzel',serif;font-size:.72rem;color:var(--gold);font-weight:600" id="sl-gluc-val">—</span>
+      </div>
+      <div style="font-size:.75rem;color:var(--stone);font-style:italic;padding:.4rem .6rem;background:var(--cream-dark);border-radius:4px">Auto — calories restantes ÷ 4</div>
+    </div>
+    <div class="slider-wrap" id="sl-delta-wrap" style="display:none">
+      <div class="flex jbetween items-center mb1">
+        <span style="font-family:'Cinzel',serif;font-size:.68rem;color:var(--ink);text-transform:uppercase" id="sl-delta-label">Surplus calorique</span>
+        <span style="font-family:'Cinzel',serif;font-size:.78rem;font-weight:700" id="sl-delta-val">—</span>
+      </div>
+      <input type="range" id="sl-delta" min="150" max="400" value="225" step="25" oninput="updateMacroSliders()">
+      <div class="slider-labels"><span id="sl-delta-min-lbl">+150 kcal</span><span id="sl-delta-max-lbl">+400 kcal</span></div>
+      <div class="text-xs mt1" id="sl-delta-note">Fourchette recommandée · +150 à +300 kcal optimal</div>
+    </div>
+    <div class="card-title mt2 mb1">Résultat de ta journée</div>
+    <div class="macro-result-row"><span class="macro-result-name">Protéines</span><div><span class="macro-result-g" id="res-prot" style="color:var(--rose)">—</span> <span class="macro-result-kcal" id="res-prot-kcal"></span></div></div>
+    <div class="macro-result-row"><span class="macro-result-name">Lipides</span><div><span class="macro-result-g" id="res-lip" style="color:var(--stone)">—</span> <span class="macro-result-kcal" id="res-lip-kcal"></span></div></div>
+    <div class="macro-result-row"><span class="macro-result-name">Glucides</span><div><span class="macro-result-g" id="res-gluc" style="color:var(--gold)">—</span> <span class="macro-result-kcal" id="res-gluc-kcal"></span></div></div>
+    <div class="cal-total-box">
+      <div><div class="cal-total-lbl">Calories totales</div><div class="cal-total-val" id="res-cal-total">—</div></div>
+      <div id="res-cal-delta"></div>
+    </div>
+    <div class="text-xs mt1" id="res-gluc-warning"></div>
+  </div>
+
+  <!-- TOC Nutrition -->
+  <div class="card mb2" style="background:var(--ink);border-color:var(--ink)">
+    <div class="card-title" style="color:var(--rose-light);margin-bottom:.65rem">Accès rapide</div>
+    <div class="toc-grid">
+      <a onclick="scrollToId('n-principes')" class="toc-link"><span class="toc-num">·</span><span>4 Principes</span></a>
+      <a onclick="scrollToId('n-timing')" class="toc-link"><span class="toc-num">1</span><span>Timing repas</span></a>
+      <a onclick="scrollToId('n-suivi')" class="toc-link"><span class="toc-num">2</span><span>Suivi</span></a>
+      <a onclick="scrollToId('n-hydrat')" class="toc-link"><span class="toc-num">3</span><span>Hydratation</span></a>
+      <a onclick="scrollToId('n-erreurs')" class="toc-link"><span class="toc-num">4</span><span>Erreurs sèche</span></a>
+      <a onclick="scrollToId('n-macros')" class="toc-link"><span class="toc-num">5</span><span>3 Macros</span></a>
+      <a onclick="scrollToId('n-cardio')" class="toc-link"><span class="toc-num">6</span><span>Cardio</span></a>
+      <a onclick="scrollToId('n-seche')" class="toc-link"><span class="toc-num">7</span><span>Sèche</span></a>
+      <a onclick="scrollToId('n-maintien')" class="toc-link"><span class="toc-num">8</span><span>Maintien</span></a>
+      <a onclick="scrollToId('n-cycle-nutri')" class="toc-link"><span class="toc-num">9</span><span>Cycle &amp; Nutrition</span></a>
+      <a onclick="scrollToId('n-transitions')" class="toc-link"><span class="toc-num">10</span><span>Transitions &amp; Reverse</span></a>
+      <a onclick="scrollToId('n-faq')" class="toc-link"><span class="toc-num">11</span><span>FAQ</span></a>
+    </div>
+  </div>
+
+  <!-- 4 principes -->
+  <div id="n-principes" class="card mb2" style="background:var(--ink);border-color:var(--ink)">
+    <div class="card-title" style="color:var(--rose-light);margin-bottom:.65rem">Les 4 principes fondamentaux</div>
+    <div style="display:flex;flex-direction:column;gap:.35rem">
+      <div style="background:rgba(196,66,106,.18);border-radius:4px;padding:.55rem .75rem"><div style="font-family:'Cinzel',serif;font-size:.68rem;color:var(--rose-light);margin-bottom:.15rem">4 · COHÉRENCE &gt; PERFECTION</div><div style="font-size:.82rem;color:var(--cream)">Un repas imparfait ne ruine pas une semaine bien gérée.</div></div>
+      <div style="background:rgba(255,255,255,.07);border-radius:4px;padding:.55rem .75rem"><div style="font-family:'Cinzel',serif;font-size:.68rem;color:var(--rose-light);margin-bottom:.15rem">3 · PROGRESSIVITÉ</div><div style="font-size:.82rem;color:var(--cream)">Ajustements caloriques par petites étapes.</div></div>
+      <div style="background:rgba(255,255,255,.05);border-radius:4px;padding:.55rem .75rem"><div style="font-family:'Cinzel',serif;font-size:.68rem;color:var(--rose-light);margin-bottom:.15rem">2 · MESURE ET SUIVI</div><div style="font-size:.82rem;color:var(--cream)">Ce qu'on ne mesure pas ne peut être corrigé.</div></div>
+      <div style="background:rgba(255,255,255,.03);border-radius:4px;padding:.55rem .75rem"><div style="font-family:'Cinzel',serif;font-size:.68rem;color:var(--rose-light);margin-bottom:.15rem">1 · INDIVIDUALISATION</div><div style="font-size:.82rem;color:var(--cream)">Ces valeurs sont des points de départ — observer et ajuster.</div></div>
+    </div>
+    <div style="margin-top:.65rem;font-size:.8rem;color:var(--cream);font-style:italic;border-top:1px solid rgba(255,255,255,.1);padding-top:.55rem">La nutrition n'est pas une punition — c'est un outil de précision.</div>
+  </div>
+
+  <!-- 1. Timing -->
+  <div id="n-timing" class="h3">1 — Timing nutritionnel</div>
+  <div class="card mb2">
+    <table><thead><tr><th>Moment</th><th>Priorité</th></tr></thead><tbody>
+      <tr><td>Réveil</td><td>Protéines + glucides modérés</td></tr>
+      <tr><td>1–2h avant séance</td><td>Glucides complexes + protéines</td></tr>
+      <tr><td>Après séance</td><td>Protéines + glucides + lipides</td></tr>
+      <tr><td>Soirée</td><td>Protéines + lipides, glucides modérés</td></tr>
+    </tbody></table>
+    <div class="card-title mt2 mb1">Répartition des glucides dans la journée</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.3rem;margin-bottom:.5rem">
+      <div style="text-align:center;background:#FDF3D5;border-radius:4px;padding:.5rem .2rem">
+        <div style="font-family:'Cinzel',serif;font-size:1rem;color:var(--gold);font-weight:700">22%</div>
+        <div style="font-size:.6rem;color:var(--stone);margin-top:.15rem">Matin</div>
+        <div style="font-size:.55rem;color:var(--stone);font-style:italic">20–25%</div>
+      </div>
+      <div style="text-align:center;background:#FDE8EF;border-radius:4px;padding:.5rem .2rem">
+        <div style="font-family:'Cinzel',serif;font-size:1rem;color:var(--rose-dim);font-weight:700">28%</div>
+        <div style="font-size:.6rem;color:var(--stone);margin-top:.15rem">Avant</div>
+        <div style="font-size:.55rem;color:var(--stone);font-style:italic">25–30%</div>
+      </div>
+      <div style="text-align:center;background:#FDE8EF;border-radius:4px;padding:.5rem .2rem">
+        <div style="font-family:'Cinzel',serif;font-size:1rem;color:var(--rose-dim);font-weight:700">28%</div>
+        <div style="font-size:.6rem;color:var(--stone);margin-top:.15rem">Après</div>
+        <div style="font-size:.55rem;color:var(--stone);font-style:italic">25–30%</div>
+      </div>
+      <div style="text-align:center;background:var(--cream-dark);border-radius:4px;padding:.5rem .2rem">
+        <div style="font-family:'Cinzel',serif;font-size:1rem;color:var(--ink-light);font-weight:700">18%</div>
+        <div style="font-size:.6rem;color:var(--stone);margin-top:.15rem">Soir</div>
+        <div style="font-size:.55rem;color:var(--stone);font-style:italic">15–20%</div>
+      </div>
+    </div>
+    <div class="text-xs">En sèche : maintenir les glucides autour des séances, les réduire en priorité le soir et le matin. Distribution des protéines : 3–5 prises/jour · espacement 3–5h · 0,4–0,55 g/kg par prise.</div>
+  </div>
+
+  <!-- 2. Suivi -->
+  <div id="n-suivi" class="h3">2 — Suivi &amp; ajustements</div>
+  <div class="card mb2">
+    <div class="card-title">En Masse</div>
+    <div class="highlight" style="margin-bottom:.65rem"><strong>Réalité du muscle naturel</strong>Le muscle se construit lentement. 1ère année : 0,5–1 kg de muscle pur/mois dans des conditions optimales. Intermédiaire : 0,25–0,5 kg/mois. Une prise de poids &gt;0,5 kg/semaine = majoritairement de la graisse.</div>
+    <table style="font-size:.8rem"><thead><tr><th>Observation</th><th>Durée avant d'agir</th><th>Action</th></tr></thead><tbody>
+      <tr><td>Poids stagne</td><td>7 jours</td><td>+100–150 kcal sur les glucides</td></tr>
+      <tr><td>Prise &gt;0,6 kg/sem.</td><td>2 semaines</td><td>−100–150 kcal sur les glucides</td></tr>
+      <tr><td>Performances en baisse malgré surplus</td><td>1 semaine</td><td>Vérifier sommeil, stress et protéines</td></tr>
+      <tr><td>Prise de gras visible et rapide</td><td>2 semaines</td><td>Réduire surplus à 150 kcal max, recalibrer TDEE</td></tr>
+    </tbody></table>
+    <div class="highlight-rose mt1" style="margin-bottom:.65rem"><strong>Qualité alimentaire en masse</strong>La qualité des aliments influence directement la qualité de la masse prise. Viser 80% d'aliments complets et non transformés, avec 20% de flexibilité. Un surplus excessif ne construit pas plus de muscle — il accumule davantage de graisse.</div>
+    <div class="card-title mt1">En Sèche</div>
+    <table style="font-size:.8rem"><thead><tr><th>Indicateur</th><th>Interprétation</th></tr></thead><tbody>
+      <tr><td>Poids (moy. 3 jours)</td><td>Baisse 0,2–0,5 kg/sem. = correct</td></tr>
+      <tr><td>Performances</td><td>Chute brutale = déficit trop agressif</td></tr>
+    </tbody></table>
+    <div class="text-xs mt1">Note : le cycle menstruel peut faire varier le poids de 1–3 kg. Toujours comparer des phases identiques du cycle.</div>
+  </div>
+
+  <!-- 3. Hydratation -->
+  <div id="n-hydrat" class="h3">3 — Hydratation</div>
+  <div class="card mb2">
+    <div class="highlight" style="margin-bottom:.65rem"><strong>Impact déshydratation</strong>−2% du poids corporel → Force −10% · Cognition −20%. En musculation, l'eau conditionne le volume cellulaire des muscles, le transport des nutriments et l'élimination des déchets. Ne pas attendre la soif — elle indique une déshydratation déjà installée.</div>
+    <table><thead><tr><th>Profil</th><th>Minimum / jour</th><th>Objectif optimal</th></tr></thead><tbody>
+      <tr><td>Peu active</td><td>2,0 L</td><td>2,5 L</td></tr>
+      <tr><td>3–4 séances/sem.</td><td>2,5 L</td><td>3,0–3,5 L</td></tr>
+      <tr><td>5 séances + cardio</td><td>3,0 L</td><td>3,5–4,0 L</td></tr>
+    </tbody></table>
+    <div class="highlight mt1" style="margin-bottom:0"><strong>Repère individuel</strong>35 à 45 ml × ton poids corporel (kg) par jour. Exemple : 65 kg × 40 ml = 2,6 L/jour. Indicateur fiable : urines claires à légèrement jaunes = bonne hydratation.</div>
+  </div>
+
+  <!-- 4. Erreurs sèche -->
+  <div id="n-erreurs" class="h3">4 — Erreurs fréquentes en sèche</div>
+  <div class="card mb2">
+    <ul class="checklist">
+      <li><span class="crs">✗</span><div><strong>Supprimer complètement les glucides</strong> — Les glucides sont le carburant de l'entraînement. Les supprimer = force en chute libre, perte musculaire accélérée, fatigue chronique. Les réduire intelligemment = correct.</div></li>
+      <li><span class="crs">✗</span><div><strong>Ne pas augmenter les protéines</strong> — En déficit calorique, les besoins en protéines augmentent car le corps cherche de l'énergie dans le muscle. Garder les mêmes apports qu'en masse = erreur fréquente.</div></li>
+      <li><span class="crs">✗</span><div><strong>Trop de cardio + peu de kcal</strong> — Combiner un déficit sévère avec du cardio intense est la combinaison qui détruit le plus de muscle. L'un ou l'autre à dose raisonnable — pas les deux à l'extrême.</div></li>
+      <li><span class="crs">✗</span><div><strong>Négliger le sommeil</strong> — Le manque de sommeil élève le cortisol, ce qui amplifie la faim et ralentit la perte de graisse. 7h30 minimum est non négociable.</div></li>
+      <li><span class="crs">✗</span><div><strong>Modifier l'alimentation trop souvent</strong> — Le corps met 10 à 14 jours à s'adapter à un changement calorique. Ajuster toutes les semaines brouille les données et empêche de comprendre ce qui fonctionne.</div></li>
+      <li><span class="crs">✗</span><div><strong>Sèche trop longue sans pause</strong> — Au-delà de 16 à 20 semaines de déficit continu, le métabolisme s'adapte à la baisse et la perte musculaire s'accélère. Prévoir une phase de maintien intermédiaire (reverse diet).</div></li>
+    </ul>
+  </div>
+
+  <!-- 5. Macros -->
+  <div id="n-macros" class="h3">5 — Les 3 macronutriments</div>
+  <div class="card mb2">
+    <div style="background:#FDE8EF;border-radius:6px;padding:.75rem;margin-bottom:.5rem"><div style="font-family:'Cinzel',serif;font-size:.68rem;color:var(--rose-dim);font-weight:700;margin-bottom:.25rem">PROTÉINES — 4 kcal/g · 1,6–2,2 g/kg</div><div class="text-xs" style="color:var(--ink-light)">Poulet, dinde, bœuf maigre, saumon, thon, œufs, fromage blanc 0%, yaourt grec, légumineuses, whey</div></div>
+    <div style="background:#FDF3D5;border-radius:6px;padding:.75rem;margin-bottom:.5rem"><div style="font-family:'Cinzel',serif;font-size:.68rem;color:var(--gold);font-weight:700;margin-bottom:.25rem">GLUCIDES — 4 kcal/g · Variable selon phase</div><div class="text-xs" style="color:var(--ink-light)">Riz, flocons d'avoine, patate douce, pomme de terre, pâtes complètes, pain complet, banane, dattes, légumes verts</div></div>
+    <div style="background:var(--cream-dark);border-radius:6px;padding:.75rem"><div style="font-family:'Cinzel',serif;font-size:.68rem;color:var(--stone);font-weight:700;margin-bottom:.25rem">LIPIDES — 9 kcal/g · 0,8–1,5 g/kg selon phase</div><div class="text-xs" style="color:var(--ink-light)">Huile d'olive, avocat, noix, amandes, saumon, œufs entiers, beurre de cacahuète, graines de lin et chia. Essentiels pour les hormones féminines.</div></div>
+  </div>
+
+  <!-- 6. Cardio -->
+  <div id="n-cardio" class="h3">6 — Cardio &amp; dépense</div>
+  <div class="card mb2">
+    <div style="background:#E6F3E9;border:1px solid #A8D5B5;border-radius:6px;padding:.75rem;margin-bottom:.4rem">
+      <div style="font-family:'Cinzel',serif;font-size:.75rem;color:var(--green);font-weight:700;margin-bottom:.2rem">LISS — 120–140 bpm</div>
+      <div style="font-family:'Cinzel',serif;font-size:.95rem;color:var(--green);font-weight:700;margin-bottom:.2rem">3–5×/sem. · 30–60 min</div>
+      <div class="text-xs">Brûlage graisses · Récupération active · <strong>Recommandé en sèche</strong></div>
+    </div>
+    <div style="background:#FDE8EF;border:1px solid #F5C0CF;border-radius:6px;padding:.75rem">
+      <div style="font-family:'Cinzel',serif;font-size:.75rem;color:var(--rose-dim);font-weight:700;margin-bottom:.2rem">HIIT — MAX 1–2×/sem.</div>
+      <div class="text-xs">Risque élevé en sèche. À limiter en Phase 3–5 (fatigue cumulative).</div>
+    </div>
+  </div>
+
+  <!-- 7. Sèche -->
+  <div id="n-seche" class="h3">7 — Sèche contrôlée</div>
+  <div class="card mb2">
+    <div style="border:2px solid var(--green);border-radius:6px;padding:.75rem;margin-bottom:.5rem">
+      <div style="font-family:'Cinzel',serif;font-size:.7rem;color:var(--green);margin-bottom:.5rem">✓ SÈCHE CONTRÔLÉE</div>
+      <ul class="checklist"><li><span class="chk">✓</span>Déficit 200–300 kcal</li><li><span class="chk">✓</span>Protéines 1,8–2,2 g/kg</li><li><span class="chk">✓</span>Perte 0,5–1% du poids/sem.</li><li><span class="chk">✓</span>LISS 3–4×/semaine</li><li><span class="chk">✓</span>Durée max. 16–20 semaines sans pause</li></ul>
+    </div>
+    <div style="border:2px solid #8B1A1A;border-radius:6px;padding:.75rem">
+      <div style="font-family:'Cinzel',serif;font-size:.7rem;color:#8B1A1A;margin-bottom:.5rem">✗ SÈCHE AGRESSIVE</div>
+      <ul class="checklist"><li><span class="crs">✗</span>Déficit &gt;700 kcal</li><li><span class="crs">✗</span>Protéines non augmentées</li><li><span class="crs">✗</span>Perte &gt;1,5% du poids/sem.</li><li><span class="crs">✗</span>Cardio excessif</li></ul>
+    </div>
+    <div class="highlight mt1"><strong>Règle d'or — vitesse de perte optimale</strong>0,5 à 1% de ton poids corporel par semaine. Exemple pour 65 kg : 0,3 à 0,65 kg/sem. Au-delà, la perte musculaire devient significative. La lenteur est une force en sèche.</div>
+    <div class="highlight-rose mt1" style="margin-bottom:0"><strong>Fenêtre anabolique post-séance</strong>C'est une réalité biologique, mais sa durée est bien plus large qu'on ne le croit : plusieurs heures, pas quelques minutes. Priorité absolue : les totaux journaliers.</div>
+  </div>
+
+  <div class="card mb2">
+    <div class="card-title">Suivi &amp; ajustements en sèche</div>
+    <div class="text-xs mb2">En sèche, les marges sont plus étroites. Toujours suivre plusieurs indicateurs — le poids seul est trompeur à cause des variations de rétention d'eau.</div>
+    <table style="font-size:.8rem"><thead><tr><th>Indicateur</th><th>Fréquence</th><th>Interprétation</th></tr></thead><tbody>
+      <tr><td>Poids (moy. 7 jours)</td><td>Chaque matin à jeun</td><td>Baisse 0,2–0,5 kg/sem. = correct</td></tr>
+      <tr><td>Tour de taille &amp; hanches</td><td>1 fois/sem.</td><td>Baisse = perte de gras confirmée</td></tr>
+      <tr><td>Photos</td><td>1 fois/sem.</td><td>Évolution visuelle de la composition</td></tr>
+      <tr><td>Performances séance</td><td>À chaque séance</td><td>Chute brutale = déficit trop agressif</td></tr>
+    </tbody></table>
+  </div>
+
+  <!-- 8. Maintien -->
+  <div id="n-maintien" class="h3">8 — Phase de maintien</div>
+  <div class="card mb2" style="background:var(--ink);border-color:var(--ink)">
+    <div class="card-title" style="color:var(--rose-light);margin-bottom:.5rem">Philosophie du maintien</div>
+    <div style="font-size:.85rem;color:var(--cream);line-height:1.6">Le maintien est souvent vu comme une période d'attente entre deux phases actives. C'est une erreur. C'est la phase où le corps se stabilise, où la sensibilité à l'insuline se restaure après une longue sèche, où les hormones se rééquilibrent et où les adaptations musculaires se consolident.</div>
+  </div>
+  <div class="card mb2">
+    <div class="card-title">Macros en maintien</div>
+    <div class="text-xs mb2">L'objectif est une stabilité du poids corporel de ±1 kg sur 4 semaines, avec des performances stables ou en légère progression.</div>
+    <table><thead><tr><th>Macro</th><th>Objectif</th><th>Note</th></tr></thead><tbody>
+      <tr><td>Protéines</td><td>1,8–2,0 g/kg</td><td>Maintenir l'apport de sèche — protection musculaire active</td></tr>
+      <tr><td>Glucides</td><td>3,0–4,5 g/kg</td><td>Remonter progressivement depuis la sèche : +50 g/semaine</td></tr>
+      <tr><td>Lipides</td><td>0,8–1,0 g/kg</td><td>Restaurer les graisses après sèche — surtout sources insaturées</td></tr>
+      <tr><td>Calories</td><td>= TDEE</td><td>Recalibrer après sèche — le métabolisme peut s'être ajusté</td></tr>
+    </tbody></table>
+  </div>
+
+  <!-- 9. Cycle & Nutrition -->
+  <div id="n-cycle-nutri" class="h3">9 — Cycle menstruel &amp; nutrition</div>
+  <div class="card mb2">
+    <div class="text-sm mb2">L'adaptation nutritionnelle au cycle n'est pas obligatoire, mais elle permet de mieux gérer énergie, rétention d'eau et faim selon les phases.</div>
+    <table style="font-size:.8rem"><thead><tr><th>Phase</th><th>Durée</th><th>Adaptation nutrition</th></tr></thead><tbody>
+      <tr><td><strong>Menstruelle</strong></td><td>J1–J5</td><td>Maintenir les glucides — ne pas réduire en cas de fatigue. Prioriser le fer (viandes, légumineuses).</td></tr>
+      <tr><td><strong>Folliculaire</strong></td><td>J1–J13</td><td>Phase idéale pour surcharger — énergie haute, récupération rapide. Glucides normaux ou légèrement augmentés.</td></tr>
+      <tr><td><strong>Ovulatoire</strong></td><td>J13–J15</td><td>Performances maximales. Pas d'adaptation spécifique nécessaire. Maintenir les totaux journaliers.</td></tr>
+      <tr><td><strong>Lutéale précoce</strong></td><td>J15–J22</td><td>Bonne récupération encore. Maintenir le volume d'apport glucidique autour des séances.</td></tr>
+      <tr><td><strong>Lutéale tardive</strong></td><td>J22–J28</td><td>Fatigue et fringales possibles. Augmenter légèrement les glucides (+30–50 g/j). Rétention d'eau de 1–3 kg normale — ne pas modifier le plan alimentaire en réaction.</td></tr>
+    </tbody></table>
+    <div class="highlight-rose mt1" style="margin-bottom:0"><strong>Rappel clé</strong>Le poids peut varier de 1–3 kg selon la phase du cycle. Toujours comparer des moments identiques entre eux. Ne jamais réduire drastiquement les calories en réponse à une prise de poids en phase lutéale — c'est de la rétention d'eau, pas de la graisse.</div>
+  </div>
+
+  <!-- 10. Transitions + Reverse diet -->
+  <div id="n-transitions" class="h3">10 — Transitions entre phases &amp; Reverse Diet</div>
+  <div class="card mb2">
+    <div class="text-sm mb2">Les transitions sont des moments critiques. Un changement brutal de calories génère des variations de rétention d'eau trompeuses et une mauvaise adaptation du métabolisme. La progressivité est non négociable.</div>
+    <table style="font-size:.8rem"><thead><tr><th>Transition</th><th>Durée</th><th>Comment faire</th><th>Signal réussite</th></tr></thead><tbody>
+      <tr><td>Masse → Maintien</td><td>2–3 sem.</td><td>−50 kcal/sem. jusqu'au TDEE</td><td>Poids stable 10 jours</td></tr>
+      <tr><td>Maintien → Sèche</td><td>1–2 sem.</td><td>−50 g glucides/sem. + protéines +0,2 g/kg</td><td>Déficit installé, perfo stables</td></tr>
+      <tr><td>Sèche → Maintien (reverse)</td><td>4–8 sem.</td><td>+50–100 kcal/sem. sur les glucides</td><td>Poids stable, énergie et hormones normales</td></tr>
+      <tr><td>Maintien → Masse</td><td>1–2 sem.</td><td>+50 kcal/jour par semaine jusqu'à TDEE+200–300</td><td>Légère prise de poids amorcée</td></tr>
+    </tbody></table>
+  </div>
+
+  <div class="card mb2" style="border-left:3px solid var(--rose)">
+    <div class="card-title">La Reverse Diet — Qu'est-ce que c'est ?</div>
+    <div class="text-sm mb2">Après une longue sèche, remonter directement en masse est une erreur. Le métabolisme s'est adapté au déficit, les hormones sont basses, la sensibilité à l'insuline est altérée. La reverse diet consiste à remonter les calories très progressivement pour restaurer ces paramètres sans reprise de gras excessive.</div>
+    <div class="highlight" style="margin-bottom:.65rem"><strong>Protocole Reverse Diet</strong>+50 à +100 kcal par semaine, principalement sur les glucides. Signal de réussite : poids stable, énergie et hormones revenues à la normale avant de passer en masse.</div>
+    <div class="card-title mb1">Règle de proportionnalité</div>
+    <div class="vol-row"><span>8 semaines de sèche</span><span class="vol-val">→ 3–4 sem. de reverse</span></div>
+    <div class="vol-row"><span>12 semaines de sèche</span><span class="vol-val">→ 4–6 sem. de reverse</span></div>
+    <div class="vol-row"><span>16 semaines de sèche</span><span class="vol-val">→ 6–8 sem. de reverse</span></div>
+    <div class="text-xs mt1">Comptez environ 1 semaine de reverse pour chaque 2 à 3 semaines de sèche. Cette progressivité limite la reprise de gras tout en restaurant pleinement le métabolisme.</div>
+  </div>
+
+  <!-- 9. FAQ -->
+  <div id="n-faq" class="h3">11 — FAQ Nutrition</div>
+  <div id="faq-nutrition"></div>
+</div>
+
+<!-- ═══ COMPLÉMENTS ═══ -->
+<div class="page" id="page-supplements">
+  <div class="page-header">
+    <div class="page-label">Supplémentation</div>
+    <div class="page-title">Compléments</div>
+  </div>
+  <div class="highlight-rose mb2"><strong>Règle d'or</strong>Alimentation d'abord → Récupération → Supplémentation. Un complément complète, il ne remplace pas.</div>
+  <div class="h3">Prouvés scientifiquement</div>
+  <div class="card card-green mb1">
+    <div class="card-title">Créatine Monohydrate</div>
+    <div style="font-family:'Cinzel',serif;font-size:1rem;color:var(--green)">3–5 g/jour · N'importe quand</div>
+    <ul class="checklist mt1"><li><span class="chk">✓</span>Force +5–10%</li><li><span class="chk">✓</span>Volume musculaire + récupération</li><li><span class="chk">✓</span>Toutes les phases · Retient légèrement l'eau au début</li></ul>
+  </div>
+  <div class="card card-green mb1">
+    <div class="card-title">Whey Protéine</div>
+    <div style="font-family:'Cinzel',serif;font-size:1rem;color:var(--green)">20–35 g/prise · Après séance ou entre repas</div>
+    <ul class="checklist mt1"><li><span class="chk">✓</span>Facilite l'atteinte des apports</li><li><span class="chk">✓</span>Rapide et pratique · Toutes phases</li></ul>
+  </div>
+  <div class="card card-green mb1">
+    <div class="card-title">Oméga-3 (EPA+DHA)</div>
+    <div style="font-family:'Cinzel',serif;font-size:1rem;color:var(--green)">2–3 g/jour · Avec repas lipidique</div>
+    <ul class="checklist mt1"><li><span class="chk">✓</span>Anti-inflammatoire · Santé articulaire</li><li><span class="chk">✓</span>Régulation hormonale féminine</li></ul>
+  </div>
+  <div class="card card-green mb1">
+    <div class="card-title">Vitamine D3 + K2</div>
+    <div style="font-family:'Cinzel',serif;font-size:1rem;color:var(--green)">2000–4000 UI + 100 mcg K2 · Repas lipidique</div>
+    <ul class="checklist mt1"><li><span class="chk">✓</span>Santé hormonale · Immunité · Énergie</li></ul>
+  </div>
+  <div class="card card-green mb1">
+    <div class="card-title">Magnésium Bisglycinate</div>
+    <div style="font-family:'Cinzel',serif;font-size:1rem;color:var(--green)">300–400 mg/jour · Le soir</div>
+    <ul class="checklist mt1"><li><span class="chk">✓</span>Meilleur sommeil · Réduction des crampes</li><li><span class="chk">✓</span>Soutien hormonal en phase lutéale</li></ul>
+  </div>
+  <div class="card card-green mb2">
+    <div class="card-title">Fer + Vitamine C</div>
+    <div style="font-family:'Cinzel',serif;font-size:1rem;color:var(--green)">Selon analyse sanguine · Avec vitamine C</div>
+    <ul class="checklist mt1"><li><span class="chk">✓</span>Énergie et récupération · Surtout en phase menstruelle</li><li><span class="chk">✓</span>Consulter un médecin avant supplémentation</li></ul>
+  </div>
+  <div class="h3">Optionnels</div>
+  <div class="card mb2">
+    <table><thead><tr><th>Produit</th><th>Bénéfice</th><th>Dosage</th></tr></thead><tbody>
+      <tr><td><strong>Caféine</strong></td><td>Perfo +3–7%</td><td>3–5 mg/kg · 45 min avant</td></tr>
+      <tr><td><strong>Zinc</strong></td><td>Équilibre hormonal</td><td>15–25 mg/jour</td></tr>
+      <tr><td><strong>Ashwagandha</strong></td><td>Cortisol↓ · Stress</td><td>300–600 mg/jour</td></tr>
+      <tr><td><strong>Collagène + Vit. C</strong></td><td>Santé tendons/ligaments</td><td>10 g · Avant séance</td></tr>
+    </tbody></table>
+  </div>
+  <div class="h3">À éviter</div>
+  <div class="card card-rose mb2">
+    <ul class="checklist">
+      <li><span class="crs">✗</span>Brûleurs de graisse thermogéniques — risque cardiovasculaire et hormonal</li>
+      <li><span class="crs">✗</span>Boosters testostérone — contre-indiqués pour les femmes</li>
+      <li><span class="crs">✗</span>BCAA si apports protéiques atteints — redondants</li>
+      <li><span class="crs">✗</span>Détox / diurétiques — inutiles et potentiellement dangereux</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// SCROLL
+// ============================================================
+function scrollToId(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const activePage = document.querySelector('.page.active');
+  if (activePage) {
+    const elTop = el.getBoundingClientRect().top;
+    const pageTop = activePage.getBoundingClientRect().top;
+    const offset = elTop - pageTop + activePage.scrollTop - 60;
+    activePage.scrollTo({top: offset, behavior: 'smooth'});
+  }
+}
+
+// ============================================================
+// SUIVI CORPOREL
+// ============================================================
+let suiviEntries = JSON.parse(localStorage.getItem('hsf_suivi') || '[]');
+let mensEntries  = JSON.parse(localStorage.getItem('hsf_mens')  || '[]');
+let mensurDraft  = JSON.parse(localStorage.getItem('hsf_mens_draft') || '{}');
+
+function restoreMensDraft() {
+  const fields = ['sw-epaules','sw-pecs','sw-taille','sw-hanches','sw-fessiers','sw-cuisse'];
+  fields.forEach(id => { const el = document.getElementById(id); if (el && mensurDraft[id]) el.value = mensurDraft[id]; });
+}
+function restoreSuiviDraft() {
+  const draft = JSON.parse(localStorage.getItem('hsf_suivi_draft') || 'null');
+  if (!draft) return;
+  const p = document.getElementById('sw-poids'); const d = document.getElementById('sw-date');
+  if (p && draft.poids) p.value = draft.poids;
+  if (d && draft.date) d.value = draft.date;
+}
+function autosaveSuivi() {
+  const poids = document.getElementById('sw-poids').value;
+  const date  = document.getElementById('sw-date').value;
+  if (poids) localStorage.setItem('hsf_suivi_draft', JSON.stringify({poids, date}));
+}
+function autosaveMensurations() {
+  const fields = ['sw-epaules','sw-pecs','sw-taille','sw-hanches','sw-fessiers','sw-cuisse'];
+  fields.forEach(id => { const el = document.getElementById(id); if (el) mensurDraft[id] = el.value; });
+  localStorage.setItem('hsf_mens_draft', JSON.stringify(mensurDraft));
+  const ind = document.getElementById('mens-autosave-indicator');
+  if (ind) { ind.style.opacity = '1'; setTimeout(() => ind.style.opacity = '0', 1500); }
+}
+function saveSuiviEntry() {
+  const date  = document.getElementById('sw-date').value.trim() || new Date().toLocaleDateString('fr-FR');
+  const poids = parseFloat(document.getElementById('sw-poids').value);
+  if (!poids) { notify('Saisis ton poids'); return; }
+  suiviEntries.push({ date, poids, ts: Date.now() });
+  suiviEntries.sort((a,b) => a.ts - b.ts);
+  localStorage.setItem('hsf_suivi', JSON.stringify(suiviEntries));
+  localStorage.removeItem('hsf_suivi_draft');
+  document.getElementById('sw-poids').value = '';
+  renderSuivi(); notify('Pesée enregistrée ✓'); syncPoidsNutrition();
+}
+function saveMensurationsEntry() {
+  const epaules = parseFloat(document.getElementById('sw-epaules').value) || null;
+  const pecs    = parseFloat(document.getElementById('sw-pecs').value)    || null;
+  const taille  = parseFloat(document.getElementById('sw-taille').value)  || null;
+  const hanches = parseFloat(document.getElementById('sw-hanches').value) || null;
+  const fessiers= parseFloat(document.getElementById('sw-fessiers').value)|| null;
+  const cuisse  = parseFloat(document.getElementById('sw-cuisse').value)  || null;
+  if (!epaules && !pecs && !taille && !hanches && !fessiers && !cuisse) { notify('Saisis au moins une mensuration'); return; }
+  const date = new Date().toLocaleDateString('fr-FR', {month:'long', year:'numeric'});
+  mensEntries.push({ date, epaules, pecs, taille, hanches, fessiers, cuisse, ts: Date.now() });
+  mensEntries.sort((a,b) => a.ts - b.ts);
+  localStorage.setItem('hsf_mens', JSON.stringify(mensEntries));
+  mensurDraft = {}; localStorage.removeItem('hsf_mens_draft');
+  ['sw-epaules','sw-pecs','sw-taille','sw-hanches','sw-fessiers','sw-cuisse'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+  renderSuivi(); notify('Mensurations enregistrées ✓');
+}
+function clearSuivi() {
+  if (!confirm('Effacer tout le suivi corporel ?')) return;
+  suiviEntries = []; mensEntries = []; mensurDraft = {};
+  ['hsf_suivi','hsf_mens','hsf_mens_draft','hsf_suivi_draft'].forEach(k => localStorage.removeItem(k));
+  renderSuivi(); notify('Suivi effacé');
+}
+function parseDate(str) {
+  if (!str) return null;
+  const p = str.split('/');
+  if (p.length === 2) return new Date(new Date().getFullYear(), parseInt(p[1])-1, parseInt(p[0]));
+  if (p.length === 3) return new Date(parseInt(p[2]), parseInt(p[1])-1, parseInt(p[0]));
+  return null;
+}
+function getISOWeek(d) {
+  const jan1 = new Date(d.getFullYear(), 0, 1);
+  return d.getFullYear() + '-S' + String(Math.ceil((((d - jan1) / 86400000) + jan1.getDay() + 1) / 7)).padStart(2,'0');
+}
+function deltaSign(cur, prev) {
+  if (cur === null || prev === null) return {cls:'delta-eq', txt:''};
+  const d = Math.round((cur - prev)*10)/10;
+  if (d > 0) return {cls:'delta-up', txt:'+'+d};
+  if (d < 0) return {cls:'delta-down', txt:String(d)};
+  return {cls:'delta-eq', txt:'='};
+}
+function renderSuivi() { renderPoidsChart(); renderMensurationsHistory(); }
+function renderPoidsChart() {
+  const el = document.getElementById('poids-chart-box');
+  if (!el) return;
+  if (!suiviEntries.length) { el.innerHTML = '<div class="text-sm">Aucune donnée.</div>'; return; }
+  const weeks = {};
+  suiviEntries.forEach(e => {
+    const d = parseDate(e.date); if (!d) return;
+    const wk = getISOWeek(d);
+    if (!weeks[wk]) weeks[wk] = { label: wk, vals: [] };
+    weeks[wk].vals.push(e.poids);
+  });
+  const weekArr = Object.values(weeks).map(w => ({ label: w.label, avg: Math.round((w.vals.reduce((a,b)=>a+b,0)/w.vals.length)*10)/10 })).slice(-8);
+  if (!weekArr.length) return;
+  const maxW = Math.max(...weekArr.map(w=>w.avg)), minW = Math.min(...weekArr.map(w=>w.avg)), range = maxW - minW || 1;
+  const trend = weekArr.length > 1 ? Math.round((weekArr[weekArr.length-1].avg - weekArr[0].avg)*10)/10 : null;
+  el.innerHTML = weekArr.map(w => {
+    const pct = Math.round(50 + (w.avg - minW) / range * 45);
+    return `<div class="chart-bar-wrap"><div class="chart-bar-row"><span class="chart-bar-label">${w.label.replace(/\d{4}-/,'')}</span><div class="chart-bar-bg"><div class="chart-bar-fill" style="width:${pct}%"></div></div><span class="chart-bar-val">${w.avg} kg</span></div></div>`;
+  }).join('') + (trend !== null ? `<div class="text-xs mt1">Évolution : ${weekArr[0].avg} → ${weekArr[weekArr.length-1].avg} kg <span class="${trend>0?'delta-up':trend<0?'delta-down':'delta-eq'}">(${trend>0?'+':''}${trend} kg)</span></div>` : '');
+}
+function renderMensurationsHistory() {
+  const el = document.getElementById('suivi-history-box');
+  if (!el) return;
+  if (!suiviEntries.length && !mensEntries.length) { el.innerHTML = '<div class="text-sm">Aucune entrée.</div>'; return; }
+  let html = '';
+  if (suiviEntries.length) {
+    html += `<div style="font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.1em;color:var(--rose-dim);text-transform:uppercase;margin-bottom:.5rem">Pesées récentes</div>`;
+    const recent = [...suiviEntries].reverse().slice(0, 10);
+    recent.forEach((e, i) => {
+      const prev = recent[i+1];
+      const d = prev ? deltaSign(e.poids, prev.poids) : {cls:'delta-eq',txt:''};
+      html += `<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.3rem;padding:.3rem 0;border-bottom:1px solid #F0ECE4;font-size:.85rem"><span style="color:var(--stone)">${e.date}</span><span><strong>${e.poids}</strong> kg</span><span class="${d.cls}">${d.txt}</span></div>`;
+    });
+  }
+  if (mensEntries.length) {
+    html += `<div style="font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.1em;color:var(--rose-dim);text-transform:uppercase;margin:1rem 0 .5rem">Mensurations</div>`;
+    const fields = [{key:'epaules',label:'Épaules'},{key:'pecs',label:'Pecs'},{key:'taille',label:'Taille'},{key:'hanches',label:'Hanches'},{key:'fessiers',label:'Fessiers'},{key:'cuisse',label:'Cuisse'}];
+    const cols = [...mensEntries].reverse().slice(0, 3);
+    html += `<div style="overflow-x:auto"><table style="font-size:.78rem;min-width:300px"><thead><tr><th>Mesure</th>${cols.map(e=>`<th style="text-align:center">${e.date}</th>`).join('')}${cols.length>1?'<th style="text-align:center">Évol.</th>':''}</tr></thead><tbody>`;
+    fields.forEach(f => {
+      const vals = cols.map(e => e[f.key]);
+      if (!vals.some(v => v !== null)) return;
+      const last = vals.find(v=>v!==null), first = [...vals].reverse().find(v=>v!==null);
+      const evo = (last!==null&&first!==null&&cols.length>1) ? deltaSign(last,first) : null;
+      html += `<tr><td style="font-family:'Cinzel',serif;font-size:.65rem;color:var(--stone)">${f.label}</td>${vals.map(v=>`<td style="text-align:center">${v!==null?v+' cm':'—'}</td>`).join('')}${evo?`<td style="text-align:center" class="${evo.cls}">${evo.txt} cm</td>`:(cols.length>1?'<td>—</td>':'')}</tr>`;
+    });
+    html += '</tbody></table></div>';
+  }
+  el.innerHTML = html;
+}
+
+// ============================================================
+// DONNÉES DU PROGRAMME — 5 PHASES
+// ============================================================
+const W = {
+p1:{
+  info:"<strong>Phase 1 — Base &amp; Connexion Neuromusculaire</strong> · S1–S10 · 3 séances/sem. · ~55 min/séance · Objectif : établir la connexion corps-esprit sur les exercices fondamentaux. Les charges restent modérées, la technique prime absolument. RIR cible : 2–4.<br><em style='color:var(--rose-light)'>Progression : Sem. 1–3 : RIR 4 &middot; Sem. 4–7 : RIR 3 &middot; Sem. 8–10 : RIR 2 sur Hip Thrust &amp; RDL.</em><br><span style='color:var(--gold-light)'>⭐ Cette phase est présente pour isoler le travail technique. Si les fondamentaux sont maîtrisés, tu peux passer à la phase suivante.</span>",
+  dur:"10 semaines", rir:"RIR 2–4", seances:3,
+  vol:{Fessiers:"16 séries/sem.",Ischios:"6 séries/sem.",Dos:"10 séries/sem.","Ratio lower/upper":"2:1"},
+  passage:"Fin sem. 10 : Hip Thrust 100–150% PDC × 12 reps propres · RDL haltères 30–50% PDC × 12 reps · Goblet Squat 30–40% PDC × 12 reps · Vacuum debout 15s + respiration · Plank 45s",
+  seanceA:{title:"Séance A — Lower Heavy",sub:"Lundi · Fessiers &amp; Ischios",repos:"90s Hip Thrust &amp; RDL · 60s isolation · 45s gainage",ex:[
+    {n:"Hip Thrust barre",s:"4",r:"10–12",rir:"3–4",type:"Hyper",note:"Priorité absolue — muscles encore frais. Pause 2s en haut, serrage maximal, bassin neutre.",p:true},
+    {n:"Romanian Deadlift haltères",s:"3",r:"10–12",rir:"3",type:"Hyper",note:"Dos plat, genoux quasi-tendus, tension ischios.",p:false},
+    {n:"Goblet Squat",s:"4",r:"12",rir:"3",type:"Iso",note:"Mobilité hanche. Talons ancrés, genoux dans l'axe des orteils.",p:false},
+    {n:"Hip Abduction élastique debout",s:"3",r:"15/jambe",rir:"3",type:"Iso",note:"Fessier moyen. Hanche à hauteur max, fessier seul.",p:false},
+    {n:"Step Up Box",s:"3",r:"10/jambe",rir:"3",type:"Hyper",note:"Engagement de la poussée avec le fessier. Pied entier sur la box, ne pas rebondir.",p:false},
+    {n:"Plank",s:"3",r:"30–40s",rir:"—",type:"Gainage",note:"Anti-extension. Corps droit, pas de compensation lombaire.",p:false},
+    {n:"Vacuum debout",s:"3",r:"30–40s",rir:"—",type:"Gainage",note:"Transverse profond. Expiration forcée + rentrée nombril + maintien 10s.",p:false},
+  ]},
+  seanceB:{title:"Séance B — Upper",sub:"Mercredi · Dos, Épaules &amp; Bras",repos:"2 min Barbell Row · 90s reste · 45s supersets",ex:[
+    {n:"Seated Cable Row prise neutre",s:"4",r:"10–12",rir:"3",type:"Hyper",note:"Serrer les omoplates en fin de mouvement.",p:true},
+    {n:"Lat Pulldown prise large",s:"3",r:"10–12",rir:"3",type:"Hyper",note:"Coudes vers les hanches, pas vers l'arrière.",p:false},
+    {n:"Face Pull câble",s:"3",r:"15",rir:"3",type:"Iso",note:"Rotation externe forcée, coudes hauts.",p:false},
+    {n:"Latéral Raise haltères",s:"3",r:"15",rir:"3",type:"Iso",note:"Légère inclinaison avant, pouce vers bas.",p:false},
+    {n:"Curl haltères alterné",s:"3",r:"12",rir:"3",type:"Iso",note:"Coude fixe, supination complète en montant.",p:false},
+    {n:"Triceps Rope Pushdown",s:"3",r:"12–15",rir:"3",type:"Iso",note:"Coudes collés, écartement corde en bas.",p:false},
+    {n:"Pallof Press câble",s:"3",r:"10/côté",rir:"—",type:"Gainage",note:"Résister à la rotation — taille fine.",p:false},
+  ]},
+  seanceC:{title:"Séance C — Lower Pump",sub:"Vendredi · Jambes &amp; Fessier Moyen",repos:"90s poly-articulaires · 60s isolation",ex:[
+    {n:"Bulgarian Split Squat haltères",s:"3",r:"10/jambe",rir:"3",type:"Hyper",note:"Genou stable, hanche basse, talon actif.",p:false},
+    {n:"Leg Press pieds mi-hauts écart moyen",s:"3",r:"12–15",rir:"3",type:"Hyper",note:"Amplitude complète, genoux dans l'axe.",p:false},
+    {n:"RDL haltères",s:"4",r:"15",rir:"3",type:"Hyper",note:"2e session ischios. Même exécution que Séance A.",p:false},
+    {n:"Cable Kickback",s:"3",r:"15/jambe",rir:"3",type:"Iso",note:"Extension maximale, contraction 1s en haut.",p:false},
+    {n:"Abduction machine assise",s:"3",r:"20",rir:"3",type:"Iso",note:"Lent à l'aller, contrôle au retour.",p:false},
+    {n:"Side Plank",s:"3",r:"30s/côté",rir:"—",type:"Gainage",note:"Hanches alignées, pas d'affaissement.",p:false},
+    {n:"Vacuum 4 pattes",s:"3",r:"10s hold",rir:"—",type:"Gainage",note:"Expiration + rentrée nombril + maintien.",p:false},
+  ]},
+},
+p2:{
+  info:"<strong>Phase 2 — Développement &amp; Force</strong> · S12–S21 · 3 séances/sem. · ~65 min/séance · Passage à la barre sur le Squat et le RDL. Introduction du Barbell Row. RIR cible : 1–3.<br><em style='color:var(--rose-light)'>Progression : Sem. 1–2 : RIR 3 &middot; Sem. 3–7 : RIR 2 &middot; Sem. 8–9 : RIR 1 sur Hip Thrust &amp; Squat uniquement.<br><span style='color:var(--gold-light)'>⭐ Cette phase peut être gardée sur le long terme pour développer ton physique — cette phase est construite pour te servir de programme annuel.</span></em>",
+  dur:"10 semaines", rir:"RIR 1–3", seances:3,
+  vol:{Fessiers:"20 séries/sem.",Ischios:"9 séries/sem.",Dos:"10 séries/sem.","Ratio lower/upper":"3:1"},
+  passage:"Fin sem. 21 : Hip Thrust 150–200% PDC × 8 reps · Squat barre 60–80% PDC × 8 reps · RDL barre 60–80% PDC × 10 reps · Barbell Row 40–60% PDC × 8 reps · Vacuum 20s + 3 respirations",
+  seanceA:{title:"Séance A — Lower Heavy",sub:"Lundi · Fessiers &amp; Force",repos:"2 min Hip Thrust &amp; Squat · 90s BSS · 60s isolation",ex:[
+    {n:"RDL barre",s:"4",r:"10",rir:"2–3",type:"Hyper",note:"Haltères → barre. Tempo 3-0-1, descente contrôlée 3 secondes. Dos plat, barre contre les jambes.",p:true},
+    {n:"Bulgarian Split Squat haltères",s:"3",r:"10/jambe",rir:"2",type:"Hyper",note:"Volume, position 2. Tempo 4-0-1 — excentrique maximal.",p:false},
+    {n:"Hip Thrust barre",s:"4",r:"6–10",rir:"2–3",type:"Hyper",note:"Force, +1 série vs P1. Pause 1s en haut, charges maximales de la semaine.",p:true},
+    {n:"Squat barre (back squat)",s:"3",r:"8–10",rir:"2–3",type:"Force",note:"Introduction barre. Profondeur parallèle minimum, talons ancrés.",p:false},
+    {n:"Cable Hip Abduction debout",s:"3",r:"15/côté",rir:"2",type:"Iso",note:"Câble, tension constante. Charges augmentées vs Phase 1, mouvement strict.",p:false},
+    {n:"Plank chargé (disque sur dos)",s:"2",r:"30–40s",rir:"—",type:"Gainage",note:"Disque 5–10 kg posé sur le sacrum.",p:false},
+    {n:"Vacuum debout",s:"2",r:"40s",rir:"—",type:"Gainage",note:"Progression : 12s de hold. Inspiration légère par le nez, creuser le ventre.",p:false},
+  ]},
+  seanceB:{title:"Séance B — Upper",sub:"Mercredi · Dos, Épaules &amp; Bras",repos:"75s Row &amp; Lat Pulldown · 60s isolation · 45s Pallof Press",ex:[
+    {n:"Barbell Row pronation",s:"4",r:"8–10",rir:"2–3",type:"Force",note:"Tempo 2-0-1, contrôle excentrique. Introduction barre.",p:true},
+    {n:"Lat Pulldown prise large",s:"3",r:"10–12",rir:"2",type:"Hyper",note:"Baisser les épaules avant de tirer, coudes vers hanches.",p:false},
+    {n:"Face Pull câble",s:"3",r:"15",rir:"2",type:"Iso",note:"Rotation externe forcée, coudes hauts. Posture &amp; coiffe.",p:false},
+    {n:"Latéral Raise haltères",s:"3",r:"15",rir:"2",type:"Iso",note:"Légère inclinaison avant, pouce vers bas.",p:false},
+    {n:"Curl haltères alterné",s:"3",r:"12",rir:"2",type:"Iso",note:"Coude fixe, supination complète en montant.",p:false},
+    {n:"Triceps Rope Pushdown",s:"3",r:"12–15",rir:"2",type:"Iso",note:"Coudes collés, écartement corde en bas.",p:false},
+    {n:"Pallof Press câble",s:"3",r:"10/côté",rir:"—",type:"Gainage",note:"Résister à la rotation — taille fine.",p:false},
+  ]},
+  seanceC:{title:"Séance C — Lower Pump",sub:"Vendredi · Pump &amp; Congestion",repos:"90s poly-articulaires · 60s isolation",ex:[
+    {n:"Hip Thrust barre pump",s:"3",r:"15",rir:"2",type:"Pump",note:"Mouvement continu, pas de pause, brûlure recherchée.",p:false},
+    {n:"Leg Press pieds hauts écart large",s:"3",r:"12–15",rir:"2",type:"Hyper",note:"Pousser avec les talons, genoux écartés.",p:false},
+    {n:"RDL haltères tempo",s:"3",r:"12",rir:"2",type:"Hyper",note:"Tempo 3-1-1, sentir l'étirement ischios en bas.",p:false},
+    {n:"Walking Lunges haltères (20 pas)",s:"3",r:"20 pas",rir:"2",type:"Pump",note:"Grand pas, genou arrière proche du sol.",p:false},
+    {n:"Cable Kickback",s:"3",r:"15/jambe",rir:"2",type:"Iso",note:"Contraction 1s en haut.",p:false},
+    {n:"Abduction machine assise",s:"3",r:"20",rir:"1–2",type:"Pump",note:"Amplitude complète, pause 1s en ouverture max.",p:false},
+    {n:"Side Plank + Hip Dip",s:"3",r:"10 dips/côté",rir:"—",type:"Gainage",note:"Hip dip lent et contrôlé.",p:false},
+  ]},
+},
+p3:{
+  info:"<strong>Phase 3 — Spécialisation &amp; Techniques Avancées</strong> · S23–S34 · 4 séances/sem. · ~70 min/séance · Passage à 4 séances (3 lower + 1 upper). Introduction rest-pause sur Hip Thrust. RIR cible : 1–2.<br><em style='color:var(--rose-light)'>Progression : Sem. 1–2 : RIR 3 &middot; Sem. 3–8 : RIR 2 &middot; Sem. 9–10 : RIR 1 sur Hip Thrust &amp; Squat.<br><span style='color:var(--gold-light)'>⭐ Cette phase peut être gardée sur le long terme pour développer ton physique — cette phase est construite pour te servir de programme annuel.</span></em>",
+  dur:"12 semaines", rir:"RIR 1–2", seances:4,
+  vol:{Fessiers:"20 séries/sem.",Ischios:"10 séries/sem.",Dos:"11 séries/sem.","Ratio lower/upper":"3:1"},
+  passage:"Fin sem. 34 : Hip Thrust 230–250% PDC × 6–8 reps · Squat barre 80–100% PDC × 6–8 reps · RDL barre 80–100% PDC × 8 reps · Barbell Row 60–80% PDC × 6–8 reps · Ab Wheel 10 reps genoux",
+  seanceA:{title:"Séance A — Lower Heavy",sub:"Lundi · Fessiers &amp; Force",repos:"2–3 min Hip Thrust · 2 min Squat &amp; BSS · 90s reste",ex:[
+    {n:"Hip Thrust barre",s:"4",r:"5–8",rir:"1–2",type:"Force",note:"Charges max, pause 2s en haut.",p:true},
+    {n:"Squat barre",s:"4",r:"5–8",rir:"1–2",type:"Force",note:"Amplitude maximale si mobilité permet, tempo 3-0-1.",p:false},
+    {n:"RDL barre",s:"4",r:"8",rir:"2",type:"Hyper",note:"Charges lourdes, amplitude complète, pas de rebond en bas.",p:false},
+    {n:"Bulgarian Split Squat haltères lourds",s:"3",r:"8/jambe",rir:"2",type:"Hyper",note:"Tempo 4-0-1 — excentrique maximal.",p:false},
+    {n:"Cable Hip Abduction debout",s:"3",r:"15/côté",rir:"2",type:"Iso",note:"Charges augmentées vs Phase 2, mouvement strict.",p:false},
+    {n:"Ab Wheel Rollout genoux",s:"3",r:"10",rir:"—",type:"Gainage",note:"Lombaires creusées = abandon. Ne jamais aller trop loin.",p:false},
+    {n:"Vacuum 4 pattes + respiration",s:"3",r:"15s hold",rir:"—",type:"Gainage",note:"Respirer sans relâcher la contraction du transverse.",p:false},
+  ]},
+  seanceB:{title:"Séance B — Upper",sub:"Mardi · Dos, Épaules &amp; Bras",repos:"2 min Barbell Row · 90s reste · 45s supersets",ex:[
+    {n:"Barbell Row pronation",s:"3",r:"6–8",rir:"1–2",type:"Force",note:"Tempo 2-0-1, contrôle excentrique. Poly-articulaire, position 1.",p:true},
+    {n:"Lat Pulldown lesté / Traction assistée",s:"4",r:"8–10",rir:"2",type:"Hyper",note:"Baisser les épaules avant de tirer.",p:false},
+    {n:"Dips",s:"3",r:"10–12",rir:"2",type:"Iso",note:"Travail d'amplitude, descente contrôlée — engagement triceps &amp; épaules.",p:false},
+    {n:"Face Pull câble",s:"4",r:"15",rir:"2",type:"Iso",note:"Rotation externe forcée, coudes hauts — 4 séries Phase 3.",p:false},
+    {n:"Latéral Raise haltères",s:"3",r:"12–15",rir:"2",type:"Iso",note:"Légère inclinaison avant, pouce vers le bas. Amplitude contrôlée.",p:false},
+    {n:"Curl câble + Triceps Rope superset",s:"3",r:"12+12",rir:"2",type:"Iso",note:"Alterner sans repos entre curl et extension.",p:false},
+    {n:"Pallof Press + rotation câble",s:"3",r:"10/côté",rir:"—",type:"Gainage",note:"Résister d'abord, puis ajouter rotation légère — anti-rotation, taille fine.",p:false},
+  ]},
+  seanceC:{title:"Séance C — Lower Volume",sub:"Jeudi · Jambes &amp; Fessier Moyen",repos:"2 min BSS &amp; Leg Press · 90s reste",ex:[
+    {n:"Bulgarian Split Squat haltères lourds",s:"4",r:"8/jambe",rir:"2",type:"Hyper",note:"Charges maximales de la semaine sur BSS — Position 1, fraîcheur max.",p:true},
+    {n:"Leg Press pieds hauts écart large",s:"4",r:"10–12",rir:"2",type:"Hyper",note:"Lent à la descente, explosif à la montée — amplitude complète.",p:false},
+    {n:"RDL barre",s:"3",r:"10",rir:"2",type:"Hyper",note:"Amplitude complète — si tension lombaire résiduelle : 2 séries à RIR +1.",p:false},
+    {n:"Abduction machine assise",s:"3",r:"20",rir:"2",type:"Iso",note:"Amplitude maximale, brûlure contrôlée — fessier moyen, angle différent.",p:false},
+    {n:"Ab Wheel Rollout genoux",s:"3",r:"10",rir:"—",type:"Gainage",note:"Aller progressivement plus loin chaque semaine — 2e session Ab Wheel.",p:false},
+    {n:"Vacuum debout long",s:"3",r:"20s hold",rir:"—",type:"Gainage",note:"3 respirations nasales pendant le hold.",p:false},
+  ]},
+  seanceD:{title:"Séance D — Lower Pump",sub:"Samedi · Fessiers &amp; Isolation",repos:"60–75s · objectif congestion maximale",ex:[
+    {n:"Hip Thrust barre — rest-pause",s:"3",r:"10+20s+max",rir:"0–1",type:"Pump",note:"Barre sur le rack pendant la pause. Brûlure recherchée.",p:true},
+    {n:"Walking Lunges haltères (20 pas)",s:"3",r:"20 pas",rir:"1–2",type:"Pump",note:"Chercher la brûlure, pas la performance.",p:false},
+    {n:"Cable Kickback",s:"3",r:"15/jambe",rir:"1–2",type:"Iso",note:"Contraction 2s en haut.",p:false},
+    {n:"Abduction machine — drop set",s:"2",r:"15 + drop set",rir:"0",type:"Pump",note:"Avoir les poids prêts — Drop set : -30%.",p:false},
+    {n:"Hollow Body Hold",s:"3",r:"40s",rir:"—",type:"Gainage",note:"Bas du dos au sol, jambes basses si possible.",p:false},
+  ]},
+},
+p4:{
+  info:"<strong>Phase 4 — Intensification &amp; Taille Fine Peak</strong> · S36–S46 · 3 séances/sem. · ~60 min/séance · Décompression du volume après Phase 3, mais augmentation de l'intensité. Introduction Cable Crunch. RIR cible : 1–2.<br><em style='color:var(--rose-light)'>Progression : Sem. 1–2 : RIR 3 &middot; Sem. 3–7 : RIR 2 &middot; Sem. 8–9 : RIR 1 sur Hip Thrust &amp; RDL. Charges doivent dépasser Phase 2.</em>",
+  dur:"11 semaines", rir:"RIR 1–2", seances:3,
+  vol:{Fessiers:"20 séries/sem.",Ischios:"9 séries/sem.",Dos:"11 séries/sem.","Ratio lower/upper":"2:1"},
+  passage:"Fin sem. 46 : Hip Thrust 250–300% PDC × 8–10 reps · Squat barre 100–125% PDC × 8 reps · RDL barre 100–125% PDC × 8 reps · Vacuum 30s + 5 respirations · Cable Crunch 15 reps contrôlées",
+  seanceA:{title:"Séance A — Lower Heavy",sub:"Lundi · Force &amp; Galbe Fessiers",repos:"90s poly-articulaires · 60s isolation",ex:[
+    {n:"Hip Thrust barre",s:"4",r:"8–10",rir:"2",type:"Force",note:"Charges = charges Phase 3 Séance A — maintien absolu.",p:true},
+    {n:"Squat barre",s:"3",r:"8",rir:"2",type:"Force",note:"Tempo 3-1-1 excentrique 3s. Volume réduit, intensité stable.",p:false},
+    {n:"RDL barre",s:"4",r:"8–10",rir:"2",type:"Hyper",note:"Charges progressives vs Phase 3. Ischios, 4 séries.",p:false},
+    {n:"Step up Box",s:"3",r:"10/jambe",rir:"2",type:"Hyper",note:"Tempo excentrique 3s — 4e exercice, unilatéral. Pied entier sur la box.",p:false},
+    {n:"Cable Hip Abduction debout",s:"3",r:"15/côté",rir:"2",type:"Iso",note:"Amplitude maximale, pas de compensation.",p:false},
+    {n:"Cable Crunch à genoux",s:"3",r:"15",rir:"2",type:"Gainage",note:"Flexion depuis le sternum, pas depuis les hanches.",p:false},
+    {n:"Vacuum debout long",s:"3",r:"25s hold",rir:"—",type:"Gainage",note:"3 respirations nasales pendant le hold.",p:false},
+  ]},
+  seanceB:{title:"Séance B — Upper",sub:"Mercredi · Dos, Épaules &amp; Bras",repos:"2 min Barbell Row · 90s reste · 45s supersets",ex:[
+    {n:"Barbell Row pronation",s:"4",r:"8",rir:"2",type:"Hyper",note:"Charges supérieures à Phase 3, progression obligatoire.",p:true},
+    {n:"Lat Pulldown lesté",s:"3",r:"8–10",rir:"2",type:"Hyper",note:"Baisser les épaules avant de tirer.",p:false},
+    {n:"Face Pull câble",s:"4",r:"15",rir:"2",type:"Iso",note:"Qualité d'exécution prioritaire, santé épaule.",p:false},
+    {n:"Latéral Raise haltères",s:"3",r:"15",rir:"2",type:"Iso",note:"Légère inclinaison avant, pouce vers bas.",p:false},
+    {n:"Curl haltères + Overhead Ext. câble superset",s:"3",r:"12+12",rir:"2",type:"Iso",note:"Enchaîner sans repos — congestion bras.",p:false},
+    {n:"Cable Crunch debout",s:"3",r:"15",rir:"2",type:"Gainage",note:"Flexion depuis le sternum.",p:false},
+    {n:"Pallof Press câble",s:"3",r:"10/côté",rir:"—",type:"Gainage",note:"Résister à la rotation — charge augmentée vs Phase 3.",p:false},
+  ]},
+  seanceC:{title:"Séance C — Lower Pump",sub:"Vendredi · Pump &amp; Congestion",repos:"90s poly-articulaires · 60s isolation",ex:[
+    {n:"Hip Thrust barre — rest-pause",s:"3",r:"10+20s+max",rir:"0–1",type:"Pump",note:"Progression via charge ou reps vs Phase 3.",p:true},
+    {n:"Leg Press pieds hauts écart large",s:"4",r:"12",rir:"2",type:"Hyper",note:"Charges supérieures à Phase 3 Séance C.",p:false},
+    {n:"RDL haltères tempo",s:"2",r:"12",rir:"2",type:"Hyper",note:"Tempo 3-1-1, sentir l'étirement ischios en bas.",p:false},
+    {n:"Walking Lunges lestées",s:"3",r:"20 pas",rir:"2",type:"Pump",note:"Haltères plus lourds que Phase 3.",p:false},
+    {n:"Cable Kickback",s:"3",r:"15/jambe",rir:"1–2",type:"Iso",note:"Contraction 2s en haut.",p:false},
+    {n:"Abduction machine — drop set",s:"2",r:"15 + drop set",rir:"0",type:"Pump",note:"Charges supérieures série principale vs Phase 3.",p:false},
+    {n:"Cable Crunch 2e",s:"3",r:"15",rir:"2",type:"Gainage",note:"Augmenter le poids vs Séance A.",p:false},
+  ]},
+},
+p5:{
+  info:"<strong>Phase 5 — Peak &amp; Épuisement Musculaire</strong> · S48–S52 · 4 séances/sem. · ~75 min/séance · Phase finale. Extraire le maximum des exercices maîtrisés. Cluster sets, pause squat, rest-pause étendu. RIR cible : 0–2.<br><em style='color:var(--rose-light)'>Progression : Sem. 1–2 : RIR 3 &middot; Sem. 3–4 : RIR 2 &middot; Sem. 5+ : RIR 0–1 sur Hip Thrust cluster &amp; Squat pause.</em>",
+  dur:"5–8 semaines", rir:"RIR 0–2", seances:4,
+  vol:{Fessiers:"20 séries/sem.",Ischios:"10 séries/sem.",Dos:"13 séries/sem.","Ratio lower/upper":"3:1"},
+  passage:"Fin Phase 5 : Hip Thrust cluster 250–300% PDC sur cluster 4+4+4 · Squat barre pause 125–150% PDC × 5 reps · Barbell Row 80–100% PDC × 6 reps · Traction propre × 5 ou 80% PDC × 8 sur Lat Pulldown · Ab Wheel 8–10 reps debout si possible",
+  seanceA:{title:"Séance A — Lower Force Peak",sub:"Lundi · Cluster Sets",repos:"3 min Hip Thrust cluster · 2 min Squat &amp; BSS · 90s reste",ex:[
+    {n:"Hip Thrust barre — cluster 4x(4+4+4)",s:"4",r:"4+4+4 (20s)",rir:"0–1",type:"Force",note:"Poser barre sur rack 20s. Charges 90–95% du max Phase 3. 3 min de repos entre séries.",p:true},
+    {n:"Squat barre — pause squat",s:"4",r:"5",rir:"1",type:"Force",note:"Charges 10–15% &lt; squat classique. 2s en bas. Sortie explosive.",p:false},
+    {n:"RDL barre",s:"4",r:"8",rir:"1–2",type:"Hyper",note:"Charges maximales du programme sur RDL.",p:false},
+    {n:"Bulgarian Split Squat haltères lourds",s:"3",r:"6/jambe",rir:"1",type:"Hyper",note:"4s descente - 1s en bas - 1s montée, Tempo 4-1-1.",p:false},
+    {n:"Cable Hip Abduction debout",s:"3",r:"12/côté",rir:"2",type:"Iso",note:"Charges maximales — progression vs Phase 4.",p:false},
+    {n:"Ab Wheel debout ou genoux",s:"3",r:"8–10",rir:"—",type:"Gainage",note:"Ne jamais forcer debout si lombaires lâchent.",p:false},
+    {n:"Vacuum debout — 30s hold",s:"3",r:"30s hold",rir:"—",type:"Gainage",note:"5 respirations nasales pendant le hold sans relâcher.",p:false},
+  ]},
+  seanceB:{title:"Séance B — Upper Force",sub:"Mardi · Force Dos &amp; Peak Bras",repos:"2–3 min Barbell Row &amp; Traction · 90s reste · 60s isolation",ex:[
+    {n:"Barbell Row",s:"5",r:"6",rir:"1",type:"Force",note:"Charges maximales — record personnel visé.",p:true},
+    {n:"Traction lestée / Lat Pulldown lesté",s:"4",r:"6–8",rir:"1",type:"Force",note:"Record personnel sur tractions ou Lat Pulldown lesté.",p:false},
+    {n:"Dips",s:"3",r:"10",rir:"2",type:"Hyper",note:"Passage variation plus difficile si possible.",p:false},
+    {n:"Face Pull câble",s:"4",r:"15",rir:"2",type:"Iso",note:"Qualité d'exécution = priorité absolue. Santé épaule depuis Phase 1.",p:false},
+    {n:"Latéral Raise câble unilatéral",s:"4",r:"15/côté",rir:"1–2",type:"Iso",note:"Charges maximales sur câble unilatéral — peak épaules.",p:false},
+    {n:"Curl câble + Overhead Ext. câble superset",s:"4",r:"10+10",rir:"1–2",type:"Iso",note:"Enchaîner sans repos — congestion totale.",p:false},
+    {n:"Pallof Press lourd + Dead Bug",s:"3",r:"8/côté+8",rir:"—",type:"Gainage",note:"Pallof Press : charge la plus lourde du programme.",p:false},
+  ]},
+  seanceC:{title:"Séance C — Lower Volume",sub:"Jeudi · Jambes &amp; Fessier Moyen",repos:"2 min BSS &amp; Leg Press · 90s reste",ex:[
+    {n:"Bulgarian Split Squat haltères lourds",s:"4",r:"6/jambe",rir:"1",type:"Force",note:"Charges les plus lourdes du programme sur BSS.",p:true},
+    {n:"Leg Press pieds hauts — pause reps",s:"4",r:"10",rir:"2",type:"Hyper",note:"2s pause en bas, extension contrôlée — tension constante.",p:false},
+    {n:"RDL barre",s:"3",r:"10",rir:"2",type:"Hyper",note:"Amplitude complète — tension lombaire : 2 séries à RIR +1.",p:false},
+    {n:"Step up Box",s:"3",r:"8/jambe",rir:"1–2",type:"Hyper",note:"Tempo excentrique 3s — unilatéral. Charges maximales du programme sur step up.",p:false},
+    {n:"Abduction machine assise",s:"3",r:"20",rir:"2",type:"Iso",note:"Amplitude max, pause 1s en ouverture — fessier moyen, assise.",p:false},
+    {n:"Ab Wheel + Vacuum superset",s:"3",r:"8+30s",rir:"—",type:"Gainage",note:"Enchaîner sans repos entre les deux — gainage peak.",p:false},
+  ]},
+  seanceD:{title:"Séance D — Lower Pump Peak",sub:"Samedi · Épuisement Fessier",repos:"60–75s · séance d'épuisement",ex:[
+    {n:"Hip Thrust barre — rest-pause étendu",s:"3",r:"12+20s+max+20s+max",rir:"0",type:"Pump",note:"Charges modérées. Technique d'épuisement complète.",p:true},
+    {n:"Walking Lunges lestées (25 pas)",s:"3",r:"25 pas",rir:"1",type:"Pump",note:"Haltères plus lourds que Phase 4.",p:false},
+    {n:"Cable Kickback — contraction iso 2s",s:"3",r:"15/jambe",rir:"1",type:"Iso",note:"Contraction iso 2s — record charge kickback.",p:false},
+    {n:"Abduction machine — double drop set",s:"2",r:"12+drop+drop",rir:"0",type:"Pump",note:"3 niveaux sans repos. Avoir les poids prêts.",p:false},
+    {n:"Hollow Body Hold",s:"3",r:"45s",rir:"—",type:"Gainage",note:"Jambes le plus basses possible sans décoller lombaires.",p:false},
+  ]},
+},
+};
+
+// ============================================================
+// STATE
+// ============================================================
+let state = { phase:'p1', seance:'seanceA', phaseNutri:'masse', poids:62 };
+let profile = JSON.parse(localStorage.getItem('hsf_profile') || '{}');
+
+// ============================================================
+// MACROS NUTRITIONNELLES
+// ============================================================
+const PM = {
+  masse:{label:"Phase de Masse",prot:[1.6,2.0],gluc:[3.0,5.0],lip:[1.0,1.5],cal:"+150 à +300 kcal",color:"var(--green)",
+    notes:["Surplus calorique optimal : +150 à +300 kcal","Prise de poids cible : 0,15–0,3 kg/semaine","Concentrer les glucides autour de la séance","Lipides min. 1,0 g/kg — essentiels pour les hormones féminines"]},
+  seche:{label:"Phase de Sèche",prot:[1.8,2.2],gluc:[1.5,3.0],lip:[0.8,1.0],cal:"−150 à −300 kcal",color:"var(--rose)",
+    notes:["Déficit optimal : −150 à −300 kcal","Perte cible : 0,3–0,5 kg/semaine","Augmenter les protéines — limiter le catabolisme","LISS 3–4×/semaine à 120–140 bpm recommandé","Le cycle menstruel peut faire varier de 1–3 kg"]},
+  maintien:{label:"Phase de Maintien",prot:[1.6,2.0],gluc:[2.5,4.0],lip:[1.0,1.5],cal:"= TDEE",color:"var(--gold)",
+    notes:["Calories = TDEE (stabilité ±0,5 kg / 4 semaines)","Lipides min. 1,0 g/kg — restaurer les graisses insaturées","Recalibrer le TDEE — le métabolisme peut s'être ajusté"]}
+};
+
+const FAQ = [
+  {q:"Comment calculer mes besoins en protéines sans tout peser ?",a:"Règle pratique : chaque repas principal doit contenir une source de protéines de la taille et de l'épaisseur de la paume de la main (environ 30 g). Avec 4 à 5 repas structurés ainsi, tu atteins généralement 1,8 à 2,0 g/kg pour la plupart des gabarits. C'est imprécis, mais largement suffisant pour commencer."},
+  {q:"Comment peser ses aliments correctement ?",a:"Toujours peser tes aliments CRU avant cuisson. En fonction du mode de cuisson, le poids peut varier du simple au double — le riz par exemple triple de poids à la cuisson. Peser cuit fausse complètement les calculs de macros."},
+  {q:"Que faire si je rate un repas ?",a:"Ne pas compenser en doublant le repas suivant. Continuer le planning habituel et ajouter si besoin une petite collation protéique en soirée. Un repas raté n'a aucune conséquence si la semaine est cohérente dans l'ensemble. La régularité sur 7 jours compte plus qu'un repas isolé."},
+  {q:"Un cheat meal est-il compatible avec la sèche ?",a:"Oui, un seul repas libre par semaine a un impact calorique négligeable sur le bilan hebdomadaire et un impact psychologique positif. En revanche, une journée entière sans contrôle peut annuler 3 à 4 jours de déficit. La distinction est importante : un repas libre, pas une journée libre."},
+  {q:"J'ai faim en permanence en sèche. Comment gérer ?",a:"Augmente le volume alimentaire sans toucher aux calories : légumes à volonté (concombre, courgette, salade, épinards), soupes de légumes, aliments riches en fibres. Boire un grand verre d'eau avant chaque repas et opter pour des boissons 0 kcal. Vérifie aussi que tes protéines sont bien au niveau prescrit — c'est le macro le plus rassasiant."},
+  {q:"Mon poids varie beaucoup d'une semaine à l'autre. Est-ce normal ?",a:"Tout à fait normal. Le cycle menstruel peut faire varier le poids de 1 à 3 kg selon la phase — c'est de la rétention d'eau, pas de la graisse. Ne jamais réduire les calories en réaction à une prise de poids en phase lutéale. Toujours comparer des moments identiques du cycle entre eux et utiliser la moyenne sur 7 jours consécutifs."},
+  {q:"Faut-il faire du cardio en phase de masse ?",a:"Ce n'est pas obligatoire, mais 2 séances de LISS par semaine à 120–140 bpm sont recommandées pour maintenir la santé cardiovasculaire, la sensibilité à l'insuline et faciliter la digestion d'un apport calorique élevé. Le LISS ne compromet pas la prise de muscle à cette fréquence."},
+  {q:"Je stagne en masse depuis 2 semaines. Que faire ?",a:"Vérifier d'abord la cohérence des apports sur 7 jours complets — les jours moins bons comptent aussi. Si les calories sont bien au-dessus du TDEE et que le poids ne bouge pas, augmenter de 100 kcal sur les glucides et réévaluer 10 jours plus tard. Ne jamais ajuster en dessous de 7 jours d'observation."},
+  {q:"Quelle est la durée idéale d'une phase de masse ?",a:"Minimum 4 mois pour optimiser la prise musculaire. En dessous, tu n'exploites pas pleinement la fenêtre de construction. Au-delà de 6 mois, la sensibilité à l'insuline peut baisser. Prévoir ensuite une transition progressive vers le maintien avant toute sèche — jamais de passage brutal masse → sèche."},
+  {q:"Dois-je changer mes macros pendant mon cycle menstruel ?",a:"Ce n'est pas obligatoire. Mais en phase lutéale tardive (J22–J28), si tu ressens des fringales importantes, augmenter les glucides de 30 à 50 g par jour est une adaptation intelligente. La rétention d'eau de cette phase ne nécessite aucune réduction calorique — elle disparaît naturellement avec les règles."},
+  {q:"La fenêtre anabolique post-séance : est-ce vraiment important ?",a:"La fenêtre anabolique est une réalité biologique, mais sa durée est bien plus large qu'on ne le croit : plusieurs heures, pas quelques minutes. Manger dans les 2 heures après la séance est une bonne pratique, mais si tu ne peux pas, une collation protéique à n'importe quel moment de la journée reste utile. Priorité absolue : les totaux journaliers."},
+];
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  const page = document.getElementById('page-' + id);
+  if (page) { page.classList.add('active'); page.scrollTop = 0; }
+  const navBtn = document.getElementById('nav-' + id);
+  if (navBtn) navBtn.classList.add('active');
+  if (id === 'training') syncTrainingUI();
+  if (id === 'nutrition') { calcTDEE(); renderPhaseNutri(); renderFAQ(); }
+  if (id === 'dashboard') updateDashboard();
+}
+
+// ============================================================
+// TRAINING
+// ============================================================
+function onPhaseChange() {
+  state.phase = document.getElementById('tr-phase').value;
+  state.seance = 'seanceA';
+  syncTrainingUI();
+  saveProfile();
+  const dp = document.getElementById('dash-phase-prog');
+  if (dp) dp.value = state.phase;
+  updateDashboard();
+}
+
+function getSeancesForPhase(phase) {
+  const s = [{key:'seanceA',label:'A — Lower Heavy'},{key:'seanceB',label:'B — Upper'}];
+  const p3or5 = phase === 'p3' || phase === 'p5';
+  s.push({key:'seanceC', label: p3or5 ? 'C — Lower Volume' : 'C — Lower Pump'});
+  if (p3or5) s.push({key:'seanceD', label:'D — Lower Pump'});
+  return s;
+}
+
+function selectSeanceChip(el, val) {
+  document.querySelectorAll('#seance-chips .chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  state.seance = val;
+  renderWorkout();
+}
+
+function syncTrainingUI() {
+  document.getElementById('tr-phase').value = state.phase;
+  // Render chips
+  const seances = getSeancesForPhase(state.phase);
+  const chipsEl = document.getElementById('seance-chips');
+  chipsEl.innerHTML = seances.map((s, i) =>
+    `<span class="chip${i===0?' active':''}" data-seance="${s.key}" onclick="selectSeanceChip(this,'${s.key}')">${s.label}</span>`
+  ).join('');
+  if (!seances.find(s => s.key === state.seance)) state.seance = 'seanceA';
+  // Mark active chip
+  const activeChip = chipsEl.querySelector(`[data-seance="${state.seance}"]`);
+  if (activeChip) { chipsEl.querySelectorAll('.chip').forEach(c => c.classList.remove('active')); activeChip.classList.add('active'); }
+  renderPhaseInfo();
+  renderWorkout();
+  renderTrainingPlanning();
+}
+
+function updatePlanningDisplay() {
+  // Conservé pour compatibilité — redirige vers renderTrainingPlanning
+  renderTrainingPlanning();
+}
+
+function renderPhaseInfo() {
+  const cyc = W[state.phase];
+  if (!cyc) return;
+  const el = document.getElementById('tr-phase-info');
+  if (el) el.innerHTML = cyc.info;
+}
+
+function typePillClass(type) {
+  const map = {Force:'type-force',Hyper:'type-hyper',Iso:'type-iso',Pump:'type-pump',Gainage:'type-gainage'};
+  return map[type] || 'type-gainage';
+}
+
+function rirPillClass(rir) {
+  if (rir === '0' || rir === '0–1') return 'ex-pill ex-pill-rir';
+  if (rir === '1' || rir === '1–2') return 'ex-pill ex-pill-rir-med';
+  if (rir === '—') return 'ex-pill ex-pill-series';
+  return 'ex-pill ex-pill-rir-ok';
+}
+
+function renderWorkout() {
+  const cyc = W[state.phase];
+  const s = cyc ? cyc[state.seance] : null;
+  const wdEl = document.getElementById('workout-display');
+  const vcEl = document.getElementById('volume-cible-box');
+  const pbEl = document.getElementById('passage-box-tr');
+  if (!s) {
+    if (wdEl) wdEl.innerHTML = '<div class="card"><div class="text-sm">Séance non disponible pour cette phase.</div></div>';
+    if (vcEl) vcEl.innerHTML = '';
+    if (pbEl) pbEl.innerHTML = '';
+    return;
+  }
+
+  let rows = '';
+  const ph = state.phase, sn = state.seance;
+  s.ex.forEach((e, idx) => {
+    const journalHtml = renderJournalRows(idx, e.s, ph, sn);
+    rows += `<div class="ex-card" style="padding:0;display:block">
+      <div class="ex-card-inner">
+        <div class="ex-num">${idx + 1}</div>
+        <div class="ex-body">
+          <div class="ex-name">${e.n}${e.p ? ' <span class="pstar-lbl">★ Prioritaire</span>' : ''}</div>
+          <div class="ex-pills">
+            <span class="ex-pill ex-pill-series">${e.s} séries</span>
+            <span class="ex-pill ex-pill-reps">${e.r} reps</span>
+            ${e.rir !== '—' ? `<span class="${rirPillClass(e.rir)}">RIR ${e.rir}</span>` : ''}
+            <span class="ex-pill ${typePillClass(e.type)} type-badge">${e.type}</span>
+          </div>
+          ${e.note ? `<div class="ex-note">${e.note}</div>` : ''}
+        </div>
+      </div>
+      ${journalHtml}
+    </div>`;
+  });
+
+  const reposBar = s.repos ? `<div style="background:rgba(212,168,67,.15);padding:.45rem .9rem;font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.06em;color:var(--gold-light);border-bottom:1px solid rgba(212,168,67,.2)">⏱ ${s.repos}</div>` : '';
+  if (wdEl) wdEl.innerHTML = `
+    <div class="workout-header">
+      <h2>${s.title}</h2>
+      <div class="workout-header-sub">${s.sub}</div>
+    </div>
+    ${reposBar}
+    <div class="workout-body">${rows}</div>`;
+
+  if (vcEl && cyc.vol) {
+    const phaseLabels = {
+      p1:'Phase 1 — Base &amp; Connexion · S1–S10',
+      p2:'Phase 2 — Développement &amp; Force · S12–S21',
+      p3:'Phase 3 — Spécialisation Avancée · S23–S34',
+      p4:'Phase 4 — Intensification Peak · S36–S46',
+      p5:'Phase 5 — Peak &amp; Épuisement · S48–S52',
+    };
+    const phaseComment = {
+      p1:'Dans le MAV — construction des bases',
+      p2:'Peak volume lower — progression charges',
+      p3:'Peak volume global — MAV respecté',
+      p4:'Décompression vs Phase 3 — intensité haute',
+      p5:'Peak absolu — MAV respecté',
+    };
+    const volEntries = Object.entries(cyc.vol);
+    // Séparer ratio des séries
+    const seriesRows = volEntries.filter(([m]) => m !== 'Ratio lower/upper');
+    const ratioEntry = volEntries.find(([m]) => m === 'Ratio lower/upper');
+
+    let volRows = seriesRows.map(([muscle, val]) => {
+      // Couleur selon groupe musculaire
+      const color = muscle.toLowerCase().includes('fessier') ? 'var(--rose-dim)'
+                  : muscle.toLowerCase().includes('ischio') ? 'var(--gold)'
+                  : 'var(--stone)';
+      const dot = `<span style="width:8px;height:8px;border-radius:50%;background:${color};display:inline-block;margin-right:.4rem;flex-shrink:0"></span>`;
+      return `<div class="vol-row"><span style="display:flex;align-items:center">${dot}${muscle}</span><span class="vol-val" style="color:${color}">${val}</span></div>`;
+    }).join('');
+
+    const ratioHtml = ratioEntry ? `
+      <div style="margin-top:.5rem;padding:.4rem .6rem;background:var(--ink);border-radius:4px;display:flex;justify-content:space-between;align-items:center">
+        <span style="font-family:'Cinzel',serif;font-size:.58rem;color:var(--stone);text-transform:uppercase;letter-spacing:.08em">Ratio Lower / Upper</span>
+        <span style="font-family:'Cinzel',serif;font-size:.9rem;color:var(--rose-light);font-weight:700">${ratioEntry[1]}</span>
+      </div>` : '';
+
+    const commentHtml = phaseComment[state.phase] ? `
+      <div style="font-family:'Cinzel',serif;font-size:.55rem;color:var(--stone);font-style:italic;letter-spacing:.06em;margin-top:.4rem;text-align:center">${phaseComment[state.phase]}</div>` : '';
+
+    vcEl.innerHTML = `
+      <div class="card" style="margin-top:.5rem;padding:.75rem .9rem">
+        <div class="card-title" style="margin-bottom:.15rem">Volume hebdomadaire</div>
+        <div style="font-family:'Cinzel',serif;font-size:.55rem;color:var(--stone);letter-spacing:.06em;margin-bottom:.6rem">${phaseLabels[state.phase] || ''} · RIR cible ${cyc.rir}</div>
+        ${volRows}
+        ${ratioHtml}
+        ${commentHtml}
+      </div>`;
+  }
+
+  if (pbEl && cyc.passage) {
+    const cycle = getCurrentCycle();
+    pbEl.innerHTML = `<div class="passage-box-rose"><strong>Benchmark de fin de phase</strong>${cyc.passage}</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:.5rem;padding:.5rem .75rem;background:#F5F0E8;border-radius:5px;border:1px solid #DDD5C4">
+        <div>
+          <div style="font-family:'Cinzel',serif;font-size:.6rem;color:var(--stone);text-transform:uppercase;letter-spacing:.08em">Cycle en cours</div>
+          <div style="font-family:'Cinzel',serif;font-size:1.1rem;color:var(--rose-dim);font-weight:700">Cycle ${cycle}</div>
+        </div>
+        <button class="btn btn-sm" onclick="nextCycle()" style="font-size:.55rem">Démarrer cycle ${cycle+1} →</button>
+      </div>`;
+  }
+}
+
+// ============================================================
+// SYNC PROFIL DASHBOARD ↔ NUTRITION
+// ============================================================
+function syncPoidsFromDash() {
+  // Les champs dashboard sont la source de vérité — synchroniser vers nutrition
+  const getD = id => { const e = document.getElementById(id); return e ? e.value : ''; };
+  const poids   = getD('dash-poids');
+  const taille  = getD('dash-taille');
+  const age     = getD('dash-age');
+  const activite= getD('dash-activite');
+  // Mettre à jour les champs nutrition (pour le calcul TDEE)
+  const setN = (id, val) => { const e = document.getElementById(id); if (e && val) e.value = val; };
+  setN('n-poids',   poids);
+  setN('n-taille',  taille);
+  setN('n-age',     age);
+  setN('n-activite',activite);
+  // Mettre à jour state immédiatement
+  if (poids) state.poids = parseFloat(poids);
+  // Recalculer TDEE et sauvegarder
+  calcTDEE();
+}
+
+function syncDashFromNutrition() {
+  // Synchroniser depuis nutrition vers dashboard (si l'utilisateur modifie dans nutrition)
+  const getN = id => { const e = document.getElementById(id); return e ? e.value : ''; };
+  const setD = (id, val) => { const e = document.getElementById(id); if (e && val) e.value = val; };
+  setD('dash-poids',   getN('n-poids'));
+  setD('dash-taille',  getN('n-taille'));
+  setD('dash-age',     getN('n-age'));
+  setD('dash-activite',getN('n-activite'));
+}
+
+
+function calcTDEE() {
+  // Lire depuis les champs, avec fallback sur profile sauvegardé, puis valeur par défaut
+  const p = parseFloat(document.getElementById('n-poids').value)   || parseFloat(profile.poids)   || 62;
+  const t = parseFloat(document.getElementById('n-taille').value)  || parseFloat(profile.taille)  || 165;
+  const a = parseFloat(document.getElementById('n-age').value)     || parseFloat(profile.age)     || 28;
+  const c = parseFloat(document.getElementById('n-activite').value)|| parseFloat(profile.activite)|| 1.55;
+  state.poids = p;
+  // Mifflin-St Jeor Femme
+  const mb = 10 * p + 6.25 * t - 5 * a - 161;
+  const tdee = Math.round(mb * c);
+  document.getElementById('tdee-result').textContent = tdee.toLocaleString('fr-FR');
+  renderPhaseNutri();
+  updateMacroDash();
+  initMacroSliders();
+  saveProfile();
+}
+
+function initMacroSliders() {
+  const ph = PM[state.phaseNutri];
+  document.getElementById('sl-prot-min-lbl').textContent = ph.prot[0].toFixed(1).replace('.',',') + ' g/kg';
+  document.getElementById('sl-prot-max-lbl').textContent = ph.prot[1].toFixed(1).replace('.',',') + ' g/kg';
+  document.getElementById('sl-lip-min-lbl').textContent  = ph.lip[0].toFixed(1).replace('.',',') + ' g/kg';
+  document.getElementById('sl-lip-max-lbl').textContent  = ph.lip[1].toFixed(1).replace('.',',') + ' g/kg';
+  const lipNote = document.getElementById('sl-lip-note');
+  if (lipNote) lipNote.textContent = state.phaseNutri === 'seche'
+    ? 'Min. ' + ph.lip[0].toFixed(1) + ' g/kg · Max. ' + ph.lip[1].toFixed(1) + ' g/kg — ne pas descendre en dessous, risque hormonal'
+    : 'Min. ' + ph.lip[0].toFixed(1) + ' g/kg · Max. ' + ph.lip[1].toFixed(1) + ' g/kg — essentiels pour les hormones féminines';
+  // Slider delta — visible si masse ou sèche uniquement
+  const wrapDelta = document.getElementById('sl-delta-wrap');
+  const slDelta   = document.getElementById('sl-delta');
+  if (wrapDelta) wrapDelta.style.display = state.phaseNutri === 'maintien' ? 'none' : 'block';
+  if (slDelta && !slDelta._init) { slDelta.value = 225; slDelta._init = true; }
+  const isMasse = state.phaseNutri === 'masse';
+  const minLbl  = document.getElementById('sl-delta-min-lbl');
+  const maxLbl  = document.getElementById('sl-delta-max-lbl');
+  const lbl     = document.getElementById('sl-delta-label');
+  const note    = document.getElementById('sl-delta-note');
+  if (minLbl) minLbl.textContent = isMasse ? '+150 kcal' : '−150 kcal';
+  if (maxLbl) maxLbl.textContent = isMasse ? '+400 kcal' : '−400 kcal';
+  if (lbl)    lbl.textContent    = isMasse ? 'Surplus calorique' : state.phaseNutri === 'seche' ? 'Déficit calorique' : '';
+  if (note)   note.textContent   = isMasse
+    ? 'Fourchette recommandée · +150 à +300 kcal optimal pour les femmes'
+    : 'Fourchette recommandée · −150 à −300 kcal optimal pour les femmes';
+  updateMacroSliders();
+}
+
+function updateMacroSliders() {
+  const ph = PM[state.phaseNutri];
+  const p = state.poids;
+  const protGperKg = ph.prot[0] + (document.getElementById('sl-prot').value / 100) * (ph.prot[1] - ph.prot[0]);
+  const lipGperKg  = ph.lip[0]  + (document.getElementById('sl-lip').value  / 100) * (ph.lip[1]  - ph.lip[0]);
+  const protG = Math.round(protGperKg * p), lipG = Math.round(lipGperKg * p);
+  const protKcal = protG * 4, lipKcal = lipG * 9;
+  const tdeeEl = document.getElementById('tdee-result');
+  const tdeeRaw = tdeeEl ? parseInt(tdeeEl.textContent.replace(/[\s\u00a0\u202f]/g,'').replace(',','').replace('.','')) : 2100;
+
+  // Lire le slider delta
+  const slDelta = document.getElementById('sl-delta');
+  const deltaAbs = slDelta ? parseInt(slDelta.value) : 225;
+  const deltaKcal = state.phaseNutri === 'masse' ? deltaAbs : state.phaseNutri === 'seche' ? -deltaAbs : 0;
+
+  // Mettre à jour l'affichage du slider delta
+  const deltaValEl = document.getElementById('sl-delta-val');
+  if (deltaValEl && state.phaseNutri !== 'maintien') {
+    deltaValEl.textContent = state.phaseNutri === 'masse' ? '+' + deltaAbs + ' kcal' : '−' + deltaAbs + ' kcal';
+    deltaValEl.style.color = state.phaseNutri === 'masse' ? 'var(--green)' : 'var(--rose)';
+  }
+
+  const targetCal = tdeeRaw + deltaKcal;
+  const glucKcal = targetCal - protKcal - lipKcal;
+  const glucG = Math.round(glucKcal / 4);
+  const set = (id, v) => { const e = document.getElementById(id); if (e) e.textContent = v; };
+  set('sl-prot-val', protGperKg.toFixed(2) + ' g/kg → ' + protG + ' g');
+  set('sl-lip-val', lipGperKg.toFixed(2) + ' g/kg → ' + lipG + ' g');
+  set('sl-gluc-val', glucG > 0 ? (glucG / p).toFixed(2) + ' g/kg → ' + glucG + ' g' : '⚠ insuffisant');
+  set('res-prot', protG + ' g'); set('res-prot-kcal', '(' + protKcal + ' kcal)');
+  set('res-lip', lipG + ' g'); set('res-lip-kcal', '(' + lipKcal + ' kcal)');
+  set('res-gluc', glucG > 0 ? glucG + ' g' : '—'); set('res-gluc-kcal', glucG > 0 ? '(' + Math.round(glucKcal) + ' kcal)' : '');
+  const total = protKcal + lipKcal + (glucG > 0 ? glucKcal : 0);
+  set('res-cal-total', Math.round(total).toLocaleString('fr-FR') + ' kcal');
+  const deltaEl = document.getElementById('res-cal-delta');
+  if (deltaEl) {
+    const diff = Math.round(total - tdeeRaw);
+    const sign = diff >= 0 ? '+' : '';
+    const col = diff > 0 ? 'var(--green)' : diff < 0 ? 'var(--rose)' : 'var(--stone)';
+    deltaEl.innerHTML = `<span class="cal-delta" style="background:${col}22;color:${col}">${sign}${diff} vs TDEE</span>`;
+  }
+  const warnEl = document.getElementById('res-gluc-warning');
+  if (warnEl) {
+    if (glucG < 0) { warnEl.textContent = '⚠ Calories insuffisantes — réduis les lipides ou les protéines.'; warnEl.style.color = 'var(--rose)'; }
+    else { warnEl.textContent = ''; }
+  }
+  saveProfile();
+}
+
+function selectPhaseNutri(el, val) {
+  el.parentElement.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  state.phaseNutri = val;
+  const dn = document.getElementById('dash-phase-nutri');
+  if (dn) dn.value = val;
+  renderPhaseNutri();
+  updateMacroDash();
+  initMacroSliders();
+  saveProfile();
+}
+
+function renderPhaseNutri() {
+  const ph = PM[state.phaseNutri];
+  const p = state.poids;
+  const pMin = Math.round(ph.prot[0]*p), pMax = Math.round(ph.prot[1]*p);
+  const gMin = Math.round(ph.gluc[0]*p), gMax = Math.round(ph.gluc[1]*p);
+  const lMin = Math.round(ph.lip[0]*p), lMax = Math.round(ph.lip[1]*p);
+  const el = document.getElementById('phase-macros-display');
+  if (!el) return;
+  el.innerHTML = `
+    <div style="border-left:3px solid ${ph.color};padding:.65rem;background:#FDFAF5;border-radius:0 4px 4px 0;margin-bottom:.75rem">
+      <div style="font-family:'Cinzel',serif;font-size:.68rem;color:var(--stone);margin-bottom:.3rem">${ph.label}</div>
+      <div style="font-weight:600;font-size:.85rem">Calories : ${ph.cal}</div>
+    </div>
+    <table style="font-size:.85rem"><thead><tr><th>Macro</th><th>g/kg</th><th>Pour ${p} kg</th></tr></thead><tbody>
+      <tr><td>Protéines</td><td>${ph.prot[0]}–${ph.prot[1]} g/kg</td><td>${pMin}–${pMax} g</td></tr>
+      <tr><td>Glucides</td><td>${ph.gluc[0]}–${ph.gluc[1]} g/kg</td><td>${gMin}–${gMax} g</td></tr>
+      <tr><td>Lipides</td><td>${ph.lip[0]}–${ph.lip[1]} g/kg</td><td>${lMin}–${lMax} g</td></tr>
+    </tbody></table>
+    <ul style="margin-top:.65rem;list-style:none;padding:0">
+      ${ph.notes.map(n=>`<li style="font-size:.8rem;color:var(--stone);padding:2px 0 2px 1rem;position:relative"><span style="position:absolute;left:0;color:var(--rose)">·</span>${n}</li>`).join('')}
+    </ul>`;
+  const chips = document.querySelectorAll('#page-nutrition .chip-group .chip');
+  chips.forEach(c => {
+    const onc = c.getAttribute('onclick') || '';
+    c.classList.toggle('active', onc.includes("'" + state.phaseNutri + "'") || onc.includes('"' + state.phaseNutri + '"'));
+  });
+}
+
+function renderFAQ() {
+  const el = document.getElementById('faq-nutrition');
+  if (!el) return;
+  el.innerHTML = FAQ.map((f,i) => `
+    <div class="accordion-item">
+      <button class="accordion-header" onclick="toggleAcc('faq${i}')">
+        ${f.q}<span class="accordion-arrow" id="arr-faq${i}">▾</span>
+      </button>
+      <div class="accordion-content" id="acc-faq${i}">${f.a}</div>
+    </div>`).join('');
+}
+
+function toggleAcc(id) {
+  const c = document.getElementById('acc-' + id);
+  const a = document.getElementById('arr-' + id);
+  const open = c.classList.contains('open');
+  document.querySelectorAll('.accordion-content').forEach(x => x.classList.remove('open'));
+  document.querySelectorAll('.accordion-arrow').forEach(x => x.classList.remove('open'));
+  if (!open) { c.classList.add('open'); a.classList.add('open'); }
+}
+
+// ============================================================
+// DASHBOARD
+// ============================================================
+function syncDashProfile() {
+  state.phase = document.getElementById('dash-phase-prog').value;
+  state.phaseNutri = document.getElementById('dash-phase-nutri').value;
+  saveProfile();
+  updateDashboard();
+  const tp = document.getElementById('tr-phase');
+  if (tp) { tp.value = state.phase; syncTrainingUI(); }
+}
+
+function saveProfile() {
+  const get = id => { const e = document.getElementById(id); return (e && e.value) ? e.value : null; };
+  const slDeltaEl = document.getElementById('sl-delta');
+  const slProtEl  = document.getElementById('sl-prot');
+  const slLipEl   = document.getElementById('sl-lip');
+  // Lire poids/taille/age/activite depuis dashboard (toujours visible) en priorité
+  // puis depuis nutrition si dashboard vide
+  const poids   = get('dash-poids')   || get('n-poids')   || profile.poids   || '62';
+  const taille  = get('dash-taille')  || get('n-taille')  || profile.taille  || '165';
+  const age     = get('dash-age')     || get('n-age')     || profile.age     || '28';
+  const activite= get('dash-activite')|| get('n-activite')|| profile.activite|| '1.55';
+  // Mettre à jour state
+  if (poids) state.poids = parseFloat(poids);
+  profile = {
+    phase:      state.phase      || 'p1',
+    phaseNutri: state.phaseNutri || 'masse',
+    seance:     state.seance     || 'seanceA',
+    startDate:  get('dash-start-date') || profile.startDate || '',
+    poids, taille, age, activite,
+    slProt:  slProtEl  ? slProtEl.value  : (profile.slProt  || '50'),
+    slLip:   slLipEl   ? slLipEl.value   : (profile.slLip   || '50'),
+    slDelta: slDeltaEl ? slDeltaEl.value : (profile.slDelta || '225'),
+    savedAt: Date.now(),
+  };
+  try {
+    localStorage.setItem('hsf_profile', JSON.stringify(profile));
+  } catch(e) { console.warn('localStorage full:', e); }
+  // Indicateur visuel discret
+  const ind = document.getElementById('autosave-indicator');
+  if (ind) {
+    ind.classList.add('show');
+    clearTimeout(ind._t);
+    ind._t = setTimeout(() => ind.classList.remove('show'), 1800);
+  }
+}
+
+function loadProfile() {
+  if (!profile || Object.keys(profile).length === 0) return;
+  // 1. Restaurer le state
+  if (profile.phase)      state.phase      = profile.phase;
+  if (profile.phaseNutri) state.phaseNutri = profile.phaseNutri;
+  if (profile.seance)     state.seance     = profile.seance;
+  if (profile.poids)      state.poids      = parseFloat(profile.poids);
+  const set = (id, val) => {
+    if (!val && val !== 0) return;
+    const e = document.getElementById(id);
+    if (e) e.value = val;
+  };
+  // 2. Dashboard — sélecteurs navigation
+  set('dash-phase-prog',  state.phase);
+  set('dash-phase-nutri', state.phaseNutri);
+  set('dash-start-date',  profile.startDate);
+  // 3. Dashboard — champs profil (source de vérité)
+  set('dash-poids',   profile.poids);
+  set('dash-taille',  profile.taille);
+  set('dash-age',     profile.age);
+  set('dash-activite',profile.activite);
+  // 4. Nutrition — synchroniser depuis dashboard
+  set('n-poids',    profile.poids);
+  set('n-taille',   profile.taille);
+  set('n-age',      profile.age);
+  set('n-activite', profile.activite);
+  // 5. Entraînement
+  set('tr-phase', state.phase);
+  // 6. Sliders macros
+  set('sl-prot', profile.slProt);
+  set('sl-lip',  profile.slLip);
+  const sdEl = document.getElementById('sl-delta');
+  if (sdEl && profile.slDelta) { sdEl.value = profile.slDelta; sdEl._init = true; }
+  // 7. Chip phase nutrition
+  document.querySelectorAll('#phase-nutri-chips .chip').forEach(c => {
+    c.classList.toggle('active', c.dataset.phase === profile.phaseNutri);
+  });
+}
+
+function updateDashboard() {
+  const phaseLabels = {p1:'P1',p2:'P2',p3:'P3',p4:'P4',p5:'P5'};
+  const nutriLabels = {masse:'Masse',seche:'Sèche',maintien:'Maint.'};
+  const seancesMap = {p1:3,p2:3,p3:4,p4:3,p5:4};
+  const el = id => document.getElementById(id);
+  if (el('stat-phase-lbl')) el('stat-phase-lbl').textContent = phaseLabels[state.phase] || '—';
+  if (el('stat-nutri-lbl')) el('stat-nutri-lbl').textContent = nutriLabels[state.phaseNutri] || '—';
+  if (el('stat-seances-lbl')) el('stat-seances-lbl').textContent = seancesMap[state.phase] || '3';
+  const startStr = (profile.startDate || '').trim();
+  if (startStr) {
+    const parts = startStr.split('/');
+    if (parts.length === 3) {
+      const start = new Date(parseInt(parts[2]), parseInt(parts[1])-1, parseInt(parts[0]));
+      const diff = Math.floor((Date.now() - start.getTime()) / (7*24*3600*1000)) + 1;
+      if (el('stat-semaine')) el('stat-semaine').textContent = diff > 0 ? diff : '1';
+    }
+  } else {
+    if (el('stat-semaine')) el('stat-semaine').textContent = '—';
+  }
+  updateMacroDash();
+  renderSeanceDuJour();
+  renderWeekPlanning();
+}
+
+function renderSeanceDuJour() {
+  const jourIdx = new Date().getDay(); // 0=dim, 1=lun...6=sam
+  const jours = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+  const is4 = state.phase === 'p3' || state.phase === 'p5';
+  // Lire le planning personnalisé — index 0=Lun...6=Dim
+  const days = loadPlanning(is4);
+  // Convertir getDay() (0=dim) vers notre index (0=lun)
+  const dayMap = [6,0,1,2,3,4,5]; // dim=6, lun=0, ...
+  const todayPlanIdx = dayMap[jourIdx];
+  const todayPlan = days[todayPlanIdx];
+  const seanceMap = {A:'seanceA',B:'seanceB',C:'seanceC',D:'seanceD'};
+  const el = document.getElementById('seance-du-jour-box');
+  if (!el) return;
+  if (todayPlan && todayPlan.session !== 'Repos') {
+    const seanceKey = seanceMap[todayPlan.session];
+    const cyc = W[state.phase];
+    const s = cyc ? cyc[seanceKey] : null;
+    const focus = getSessionFocus(todayPlan.session, is4);
+    el.innerHTML = `<div style="font-size:.95rem;font-weight:600;color:var(--ink);margin-bottom:.2rem">Séance ${todayPlan.session} — ${focus}</div>
+      <div style="font-size:.8rem;color:var(--stone);font-style:italic;margin-bottom:.65rem">${s ? s.sub : ''}</div>`;
+    const btn = document.createElement('button');
+    btn.className = 'btn btn-primary btn-block';
+    btn.onclick = () => { state.seance = seanceKey; showPage('training'); };
+    btn.textContent = 'Voir la séance →';
+    el.appendChild(btn);
+  } else {
+    el.innerHTML = `<div style="font-size:.88rem;color:var(--stone);margin-bottom:.3rem">${jours[jourIdx]} — Repos / Récupération active</div>
+      <div class="text-xs">La récupération construit autant que l'entraînement. Marche légère, mobilité, étirements.</div>`;
+  }
+}
+
+function getDefaultPlanning(is4) {
+  return is4
+    ? [{name:'Lun',session:'A'},{name:'Mar',session:'B'},{name:'Mer',session:'Repos'},{name:'Jeu',session:'C'},
+       {name:'Ven',session:'Repos'},{name:'Sam',session:'D'},{name:'Dim',session:'Repos'}]
+    : [{name:'Lun',session:'A'},{name:'Mar',session:'Repos'},{name:'Mer',session:'B'},{name:'Jeu',session:'Repos'},
+       {name:'Ven',session:'C'},{name:'Sam',session:'Repos'},{name:'Dim',session:'Repos'}];
+}
+
+function loadPlanning(is4) {
+  const key = 'hsf_planning_' + state.phase;
+  try {
+    const saved = JSON.parse(localStorage.getItem(key));
+    if (saved && saved.length === 7) return saved;
+  } catch(e) {}
+  return getDefaultPlanning(is4);
+}
+
+function savePlanning(days) {
+  const key = 'hsf_planning_' + state.phase;
+  localStorage.setItem(key, JSON.stringify(days));
+}
+
+function getSessionColor(session) {
+  const map = {A:'var(--rose)',B:'#1A3F6F',C:'var(--green)',D:'#5A2A7A'};
+  return map[session] || 'var(--stone)';
+}
+
+function getSessionFocus(session, is4) {
+  const map3 = {A:'Lower Heavy',B:'Upper',C:'Lower Pump'};
+  const map4 = {A:'Lower Heavy',B:'Upper',C:'Lower Vol.',D:'Lower Pump'};
+  return (is4 ? map4 : map3)[session] || '';
+}
+
+function renderWeekPlanning() {
+  const is4 = state.phase === 'p3' || state.phase === 'p5';
+  const days = loadPlanning(is4);
+  const el = document.getElementById('week-planning-box');
+  if (!el) return;
+
+  // Construire les cartes jour
+  function buildDayCard(d, idx) {
+    const isSeance = d.session !== 'Repos';
+    const color = isSeance ? getSessionColor(d.session) : 'var(--stone)';
+    const focus = isSeance ? getSessionFocus(d.session, is4) : 'Repos · Récup.';
+    return `<div class="plan-day ${isSeance?'is-seance':'is-repos'}"
+      draggable="true"
+      data-idx="${idx}"
+      ondragstart="planDragStart(event,${idx})"
+      ondragover="planDragOver(event)"
+      ondragleave="planDragLeave(event)"
+      ondrop="planDrop(event,${idx})"
+      ontouchstart="planTouchStart(event,${idx})"
+      ontouchmove="planTouchMove(event)"
+      ontouchend="planTouchEnd(event,${idx})">
+      <div class="plan-day-name">${d.name}</div>
+      <div class="plan-day-session" style="color:${color}">${d.session}</div>
+      <div class="plan-day-focus">${focus}</div>
+    </div>`;
+  }
+
+  const top4 = days.slice(0,4).map((d,i) => buildDayCard(d,i)).join('');
+  const bot3 = days.slice(4).map((d,i) => buildDayCard(d,i+4)).join('');
+
+  el.innerHTML = `
+    <div style="margin-bottom:.3rem">
+      <div class="planning-grid">${top4}</div>
+      <div class="planning-grid-bottom">${bot3}</div>
+    </div>
+    <div style="font-size:.6rem;color:var(--stone);font-style:italic;text-align:center;margin-top:.1rem">
+      Glisse-dépose les séances pour personnaliser ton planning
+    </div>`;
+}
+
+// ── DRAG & DROP desktop ──
+let planDragIdx = null;
+function planDragStart(e, idx) {
+  planDragIdx = idx;
+  e.currentTarget.classList.add('dragging');
+  e.dataTransfer.effectAllowed = 'move';
+}
+function planDragOver(e) {
+  e.preventDefault();
+  e.currentTarget.classList.add('drag-over');
+}
+function planDragLeave(e) {
+  e.currentTarget.classList.remove('drag-over');
+}
+function planDrop(e, idx) {
+  e.preventDefault();
+  e.currentTarget.classList.remove('drag-over');
+  if (planDragIdx === null || planDragIdx === idx) return;
+  const is4 = state.phase === 'p3' || state.phase === 'p5';
+  const days = loadPlanning(is4);
+  // Échanger les sessions uniquement (pas les noms des jours)
+  const tmp = days[planDragIdx].session;
+  days[planDragIdx].session = days[idx].session;
+  days[idx].session = tmp;
+  savePlanning(days);
+  planDragIdx = null;
+  renderWeekPlanning();
+  renderSeanceDuJour();
+  notify('Planning mis à jour ✓');
+}
+
+// ── TOUCH drag & drop mobile ──
+let touchDragIdx = null;
+let touchClone = null;
+function planTouchStart(e, idx) {
+  touchDragIdx = idx;
+  const card = e.currentTarget;
+  card.classList.add('dragging');
+  // Créer un clone visuel
+  touchClone = card.cloneNode(true);
+  touchClone.style.cssText = 'position:fixed;opacity:.8;pointer-events:none;z-index:999;width:' + card.offsetWidth + 'px;transform:scale(1.08);box-shadow:0 4px 16px rgba(0,0,0,.2);';
+  document.body.appendChild(touchClone);
+}
+function planTouchMove(e) {
+  e.preventDefault();
+  if (!touchClone) return;
+  const t = e.touches[0];
+  touchClone.style.left = (t.clientX - touchClone.offsetWidth/2) + 'px';
+  touchClone.style.top  = (t.clientY - touchClone.offsetHeight/2) + 'px';
+  // Highlight la cible potentielle
+  document.querySelectorAll('.plan-day').forEach(c => c.classList.remove('drag-over'));
+  const el = document.elementFromPoint(t.clientX, t.clientY);
+  const target = el ? el.closest('.plan-day') : null;
+  if (target && parseInt(target.dataset.idx) !== touchDragIdx) {
+    target.classList.add('drag-over');
+  }
+}
+function planTouchEnd(e, idx) {
+  if (touchClone) { touchClone.remove(); touchClone = null; }
+  document.querySelectorAll('.plan-day').forEach(c => { c.classList.remove('dragging','drag-over'); });
+  const t = e.changedTouches[0];
+  const el = document.elementFromPoint(t.clientX, t.clientY);
+  const target = el ? el.closest('.plan-day') : null;
+  if (!target) { touchDragIdx = null; return; }
+  const targetIdx = parseInt(target.dataset.idx);
+  if (isNaN(targetIdx) || targetIdx === touchDragIdx) { touchDragIdx = null; return; }
+  const is4 = state.phase === 'p3' || state.phase === 'p5';
+  const days = loadPlanning(is4);
+  const tmp = days[touchDragIdx].session;
+  days[touchDragIdx].session = days[targetIdx].session;
+  days[targetIdx].session = tmp;
+  savePlanning(days);
+  touchDragIdx = null;
+  renderWeekPlanning();
+  renderSeanceDuJour();
+  notify('Planning mis à jour ✓');
+}
+
+
+function resetPlanning() {
+  const is4 = state.phase === 'p3' || state.phase === 'p5';
+  const key = 'hsf_planning_' + state.phase;
+  localStorage.removeItem(key);
+  renderWeekPlanning();
+  renderTrainingPlanning();
+  renderSeanceDuJour();
+  notify('Planning réinitialisé ✓');
+}
+
+function renderTrainingPlanning() {
+  const el = document.getElementById('tr-planning-grid');
+  if (!el) return;
+  const is4 = state.phase === 'p3' || state.phase === 'p5';
+  const days = loadPlanning(is4);
+
+  function buildCard(d, idx) {
+    const isSeance = d.session !== 'Repos';
+    const color = isSeance ? getSessionColor(d.session) : 'var(--stone)';
+    const focus = isSeance ? getSessionFocus(d.session, is4) : 'Repos';
+    return `<div class="plan-day ${isSeance?'is-seance':'is-repos'}"
+      draggable="true" data-idx="${idx}"
+      ondragstart="planDragStart(event,${idx})"
+      ondragover="planDragOver(event)"
+      ondragleave="planDragLeave(event)"
+      ondrop="planDropTr(event,${idx})"
+      ontouchstart="planTouchStart(event,${idx})"
+      ontouchmove="planTouchMove(event)"
+      ontouchend="planTouchEndTr(event,${idx})">
+      <div class="plan-day-name">${d.name}</div>
+      <div class="plan-day-session" style="color:${color}">${d.session}</div>
+      <div class="plan-day-focus">${focus}</div>
+    </div>`;
+  }
+
+  const top4 = days.slice(0,4).map((d,i) => buildCard(d,i)).join('');
+  const bot3 = days.slice(4).map((d,i) => buildCard(d,i+4)).join('');
+  el.innerHTML = `<div class="planning-grid">${top4}</div><div class="planning-grid-bottom">${bot3}</div>`;
+}
+
+function planDropTr(e, idx) {
+  e.preventDefault();
+  e.currentTarget.classList.remove('drag-over');
+  if (planDragIdx === null || planDragIdx === idx) return;
+  const is4 = state.phase === 'p3' || state.phase === 'p5';
+  const days = loadPlanning(is4);
+  const tmp = days[planDragIdx].session;
+  days[planDragIdx].session = days[idx].session;
+  days[idx].session = tmp;
+  savePlanning(days);
+  planDragIdx = null;
+  renderTrainingPlanning();
+  renderWeekPlanning();
+  renderSeanceDuJour();
+  notify('Planning mis à jour ✓');
+}
+
+function planTouchEndTr(e, idx) {
+  if (touchClone) { touchClone.remove(); touchClone = null; }
+  document.querySelectorAll('.plan-day').forEach(c => c.classList.remove('dragging','drag-over'));
+  const t = e.changedTouches[0];
+  const el = document.elementFromPoint(t.clientX, t.clientY);
+  const target = el ? el.closest('.plan-day') : null;
+  if (!target) { touchDragIdx = null; return; }
+  const targetIdx = parseInt(target.dataset.idx);
+  if (isNaN(targetIdx) || targetIdx === touchDragIdx) { touchDragIdx = null; return; }
+  const is4 = state.phase === 'p3' || state.phase === 'p5';
+  const days = loadPlanning(is4);
+  const tmp = days[touchDragIdx].session;
+  days[touchDragIdx].session = days[targetIdx].session;
+  days[targetIdx].session = tmp;
+  savePlanning(days);
+  touchDragIdx = null;
+  renderTrainingPlanning();
+  renderWeekPlanning();
+  renderSeanceDuJour();
+  notify('Planning mis à jour ✓');
+}
+
+function updateMacroDash() {
+  const ph = PM[state.phaseNutri];
+  const p = state.poids;
+  const pM = Math.round((ph.prot[0]+ph.prot[1])/2*p);
+  const gM = Math.round((ph.gluc[0]+ph.gluc[1])/2*p);
+  const lM = Math.round((ph.lip[0]+ph.lip[1])/2*p);
+  const cal = pM*4+gM*4+lM*9;
+  const set = (id,v) => { const e=document.getElementById(id); if(e) e.textContent=v; };
+  set('dm-prot', pM+' g'); set('dm-gluc', gM+' g'); set('dm-lip', lM+' g');
+  set('dm-cal', cal.toLocaleString('fr-FR')+' kcal');
+}
+
+// ============================================================
+// NOTIFY
+// ============================================================
+function notify(msg) {
+  const el = document.getElementById('notify');
+  el.textContent = msg; el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 2500);
+}
+
+
+// ============================================================
+// JOURNAL DE SÉANCE
+// ============================================================
+// Clé: hsf_journal_p{phase}_{seance}_c{cycle}
+// Valeur: [{s:1, kg:'60', reps:'10'}, ...]
+// Historique: clé cycle-1
+
+function journalKey(phase, seance, cycle) {
+  return 'hsf_journal_' + phase + '_' + seance + '_c' + cycle;
+}
+
+function getCurrentCycle() {
+  const raw = localStorage.getItem('hsf_cycle');
+  return raw ? parseInt(raw) : 1;
+}
+
+function saveJournalEntry(phase, seance, exIdx, serieIdx, field, value) {
+  const cycle = getCurrentCycle();
+  const key = journalKey(phase, seance, cycle);
+  let data = {};
+  try { data = JSON.parse(localStorage.getItem(key) || '{}'); } catch(e) {}
+  if (!data[exIdx]) data[exIdx] = {};
+  if (!data[exIdx][serieIdx]) data[exIdx][serieIdx] = {};
+  data[exIdx][serieIdx][field] = value;
+  localStorage.setItem(key, JSON.stringify(data));
+  // Indicateur visuel
+  const ind = document.getElementById('journal-saved-' + phase + '_' + seance + '_' + exIdx + '_' + serieIdx);
+  if (ind) { ind.classList.add('show'); clearTimeout(ind._t); ind._t = setTimeout(() => ind.classList.remove('show'), 1500); }
+}
+
+function loadJournalData(phase, seance, cycle) {
+  const key = journalKey(phase, seance, cycle);
+  try { return JSON.parse(localStorage.getItem(key) || '{}'); } catch(e) { return {}; }
+}
+
+function getHistoLabel(phase, seance) {
+  const cycle = getCurrentCycle();
+  if (cycle <= 1) return null;
+  const prev = loadJournalData(phase, seance, cycle - 1);
+  return prev;
+}
+
+function renderJournalRows(exIdx, nbSeries, phase, seance) {
+  const cycle = getCurrentCycle();
+  const current = loadJournalData(phase, seance, cycle);
+  const histo   = getHistoLabel(phase, seance);
+  const savedId = 'journal-saved-' + phase + '_' + seance + '_' + exIdx;
+
+  let html = '<div class="journal-section">';
+  html += '<div class="journal-title">Saisie s\u00e9ance <span class="journal-saved" id="' + savedId + '">\u2713 sauvegard\u00e9</span></div>';
+
+  // Historique cycle précédent
+  if (histo && histo[exIdx]) {
+    const histEx = histo[exIdx];
+    const parts = Object.keys(histEx).sort().map(function(si) {
+      const d = histEx[si];
+      if (d.kg || d.reps) return 'S' + (parseInt(si)+1) + '\u00a0: ' + (d.kg||'?') + 'kg \u00d7 ' + (d.reps||'?') + ' reps';
+      return null;
+    }).filter(Boolean);
+    if (parts.length) {
+      html += '<div class="journal-hist"><strong>Cycle pr\u00e9c\u00e9dent</strong>' + parts.join(' \u00b7 ') + '</div>';
+    }
+  }
+
+  // Cartes par série
+  const nb = parseInt(nbSeries) || 3;
+  for (let si = 0; si < nb; si++) {
+    const cur = (current[exIdx] && current[exIdx][si]) || {};
+    const kgId = 'jkg_' + phase + '_' + seance + '_' + exIdx + '_' + si;
+    const rpId = 'jrp_' + phase + '_' + seance + '_' + exIdx + '_' + si;
+    const cbKg = "saveJournalEntry('" + phase + "','" + seance + "'," + exIdx + "," + si + ",'kg',this.value)";
+    const cbRp = "saveJournalEntry('" + phase + "','" + seance + "'," + exIdx + "," + si + ",'reps',this.value)";
+    html += '<div class="journal-serie-card">';
+    html += '<div class="journal-serie-lbl">S\u00e9rie ' + (si+1) + '</div>';
+    html += '<div class="journal-serie-fields">';
+    html += '<div class="journal-field-wrap">';
+    html += '<input class="journal-input" type="number" id="' + kgId + '" placeholder="kg" step="0.5" value="' + (cur.kg||'') + '" oninput="' + cbKg + '">';
+    html += '<span class="journal-input-lbl">kg</span>';
+    html += '</div>';
+    html += '<div class="journal-sep">\u00d7</div>';
+    html += '<div class="journal-field-wrap">';
+    html += '<input class="journal-input" type="number" id="' + rpId + '" placeholder="reps" step="1" value="' + (cur.reps||'') + '" oninput="' + cbRp + '">';
+    html += '<span class="journal-input-lbl">reps</span>';
+    html += '</div>';
+    html += '</div>';
+    html += '</div>';
+  }
+  html += '</div>';
+  return html;
+}
+
+// ============================================================
+// CYCLE — GESTION
+// ============================================================
+function nextCycle() {
+  const cur = getCurrentCycle();
+  localStorage.setItem('hsf_cycle', cur + 1);
+  notify('Nouveau cycle ' + (cur+1) + ' démarré — historique conservé');
+  renderWorkout();
+}
+
+// ============================================================
+// POIDS MOYEN SEMAINE → NUTRITION
+// ============================================================
+function getPoidsmoyenSemaine() {
+  let suivi = [];
+  try { suivi = JSON.parse(localStorage.getItem('hsf_suivi') || '[]'); } catch(e) {}
+  if (!suivi.length) return null;
+  // Garder les 7 dernières pesées
+  const recent = suivi.slice(-7);
+  if (!recent.length) return null;
+  const avg = recent.reduce((s, e) => s + parseFloat(e.poids||0), 0) / recent.length;
+  return Math.round(avg * 10) / 10;
+}
+
+function syncPoidsNutrition() {
+  const avg = getPoidsmoyenSemaine();
+  if (!avg) return;
+  const el = document.getElementById('n-poids');
+  if (el && parseFloat(el.value) !== avg) {
+    el.value = avg;
+    // Badge visuel
+    let badge = document.getElementById('poids-auto-badge');
+    if (!badge) {
+      badge = document.createElement('span');
+      badge.id = 'poids-auto-badge';
+      badge.className = 'poids-auto-badge';
+      badge.textContent = '⟳ Moy. 7j';
+      el.parentNode.appendChild(badge);
+    }
+    calcTDEE();
+  }
+}
+
+
+// ============================================================
+// INIT
+// ============================================================
+window.onload = function() {
+  // 1. Charger le profil sauvegardé
+  loadProfile();
+  // 2. Relancer tous les calculs avec les valeurs restaurées
+  calcTDEE();
+  renderPhaseNutri();
+  renderFAQ();
+  syncTrainingUI();
+  updateDashboard();
+  initMacroSliders();
+  // 3. Restaurer les brouillons de saisie
+  restoreMensDraft();
+  restoreSuiviDraft();
+  renderSuivi();
+  // 4. Sync poids moyen → nutrition
+  syncPoidsNutrition();
+  // 5. Date du jour si vide
+  const swDate = document.getElementById('sw-date');
+  if (swDate && !swDate.value) swDate.value = new Date().toLocaleDateString('fr-FR', {day:'2-digit',month:'2-digit'});
+  // 6. Sauvegarde garantie à la fermeture / changement d'onglet
+  window.addEventListener('beforeunload', saveProfile);
+  document.addEventListener('visibilitychange', function() {
+    if (document.visibilityState === 'hidden') saveProfile();
+  });
+  // 7. Autosave toutes les 30 secondes (sécurité mobile)
+  setInterval(saveProfile, 30000);
+};
+</script>
+</body>
+</html>
