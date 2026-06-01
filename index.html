@@ -171,6 +171,18 @@ input[type=range]{width:100%;height:4px;accent-color:var(--rose);cursor:pointer;
 /* ── DAY PLANNING ── */
 .day-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:.25rem;margin-bottom:.5rem;}
 .day-card{background:white;border:1px solid var(--cream-dark);border-radius:5px;padding:.4rem .25rem;text-align:center;}
+/* ── PLANNING DRAG & DROP ── */
+.planning-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.35rem;margin-bottom:.25rem;}
+.planning-grid-bottom{display:grid;grid-template-columns:repeat(3,1fr);gap:.35rem;margin-left:calc((100% + .35rem) / 8);margin-bottom:.3rem;}
+.plan-day{background:white;border:1px solid var(--cream-dark);border-radius:6px;padding:.45rem .2rem;text-align:center;cursor:grab;transition:all .2s;user-select:none;-webkit-user-select:none;min-height:58px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.15rem;}
+.plan-day:active{cursor:grabbing;}
+.plan-day.dragging{opacity:.35;transform:scale(.95);}
+.plan-day.drag-over{border:2px dashed var(--rose);background:#FDE8EF;transform:scale(1.04);}
+.plan-day.is-seance{border-color:var(--cream-dark);}
+.plan-day.is-repos{opacity:.5;}
+.plan-day-name{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.1em;color:var(--stone);text-transform:uppercase;}
+.plan-day-session{font-family:'Cinzel',serif;font-size:.72rem;font-weight:700;line-height:1.1;}
+.plan-day-focus{font-size:.5rem;color:var(--stone);font-style:italic;line-height:1.2;}
 .day-name{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.08em;color:var(--stone);text-transform:uppercase;margin-bottom:.2rem;}
 .day-session{font-family:'Cinzel',serif;font-size:.58rem;font-weight:700;margin-bottom:.15rem;}
 
@@ -281,9 +293,12 @@ input[type=range]{width:100%;height:4px;accent-color:var(--rose);cursor:pointer;
 
 <!-- ═══ DASHBOARD ═══ -->
 <div class="page active" id="page-dashboard">
-  <div class="page-header">
-    <div class="page-label">Vue d'ensemble</div>
-    <div class="page-title">Tableau de bord</div>
+  <div class="page-header" style="display:flex;justify-content:space-between;align-items:flex-start">
+    <div>
+      <div class="page-label">Vue d'ensemble</div>
+      <div class="page-title">Tableau de bord</div>
+    </div>
+    <div style="font-family:'Cinzel',serif;font-size:.48rem;color:var(--stone);letter-spacing:.08em;padding-top:.2rem">v1.0</div>
   </div>
 
   <div class="card card-rose mb2">
@@ -505,34 +520,11 @@ input[type=range]{width:100%;height:4px;accent-color:var(--rose);cursor:pointer;
   <!-- Planning -->
   <div id="tr-planning" class="card mb2">
     <div class="flex jbetween items-center mb1">
-      <div class="card-title" style="margin-bottom:0">Organisation recommandée</div>
-      <span class="badge badge-rose" id="planning-phase-badge">Phase 1</span>
+      <div class="card-title" style="margin-bottom:0">Mon planning semaine</div>
+      <button class="btn btn-sm" onclick="resetPlanning()" style="font-size:.52rem">↺ Réinitialiser</button>
     </div>
-    <div class="text-xs mb2">3 séances/sem. en Phase 1, 2, 4 · 4 séances/sem. en Phase 3, 5</div>
-    <div id="planning-3seances">
-      <div class="day-grid mb1">
-        <div class="day-card"><div class="day-name">Lun</div><div class="day-session" style="color:var(--rose);font-size:.58rem">A</div></div>
-        <div class="day-card" style="opacity:.4"><div class="day-name">Mar</div><div class="day-session" style="color:var(--stone);font-size:.48rem">REPOS</div></div>
-        <div class="day-card"><div class="day-name">Mer</div><div class="day-session" style="color:#1A3F6F;font-size:.58rem">B</div></div>
-        <div class="day-card" style="opacity:.4"><div class="day-name">Jeu</div><div class="day-session" style="color:var(--stone);font-size:.48rem">REPOS</div></div>
-        <div class="day-card"><div class="day-name">Ven</div><div class="day-session" style="color:var(--green);font-size:.58rem">C</div></div>
-        <div class="day-card" style="opacity:.4"><div class="day-name">Sam</div><div class="day-session" style="color:var(--stone);font-size:.48rem">REPOS</div></div>
-        <div class="day-card" style="opacity:.4"><div class="day-name">Dim</div><div class="day-session" style="color:var(--stone);font-size:.48rem">REPOS</div></div>
-      </div>
-      <div class="text-xs" style="color:var(--rose-dim)">A = Lower Heavy · B = Upper · C = Lower Pump/Volume</div>
-    </div>
-    <div id="planning-4seances" style="display:none">
-      <div class="day-grid mb1">
-        <div class="day-card"><div class="day-name">Lun</div><div class="day-session" style="color:var(--rose);font-size:.58rem">A</div></div>
-        <div class="day-card"><div class="day-name">Mar</div><div class="day-session" style="color:#1A3F6F;font-size:.58rem">B</div></div>
-        <div class="day-card" style="opacity:.4"><div class="day-name">Mer</div><div class="day-session" style="color:var(--stone);font-size:.48rem">REPOS</div></div>
-        <div class="day-card"><div class="day-name">Jeu</div><div class="day-session" style="color:var(--green);font-size:.58rem">C</div></div>
-        <div class="day-card" style="opacity:.4"><div class="day-name">Ven</div><div class="day-session" style="color:var(--stone);font-size:.48rem">REPOS</div></div>
-        <div class="day-card"><div class="day-name">Sam</div><div class="day-session" style="color:#5A2A7A;font-size:.58rem">D</div></div>
-        <div class="day-card" style="opacity:.4"><div class="day-name">Dim</div><div class="day-session" style="color:var(--stone);font-size:.48rem">REPOS</div></div>
-      </div>
-      <div class="text-xs" style="color:var(--rose-dim)">A = Lower Heavy · B = Upper · C = Lower Volume · D = Lower Pump</div>
-    </div>
+    <div class="text-xs mb2">Glisse-dépose les séances pour adapter à ton emploi du temps · Sauvegardé automatiquement</div>
+    <div id="tr-planning-grid"></div>
     <div class="highlight-rose mt1" style="margin-bottom:.65rem">
       <strong>Règle universelle</strong>
       Jamais 2 séances Lower consécutives · Séance A toujours avant Séance C · Si tu loupes une séance : ne la récupère pas, reprends normalement
@@ -1191,7 +1183,7 @@ function renderMensurationsHistory() {
 // ============================================================
 const W = {
 p1:{
-  info:"<strong>Phase 1 — Base &amp; Connexion Neuromusculaire</strong> · S1–S10 · 3 séances/sem. · ~55 min/séance · Objectif : établir la connexion corps-esprit sur les exercices fondamentaux. Les charges restent modérées, la technique prime absolument. RIR cible : 2–4.<br><em style='color:var(--rose-light)'>Progression : Sem. 1–3 : RIR 4 &middot; Sem. 4–7 : RIR 3 &middot; Sem. 8–10 : RIR 2 sur Hip Thrust &amp; RDL.</em>",
+  info:"<strong>Phase 1 — Base &amp; Connexion Neuromusculaire</strong> · S1–S10 · 3 séances/sem. · ~55 min/séance · Objectif : établir la connexion corps-esprit sur les exercices fondamentaux. Les charges restent modérées, la technique prime absolument. RIR cible : 2–4.<br><em style='color:var(--rose-light)'>Progression : Sem. 1–3 : RIR 4 &middot; Sem. 4–7 : RIR 3 &middot; Sem. 8–10 : RIR 2 sur Hip Thrust &amp; RDL.</em><br><span style='color:var(--gold-light)'>⭐ Cette phase est présente pour isoler le travail technique. Si les fondamentaux sont maîtrisés, tu peux passer à la phase suivante.</span>",
   dur:"10 semaines", rir:"RIR 2–4", seances:3,
   vol:{Fessiers:"16 séries/sem.",Ischios:"6 séries/sem.",Dos:"10 séries/sem.","Ratio lower/upper":"2:1"},
   passage:"Fin sem. 10 : Hip Thrust 60–70% PDC × 12 reps propres · RDL haltères 20–25% PDC × 12 reps · Vacuum debout 15s · Plank 45s",
@@ -1224,7 +1216,7 @@ p1:{
   ]},
 },
 p2:{
-  info:"<strong>Phase 2 — Développement &amp; Force</strong> · S12–S21 · 3 séances/sem. · ~65 min/séance · Passage à la barre sur le Squat et le RDL. Introduction du Barbell Row. RIR cible : 1–3.<br><em style='color:var(--rose-light)'>Progression : Sem. 1–2 : RIR 3 &middot; Sem. 3–7 : RIR 2 &middot; Sem. 8–9 : RIR 1 sur Hip Thrust &amp; Squat uniquement.</em>",
+  info:"<strong>Phase 2 — Développement &amp; Force</strong> · S12–S21 · 3 séances/sem. · ~65 min/séance · Passage à la barre sur le Squat et le RDL. Introduction du Barbell Row. RIR cible : 1–3.<br><em style='color:var(--rose-light)'>Progression : Sem. 1–2 : RIR 3 &middot; Sem. 3–7 : RIR 2 &middot; Sem. 8–9 : RIR 1 sur Hip Thrust &amp; Squat uniquement.<br><span style='color:var(--gold-light)'>⭐ Cette phase peut être gardée sur le long terme pour développer ton physique — cette phase est construite pour te servir de programme annuel.</span></em>",
   dur:"10 semaines", rir:"RIR 1–3", seances:3,
   vol:{Fessiers:"20 séries/sem.",Ischios:"9 séries/sem.",Dos:"10 séries/sem.","Ratio lower/upper":"3:1"},
   passage:"Fin sem. 21 : Hip Thrust 90–110% PDC × 8 reps · Squat barre 50–60% PDC × 8 reps · RDL barre 60–70% PDC × 10 reps · Barbell Row 30–40% PDC × 8 reps · Vacuum 20s + 3 respirations",
@@ -1257,9 +1249,9 @@ p2:{
   ]},
 },
 p3:{
-  info:"<strong>Phase 3 — Spécialisation &amp; Techniques Avancées</strong> · S23–S34 · 4 séances/sem. · ~70 min/séance · Passage à 4 séances (3 lower + 1 upper). Introduction rest-pause sur Hip Thrust. RIR cible : 1–2.<br><em style='color:var(--rose-light)'>Progression : Sem. 1–2 : RIR 3 &middot; Sem. 3–8 : RIR 2 &middot; Sem. 9–10 : RIR 1 sur Hip Thrust &amp; Squat.</em>",
+  info:"<strong>Phase 3 — Spécialisation &amp; Techniques Avancées</strong> · S23–S34 · 4 séances/sem. · ~70 min/séance · Passage à 4 séances (3 lower + 1 upper). Introduction rest-pause sur Hip Thrust. RIR cible : 1–2.<br><em style='color:var(--rose-light)'>Progression : Sem. 1–2 : RIR 3 &middot; Sem. 3–8 : RIR 2 &middot; Sem. 9–10 : RIR 1 sur Hip Thrust &amp; Squat.<br><span style='color:var(--gold-light)'>⭐ Cette phase peut être gardée sur le long terme pour développer ton physique — cette phase est construite pour te servir de programme annuel.</span></em>",
   dur:"12 semaines", rir:"RIR 1–2", seances:4,
-  vol:{Fessiers:"20 séries/sem.",Ischios:"10 séries/sem.",Dos:"3 séries/sem.","Ratio lower/upper":"3:1"},
+  vol:{Fessiers:"20 séries/sem.",Ischios:"10 séries/sem.",Dos:"11 séries/sem.","Ratio lower/upper":"3:1"},
   passage:"Fin sem. 34 : Hip Thrust 120–140% PDC × 6–8 reps · Squat barre 70–80% PDC × 6–8 reps · RDL barre 80–90% PDC × 8 reps · Ab Wheel 10 reps genoux",
   seanceA:{title:"Séance A — Lower Heavy",sub:"Lundi · Fessiers &amp; Force",repos:"2–3 min Hip Thrust · 2 min Squat &amp; BSS · 90s reste",ex:[
     {n:"Hip Thrust barre",s:"4",r:"5–8",rir:"1–2",type:"Force",note:"Charges max, pause 2s en haut.",p:true},
@@ -1275,7 +1267,7 @@ p3:{
     {n:"Lat Pulldown lesté / Traction assistée",s:"4",r:"8–10",rir:"2",type:"Hyper",note:"Baisser les épaules avant de tirer.",p:false},
     {n:"Dips",s:"3",r:"10–12",rir:"2",type:"Iso",note:"Travail d'amplitude, descente contrôlée — engagement triceps &amp; épaules.",p:false},
     {n:"Face Pull câble",s:"4",r:"15",rir:"2",type:"Iso",note:"Rotation externe forcée, coudes hauts — 4 séries Phase 3.",p:false},
-    {n:"Latéral Raise haltères + câble superset",s:"3",r:"12+12",rir:"2",type:"Iso",note:"Haltères d'abord, câble enchaîné sans repos.",p:false},
+    {n:"Latéral Raise haltères",s:"3",r:"12–15",rir:"2",type:"Iso",note:"Légère inclinaison avant, pouce vers le bas. Amplitude contrôlée.",p:false},
     {n:"Curl câble + Triceps Rope superset",s:"3",r:"12+12",rir:"2",type:"Iso",note:"Alterner sans repos entre curl et extension.",p:false},
     {n:"Pallof Press + rotation câble",s:"3",r:"10/côté",rir:"—",type:"Gainage",note:"Résister d'abord, puis ajouter rotation légère — anti-rotation, taille fine.",p:false},
   ]},
@@ -1298,7 +1290,7 @@ p3:{
 p4:{
   info:"<strong>Phase 4 — Intensification &amp; Taille Fine Peak</strong> · S36–S46 · 3 séances/sem. · ~60 min/séance · Décompression du volume après Phase 3, mais augmentation de l'intensité. Introduction Cable Crunch. RIR cible : 1–2.<br><em style='color:var(--rose-light)'>Progression : Sem. 1–2 : RIR 3 &middot; Sem. 3–7 : RIR 2 &middot; Sem. 8–9 : RIR 1 sur Hip Thrust &amp; RDL. Charges doivent dépasser Phase 2.</em>",
   dur:"11 semaines", rir:"RIR 1–2", seances:3,
-  vol:{Fessiers:"20 séries/sem.",Ischios:"9 séries/sem.",Dos:"3 séries/sem.","Ratio lower/upper":"2:1"},
+  vol:{Fessiers:"20 séries/sem.",Ischios:"9 séries/sem.",Dos:"11 séries/sem.","Ratio lower/upper":"2:1"},
   passage:"Fin sem. 46 : Hip Thrust 130–150% PDC × 8–10 reps · Squat barre 80–90% PDC × 8 reps · RDL barre 90–100% PDC × 8 reps · Vacuum 30s + 5 respirations · Cable Crunch 15 reps contrôlées",
   seanceA:{title:"Séance A — Lower Heavy",sub:"Lundi · Force &amp; Galbe Fessiers",repos:"90s poly-articulaires · 60s isolation",ex:[
     {n:"Hip Thrust barre",s:"4",r:"8–10",rir:"2",type:"Force",note:"Charges = charges Phase 3 Séance A — maintien absolu.",p:true},
@@ -1331,7 +1323,7 @@ p4:{
 p5:{
   info:"<strong>Phase 5 — Peak &amp; Épuisement Musculaire</strong> · S48–S52 · 4 séances/sem. · ~75 min/séance · Phase finale. Extraire le maximum des exercices maîtrisés. Cluster sets, pause squat, rest-pause étendu. RIR cible : 0–2.<br><em style='color:var(--rose-light)'>Progression : Sem. 1–2 : RIR 3 &middot; Sem. 3–4 : RIR 2 &middot; Sem. 5+ : RIR 0–1 sur Hip Thrust cluster &amp; Squat pause.</em>",
   dur:"5–8 semaines", rir:"RIR 0–2", seances:4,
-  vol:{Fessiers:"20 séries/sem.",Ischios:"10 séries/sem.",Dos:"4 séries/sem.","Ratio lower/upper":"3:1"},
+  vol:{Fessiers:"20 séries/sem.",Ischios:"10 séries/sem.",Dos:"13 séries/sem.","Ratio lower/upper":"3:1"},
   passage:"Fin Phase 5 : Hip Thrust cluster 130–150% PDC · Squat barre pause 80–90% PDC × 5 reps · Barbell Row 60–70% PDC × 6 reps · Traction propre × 5 ou 80% PDC × 8 sur Lat Pulldown · Ab Wheel 8–10 reps debout",
   seanceA:{title:"Séance A — Lower Force Peak",sub:"Lundi · Cluster Sets",repos:"3 min Hip Thrust cluster · 2 min Squat &amp; BSS · 90s reste",ex:[
     {n:"Hip Thrust barre — cluster 4x(4+4+4)",s:"4",r:"4+4+4 (20s)",rir:"0–1",type:"Force",note:"Poser barre sur rack 20s. Charges 90–95% du max Phase 3. 3 min de repos entre séries.",p:true},
@@ -1454,18 +1446,12 @@ function syncTrainingUI() {
   if (activeChip) { chipsEl.querySelectorAll('.chip').forEach(c => c.classList.remove('active')); activeChip.classList.add('active'); }
   renderPhaseInfo();
   renderWorkout();
-  updatePlanningDisplay();
+  renderTrainingPlanning();
 }
 
 function updatePlanningDisplay() {
-  const is4 = state.phase === 'p3' || state.phase === 'p5';
-  const el3 = document.getElementById('planning-3seances');
-  const el4 = document.getElementById('planning-4seances');
-  const badge = document.getElementById('planning-phase-badge');
-  if (el3) el3.style.display = is4 ? 'none' : 'block';
-  if (el4) el4.style.display = is4 ? 'block' : 'none';
-  const phaseLabels = {p1:'Phase 1',p2:'Phase 2',p3:'Phase 3',p4:'Phase 4',p5:'Phase 5'};
-  if (badge) badge.textContent = phaseLabels[state.phase] || 'Phase 1';
+  // Conservé pour compatibilité — redirige vers renderTrainingPlanning
+  renderTrainingPlanning();
 }
 
 function renderPhaseInfo() {
@@ -1532,10 +1518,51 @@ function renderWorkout() {
     <div class="workout-body">${rows}</div>`;
 
   if (vcEl && cyc.vol) {
-    let volRows = Object.entries(cyc.vol).map(([m,v]) =>
-      `<div class="vol-row"><span>${m}</span><span class="vol-val">${v}</span></div>`
-    ).join('');
-    vcEl.innerHTML = `<div class="card" style="margin-top:.5rem"><div class="card-title">Volume hebdomadaire — ${cyc.rir}</div>${volRows}</div>`;
+    const phaseLabels = {
+      p1:'Phase 1 — Base &amp; Connexion · S1–S10',
+      p2:'Phase 2 — Développement &amp; Force · S12–S21',
+      p3:'Phase 3 — Spécialisation Avancée · S23–S34',
+      p4:'Phase 4 — Intensification Peak · S36–S46',
+      p5:'Phase 5 — Peak &amp; Épuisement · S48–S52',
+    };
+    const phaseComment = {
+      p1:'Dans le MAV — construction des bases',
+      p2:'Peak volume lower — progression charges',
+      p3:'Peak volume global — MAV respecté',
+      p4:'Décompression vs Phase 3 — intensité haute',
+      p5:'Peak absolu — MAV respecté',
+    };
+    const volEntries = Object.entries(cyc.vol);
+    // Séparer ratio des séries
+    const seriesRows = volEntries.filter(([m]) => m !== 'Ratio lower/upper');
+    const ratioEntry = volEntries.find(([m]) => m === 'Ratio lower/upper');
+
+    let volRows = seriesRows.map(([muscle, val]) => {
+      // Couleur selon groupe musculaire
+      const color = muscle.toLowerCase().includes('fessier') ? 'var(--rose-dim)'
+                  : muscle.toLowerCase().includes('ischio') ? 'var(--gold)'
+                  : 'var(--stone)';
+      const dot = `<span style="width:8px;height:8px;border-radius:50%;background:${color};display:inline-block;margin-right:.4rem;flex-shrink:0"></span>`;
+      return `<div class="vol-row"><span style="display:flex;align-items:center">${dot}${muscle}</span><span class="vol-val" style="color:${color}">${val}</span></div>`;
+    }).join('');
+
+    const ratioHtml = ratioEntry ? `
+      <div style="margin-top:.5rem;padding:.4rem .6rem;background:var(--ink);border-radius:4px;display:flex;justify-content:space-between;align-items:center">
+        <span style="font-family:'Cinzel',serif;font-size:.58rem;color:var(--stone);text-transform:uppercase;letter-spacing:.08em">Ratio Lower / Upper</span>
+        <span style="font-family:'Cinzel',serif;font-size:.9rem;color:var(--rose-light);font-weight:700">${ratioEntry[1]}</span>
+      </div>` : '';
+
+    const commentHtml = phaseComment[state.phase] ? `
+      <div style="font-family:'Cinzel',serif;font-size:.55rem;color:var(--stone);font-style:italic;letter-spacing:.06em;margin-top:.4rem;text-align:center">${phaseComment[state.phase]}</div>` : '';
+
+    vcEl.innerHTML = `
+      <div class="card" style="margin-top:.5rem;padding:.75rem .9rem">
+        <div class="card-title" style="margin-bottom:.15rem">Volume hebdomadaire</div>
+        <div style="font-family:'Cinzel',serif;font-size:.55rem;color:var(--stone);letter-spacing:.06em;margin-bottom:.6rem">${phaseLabels[state.phase] || ''} · RIR cible ${cyc.rir}</div>
+        ${volRows}
+        ${ratioHtml}
+        ${commentHtml}
+      </div>`;
   }
 
   if (pbEl && cyc.passage) {
@@ -1852,24 +1879,28 @@ function updateDashboard() {
 }
 
 function renderSeanceDuJour() {
-  const jourIdx = new Date().getDay();
+  const jourIdx = new Date().getDay(); // 0=dim, 1=lun...6=sam
   const jours = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
   const is4 = state.phase === 'p3' || state.phase === 'p5';
-  // Option A : Lun=A, Mer=B, Ven=C (3 séances) | Lun=A, Mar=B, Jeu=C, Sam=D (4 séances)
-  const seanceMap = is4 ? {1:'seanceA',2:'seanceB',4:'seanceC',6:'seanceD'} : {1:'seanceA',3:'seanceB',5:'seanceC'};
-  const labelMap  = is4 ? {1:'A — Lower Heavy',2:'B — Upper',4:'C — Lower Volume',6:'D — Lower Pump'}
-                        : {1:'A — Lower Heavy',3:'B — Upper',5:'C — Lower Pump'};
+  // Lire le planning personnalisé — index 0=Lun...6=Dim
+  const days = loadPlanning(is4);
+  // Convertir getDay() (0=dim) vers notre index (0=lun)
+  const dayMap = [6,0,1,2,3,4,5]; // dim=6, lun=0, ...
+  const todayPlanIdx = dayMap[jourIdx];
+  const todayPlan = days[todayPlanIdx];
+  const seanceMap = {A:'seanceA',B:'seanceB',C:'seanceC',D:'seanceD'};
   const el = document.getElementById('seance-du-jour-box');
   if (!el) return;
-  if (seanceMap[jourIdx]) {
+  if (todayPlan && todayPlan.session !== 'Repos') {
+    const seanceKey = seanceMap[todayPlan.session];
     const cyc = W[state.phase];
-    const s = cyc ? cyc[seanceMap[jourIdx]] : null;
-    const sub = s ? s.sub : '';
-    el.innerHTML = `<div style="font-size:.95rem;font-weight:600;color:var(--ink);margin-bottom:.2rem">Séance ${labelMap[jourIdx]}</div>
-      <div style="font-size:.8rem;color:var(--stone);font-style:italic;margin-bottom:.65rem">${sub}</div>`;
+    const s = cyc ? cyc[seanceKey] : null;
+    const focus = getSessionFocus(todayPlan.session, is4);
+    el.innerHTML = `<div style="font-size:.95rem;font-weight:600;color:var(--ink);margin-bottom:.2rem">Séance ${todayPlan.session} — ${focus}</div>
+      <div style="font-size:.8rem;color:var(--stone);font-style:italic;margin-bottom:.65rem">${s ? s.sub : ''}</div>`;
     const btn = document.createElement('button');
     btn.className = 'btn btn-primary btn-block';
-    btn.onclick = () => showPage('training');
+    btn.onclick = () => { state.seance = seanceKey; showPage('training'); };
     btn.textContent = 'Voir la séance →';
     el.appendChild(btn);
   } else {
@@ -1878,36 +1909,235 @@ function renderSeanceDuJour() {
   }
 }
 
+function getDefaultPlanning(is4) {
+  return is4
+    ? [{name:'Lun',session:'A'},{name:'Mar',session:'B'},{name:'Mer',session:'Repos'},{name:'Jeu',session:'C'},
+       {name:'Ven',session:'Repos'},{name:'Sam',session:'D'},{name:'Dim',session:'Repos'}]
+    : [{name:'Lun',session:'A'},{name:'Mar',session:'Repos'},{name:'Mer',session:'B'},{name:'Jeu',session:'Repos'},
+       {name:'Ven',session:'C'},{name:'Sam',session:'Repos'},{name:'Dim',session:'Repos'}];
+}
+
+function loadPlanning(is4) {
+  const key = 'hsf_planning_' + state.phase;
+  try {
+    const saved = JSON.parse(localStorage.getItem(key));
+    if (saved && saved.length === 7) return saved;
+  } catch(e) {}
+  return getDefaultPlanning(is4);
+}
+
+function savePlanning(days) {
+  const key = 'hsf_planning_' + state.phase;
+  localStorage.setItem(key, JSON.stringify(days));
+}
+
+function getSessionColor(session) {
+  const map = {A:'var(--rose)',B:'#1A3F6F',C:'var(--green)',D:'#5A2A7A'};
+  return map[session] || 'var(--stone)';
+}
+
+function getSessionFocus(session, is4) {
+  const map3 = {A:'Lower Heavy',B:'Upper',C:'Lower Pump'};
+  const map4 = {A:'Lower Heavy',B:'Upper',C:'Lower Vol.',D:'Lower Pump'};
+  return (is4 ? map4 : map3)[session] || '';
+}
+
 function renderWeekPlanning() {
   const is4 = state.phase === 'p3' || state.phase === 'p5';
-  const days = is4 ? [
-    {name:'Lun',session:'A',color:'var(--rose)',dim:false},
-    {name:'Mar',session:'B',color:'#1A3F6F',dim:false},
-    {name:'Mer',session:'REPOS',color:'var(--stone)',dim:true},
-    {name:'Jeu',session:'C',color:'var(--green)',dim:false},
-    {name:'Ven',session:'REPOS',color:'var(--stone)',dim:true},
-    {name:'Sam',session:'D',color:'#5A2A7A',dim:false},
-    {name:'Dim',session:'REPOS',color:'var(--stone)',dim:true},
-  ] : [
-    {name:'Lun',session:'A',color:'var(--rose)',dim:false},
-    {name:'Mar',session:'REPOS',color:'var(--stone)',dim:true},
-    {name:'Mer',session:'B',color:'#1A3F6F',dim:false},
-    {name:'Jeu',session:'REPOS',color:'var(--stone)',dim:true},
-    {name:'Ven',session:'C',color:'var(--green)',dim:false},
-    {name:'Sam',session:'REPOS',color:'var(--stone)',dim:true},
-    {name:'Dim',session:'REPOS',color:'var(--stone)',dim:true},
-  ];
+  const days = loadPlanning(is4);
   const el = document.getElementById('week-planning-box');
   if (!el) return;
-  el.innerHTML = `<div class="day-grid">
-    ${days.map(d => `<div class="day-card" ${d.dim?'style="opacity:.45"':''}>
-      <div class="day-name">${d.name}</div>
-      <div class="day-session" style="color:${d.color};font-size:${d.session==='REPOS'?'.45rem':'.65rem'}">${d.session}</div>
-    </div>`).join('')}
-  </div>
-  <div style="font-size:.7rem;color:var(--stone);font-style:italic;margin-top:.4rem">
-    ${is4 ? 'A Lun · B Mar · Repos Mer · C Jeu · Repos Ven · D Sam' : 'A Lun · Repos Mar · B Mer · Repos Jeu · C Ven'}
-  </div>`;
+
+  // Construire les cartes jour
+  function buildDayCard(d, idx) {
+    const isSeance = d.session !== 'Repos';
+    const color = isSeance ? getSessionColor(d.session) : 'var(--stone)';
+    const focus = isSeance ? getSessionFocus(d.session, is4) : 'Repos · Récup.';
+    return `<div class="plan-day ${isSeance?'is-seance':'is-repos'}"
+      draggable="true"
+      data-idx="${idx}"
+      ondragstart="planDragStart(event,${idx})"
+      ondragover="planDragOver(event)"
+      ondragleave="planDragLeave(event)"
+      ondrop="planDrop(event,${idx})"
+      ontouchstart="planTouchStart(event,${idx})"
+      ontouchmove="planTouchMove(event)"
+      ontouchend="planTouchEnd(event,${idx})">
+      <div class="plan-day-name">${d.name}</div>
+      <div class="plan-day-session" style="color:${color}">${d.session}</div>
+      <div class="plan-day-focus">${focus}</div>
+    </div>`;
+  }
+
+  const top4 = days.slice(0,4).map((d,i) => buildDayCard(d,i)).join('');
+  const bot3 = days.slice(4).map((d,i) => buildDayCard(d,i+4)).join('');
+
+  el.innerHTML = `
+    <div style="margin-bottom:.3rem">
+      <div class="planning-grid">${top4}</div>
+      <div class="planning-grid-bottom">${bot3}</div>
+    </div>
+    <div style="font-size:.6rem;color:var(--stone);font-style:italic;text-align:center;margin-top:.1rem">
+      Glisse-dépose les séances pour personnaliser ton planning
+    </div>`;
+}
+
+// ── DRAG & DROP desktop ──
+let planDragIdx = null;
+function planDragStart(e, idx) {
+  planDragIdx = idx;
+  e.currentTarget.classList.add('dragging');
+  e.dataTransfer.effectAllowed = 'move';
+}
+function planDragOver(e) {
+  e.preventDefault();
+  e.currentTarget.classList.add('drag-over');
+}
+function planDragLeave(e) {
+  e.currentTarget.classList.remove('drag-over');
+}
+function planDrop(e, idx) {
+  e.preventDefault();
+  e.currentTarget.classList.remove('drag-over');
+  if (planDragIdx === null || planDragIdx === idx) return;
+  const is4 = state.phase === 'p3' || state.phase === 'p5';
+  const days = loadPlanning(is4);
+  // Échanger les sessions uniquement (pas les noms des jours)
+  const tmp = days[planDragIdx].session;
+  days[planDragIdx].session = days[idx].session;
+  days[idx].session = tmp;
+  savePlanning(days);
+  planDragIdx = null;
+  renderWeekPlanning();
+  renderSeanceDuJour();
+  notify('Planning mis à jour ✓');
+}
+
+// ── TOUCH drag & drop mobile ──
+let touchDragIdx = null;
+let touchClone = null;
+function planTouchStart(e, idx) {
+  touchDragIdx = idx;
+  const card = e.currentTarget;
+  card.classList.add('dragging');
+  // Créer un clone visuel
+  touchClone = card.cloneNode(true);
+  touchClone.style.cssText = 'position:fixed;opacity:.8;pointer-events:none;z-index:999;width:' + card.offsetWidth + 'px;transform:scale(1.08);box-shadow:0 4px 16px rgba(0,0,0,.2);';
+  document.body.appendChild(touchClone);
+}
+function planTouchMove(e) {
+  e.preventDefault();
+  if (!touchClone) return;
+  const t = e.touches[0];
+  touchClone.style.left = (t.clientX - touchClone.offsetWidth/2) + 'px';
+  touchClone.style.top  = (t.clientY - touchClone.offsetHeight/2) + 'px';
+  // Highlight la cible potentielle
+  document.querySelectorAll('.plan-day').forEach(c => c.classList.remove('drag-over'));
+  const el = document.elementFromPoint(t.clientX, t.clientY);
+  const target = el ? el.closest('.plan-day') : null;
+  if (target && parseInt(target.dataset.idx) !== touchDragIdx) {
+    target.classList.add('drag-over');
+  }
+}
+function planTouchEnd(e, idx) {
+  if (touchClone) { touchClone.remove(); touchClone = null; }
+  document.querySelectorAll('.plan-day').forEach(c => { c.classList.remove('dragging','drag-over'); });
+  const t = e.changedTouches[0];
+  const el = document.elementFromPoint(t.clientX, t.clientY);
+  const target = el ? el.closest('.plan-day') : null;
+  if (!target) { touchDragIdx = null; return; }
+  const targetIdx = parseInt(target.dataset.idx);
+  if (isNaN(targetIdx) || targetIdx === touchDragIdx) { touchDragIdx = null; return; }
+  const is4 = state.phase === 'p3' || state.phase === 'p5';
+  const days = loadPlanning(is4);
+  const tmp = days[touchDragIdx].session;
+  days[touchDragIdx].session = days[targetIdx].session;
+  days[targetIdx].session = tmp;
+  savePlanning(days);
+  touchDragIdx = null;
+  renderWeekPlanning();
+  renderSeanceDuJour();
+  notify('Planning mis à jour ✓');
+}
+
+
+function resetPlanning() {
+  const is4 = state.phase === 'p3' || state.phase === 'p5';
+  const key = 'hsf_planning_' + state.phase;
+  localStorage.removeItem(key);
+  renderWeekPlanning();
+  renderTrainingPlanning();
+  renderSeanceDuJour();
+  notify('Planning réinitialisé ✓');
+}
+
+function renderTrainingPlanning() {
+  const el = document.getElementById('tr-planning-grid');
+  if (!el) return;
+  const is4 = state.phase === 'p3' || state.phase === 'p5';
+  const days = loadPlanning(is4);
+
+  function buildCard(d, idx) {
+    const isSeance = d.session !== 'Repos';
+    const color = isSeance ? getSessionColor(d.session) : 'var(--stone)';
+    const focus = isSeance ? getSessionFocus(d.session, is4) : 'Repos';
+    return `<div class="plan-day ${isSeance?'is-seance':'is-repos'}"
+      draggable="true" data-idx="${idx}"
+      ondragstart="planDragStart(event,${idx})"
+      ondragover="planDragOver(event)"
+      ondragleave="planDragLeave(event)"
+      ondrop="planDropTr(event,${idx})"
+      ontouchstart="planTouchStart(event,${idx})"
+      ontouchmove="planTouchMove(event)"
+      ontouchend="planTouchEndTr(event,${idx})">
+      <div class="plan-day-name">${d.name}</div>
+      <div class="plan-day-session" style="color:${color}">${d.session}</div>
+      <div class="plan-day-focus">${focus}</div>
+    </div>`;
+  }
+
+  const top4 = days.slice(0,4).map((d,i) => buildCard(d,i)).join('');
+  const bot3 = days.slice(4).map((d,i) => buildCard(d,i+4)).join('');
+  el.innerHTML = `<div class="planning-grid">${top4}</div><div class="planning-grid-bottom">${bot3}</div>`;
+}
+
+function planDropTr(e, idx) {
+  e.preventDefault();
+  e.currentTarget.classList.remove('drag-over');
+  if (planDragIdx === null || planDragIdx === idx) return;
+  const is4 = state.phase === 'p3' || state.phase === 'p5';
+  const days = loadPlanning(is4);
+  const tmp = days[planDragIdx].session;
+  days[planDragIdx].session = days[idx].session;
+  days[idx].session = tmp;
+  savePlanning(days);
+  planDragIdx = null;
+  renderTrainingPlanning();
+  renderWeekPlanning();
+  renderSeanceDuJour();
+  notify('Planning mis à jour ✓');
+}
+
+function planTouchEndTr(e, idx) {
+  if (touchClone) { touchClone.remove(); touchClone = null; }
+  document.querySelectorAll('.plan-day').forEach(c => c.classList.remove('dragging','drag-over'));
+  const t = e.changedTouches[0];
+  const el = document.elementFromPoint(t.clientX, t.clientY);
+  const target = el ? el.closest('.plan-day') : null;
+  if (!target) { touchDragIdx = null; return; }
+  const targetIdx = parseInt(target.dataset.idx);
+  if (isNaN(targetIdx) || targetIdx === touchDragIdx) { touchDragIdx = null; return; }
+  const is4 = state.phase === 'p3' || state.phase === 'p5';
+  const days = loadPlanning(is4);
+  const tmp = days[touchDragIdx].session;
+  days[touchDragIdx].session = days[targetIdx].session;
+  days[targetIdx].session = tmp;
+  savePlanning(days);
+  touchDragIdx = null;
+  renderTrainingPlanning();
+  renderWeekPlanning();
+  renderSeanceDuJour();
+  notify('Planning mis à jour ✓');
 }
 
 function updateMacroDash() {
@@ -2096,6 +2326,9 @@ window.onload = function() {
   });
   // 7. Autosave toutes les 30 secondes (sécurité mobile)
   setInterval(saveProfile, 30000);
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js').catch(() => {});
+  }
 };
 </script>
 </body>
